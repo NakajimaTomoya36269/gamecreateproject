@@ -165,7 +165,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game_manager\game_manager.cpp" />
-    <ClCompile Include="src\game_manager\game_object\character\character.cpp" />
+    <ClCompile Include="src\game_manager\game_object\box_collider\box_collider.cpp" />
+    <ClCompile Include="src\game_manager\game_object\character_manager\character\character.cpp" />
+    <ClCompile Include="src\game_manager\game_object\character_manager\character\player\player.cpp" />
+    <ClCompile Include="src\game_manager\game_object\character_manager\character_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +178,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_manager\game_manager.h" />
-    <ClInclude Include="src\game_manager\game_object\character\character.h" />
+    <ClInclude Include="src\game_manager\game_object\box_collider\box_collider.h" />
+    <ClInclude Include="src\game_manager\game_object\character_manager\character\character.h" />
+    <ClInclude Include="src\game_manager\game_object\character_manager\character\character_id.h" />
+    <ClInclude Include="src\game_manager\game_object\character_manager\character\player\player.h" />
+    <ClInclude Include="src\game_manager\game_object\character_manager\character_manager.h" />
     <ClInclude Include="src\game_manager\game_object\game_object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
