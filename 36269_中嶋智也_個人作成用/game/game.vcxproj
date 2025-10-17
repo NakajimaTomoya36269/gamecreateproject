@@ -169,6 +169,12 @@
     <ClCompile Include="src\game_manager\game_object\character_manager\character\character.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character\player\player.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character_manager.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gameclear\gameclear.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gamemain\gamemain.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gameover\gameover.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene\scene.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene\title\title.cpp" />
+    <ClCompile Include="src\game_manager\game_object\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,13 @@
     <ClInclude Include="src\game_manager\game_object\character_manager\character\player\player.h" />
     <ClInclude Include="src\game_manager\game_object\character_manager\character_manager.h" />
     <ClInclude Include="src\game_manager\game_object\game_object.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gameclear\gameclear.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gamemain\gamemain.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gameover\gameover.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\scene.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\scene_id.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\title\title.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
