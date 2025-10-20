@@ -175,6 +175,8 @@
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\scene.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene_manager.cpp" />
+    <ClCompile Include="src\game_manager\game_object\stage_manager\stage\stage.cpp" />
+    <ClCompile Include="src\game_manager\game_object\stage_manager\stage_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +199,8 @@
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\scene_id.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\title\title.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene_manager.h" />
+    <ClInclude Include="src\game_manager\game_object\stage_manager\stage\stage.h" />
+    <ClInclude Include="src\game_manager\game_object\stage_manager\stage_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
