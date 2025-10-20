@@ -10,16 +10,20 @@ CGameManager& CGameManager::GetInstance(void)
 
 void CGameManager::Initialize(void)
 {
+	CSceneManager::GetInstance().Initialize();
 }
 
 void CGameManager::Update(void)
 {
+	CSceneManager::GetInstance().Update();
 }
 
 void CGameManager::Draw(void)
 {
+	CSceneManager::GetInstance().Draw();
 }
 
 void CGameManager::Finalize(void)
 {
+	CSceneManager::GetInstance().Finalize();
 }

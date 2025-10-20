@@ -67,12 +67,12 @@ void ICharacter::SetPosition(const vivid::Vector2 position)
 	m_Position = position;
 }
 
-float ICharacter::GetWidth(void)
+int ICharacter::GetWidth(void)
 {
 	return m_Width;
 }
 
-float ICharacter::GetHeight(void)
+int ICharacter::GetHeight(void)
 {
 	return m_Height;
 }

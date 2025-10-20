@@ -44,10 +44,10 @@ public:
 	void SetPosition(const vivid::Vector2 position);
 
 	// •‚Ìæ“¾
-	float GetWidth(void);
+	int GetWidth(void);
 
 	// ‚‚³‚Ìæ“¾
-	float GetHeight(void);
+	int GetHeight(void);
 
 	// d—Í‚Ìæ“¾
 	float GetGravity(void);

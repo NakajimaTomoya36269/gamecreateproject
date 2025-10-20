@@ -64,7 +64,7 @@ void CCharacterManager::Finalize(void)
 	m_CharacterList.clear();
 }
 
-void CCharacterManager::Create(CHARACTER_ID id, vivid::Vector2& position)
+void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 {
 	ICharacter* character = nullptr;
 

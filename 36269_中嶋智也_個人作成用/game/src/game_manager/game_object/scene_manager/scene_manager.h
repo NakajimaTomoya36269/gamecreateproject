@@ -24,7 +24,14 @@ public:
 	// 解放
 	void Finalize(void);
 
+	// シーンの切り替え
+	void ChangeScene(SCENE_ID next_scene);
+
 private:
+
+	// 切り替え
+	void Change(void);
+
 	// コンストラクタ
 	CSceneManager(void);
 
@@ -36,4 +43,8 @@ private:
 
 	// 代入演算子
 	CSceneManager operator=(const CSceneManager& rhs) = delete;
+
+	IScene*	m_Scene;				// シーンクラス
+	SCENE_ID	m_NextSceneID;		// 次のシーンID
+	SCENE_ID	m_CurrentSceneID;	// 現在のシーンID
 };

@@ -24,7 +24,7 @@ public:
 	void Finalize(void);
 
 	// キャラクター作成
-	void Create(CHARACTER_ID id, vivid::Vector2& position);
+	void Create(CHARACTER_ID id, const vivid::Vector2& position);
 
 private:
 	// コンストラクタ
