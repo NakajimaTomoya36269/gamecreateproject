@@ -8,6 +8,7 @@ class CStage;
 
 class CStageManager
 {
+public:
 	// インスタンスの取得
 	static CStageManager& GetInstance(void);
 

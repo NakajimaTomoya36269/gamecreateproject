@@ -58,6 +58,8 @@ void CStageManager::Create(const vivid::Vector2& position)
 {
 	CStage* stage = nullptr;
 
+	stage = new CStage();
+
 	if (!stage)	return;
 
 	stage->Initialize(position);
