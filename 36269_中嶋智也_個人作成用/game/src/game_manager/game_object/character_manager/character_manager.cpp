@@ -15,6 +15,8 @@ void CCharacterManager::Initialize(void)
 
 void CCharacterManager::Update(void)
 {
+	if (m_CharacterList.empty())return;
+
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
@@ -38,6 +40,8 @@ void CCharacterManager::Update(void)
 
 void CCharacterManager::Draw(void)
 {
+	if (m_CharacterList.empty())return;
+
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
@@ -50,6 +54,8 @@ void CCharacterManager::Draw(void)
 
 void CCharacterManager::Finalize(void)
 {
+	if (m_CharacterList.empty())return;
+
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
@@ -78,4 +84,19 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 
 	character->Initialize(position);
 	m_CharacterList.push_back(character);
+}
+
+void CCharacterManager::OnGround(CStage* stage)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->OnGround(stage))
+			return;
+		++it;
+	}
 }

@@ -23,7 +23,7 @@ void CStage::Update(void)
 
 void CStage::Draw(void)
 {
-	vivid::DrawTexture("data\\floor.png", m_Position);
+	vivid::DrawTexture("data\\floor.png", m_Position,0xff000000);
 }
 
 void CStage::Finalize(void)

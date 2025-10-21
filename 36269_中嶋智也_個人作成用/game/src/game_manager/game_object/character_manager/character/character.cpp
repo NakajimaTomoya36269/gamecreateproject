@@ -1,4 +1,6 @@
 #include "character.h"
+#include "../../box_collider/box_collider.h"
+#include "../../stage_manager/stage/stage.h"
 
 const float ICharacter::m_move_speed = 0.9f;
 const float ICharacter::m_gravity_speed = 1.0f;
@@ -13,6 +15,7 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_Category(category)
 	, m_CharacterID(character_id)
 	, m_Active(true)
+	, m_IsGround(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 {
@@ -45,6 +48,28 @@ void ICharacter::Draw(void)
 
 void ICharacter::Finalize(void)
 {
+}
+
+bool ICharacter::OnGround(CStage* stage)
+{
+	if (!stage)return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.y < stage->GetPosition().y)
+		{
+			m_Position.y = m_Position.y - (float)stage->GetHeight();
+
+			m_IsGround = true;
+		}
+	}
+	else
+	{
+		m_IsGround = false;
+	}
+
+	return m_IsGround;
 }
 
 CHARACTER_ID ICharacter::GetCharacterID(void)

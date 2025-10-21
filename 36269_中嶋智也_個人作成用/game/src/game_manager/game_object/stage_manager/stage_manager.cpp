@@ -1,4 +1,5 @@
 #include "stage_manager.h"
+#include "../character_manager/character_manager.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -19,7 +20,10 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
-		(*it)->Update();
+		CStage* stage = (CStage*)(*it);
+
+		CCharacterManager::GetInstance().OnGround(stage);
+		stage->Update();
 
 		++it;
 	}

@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include "character_id.h"
 
+class CStage;
+
 enum class CHARACTER_STATE
 {
 	ALIVE,
@@ -30,6 +32,9 @@ public:
 
 	// 解放
 	virtual void Finalize(void);
+
+	// 地面の上にいる判定
+	virtual bool OnGround(CStage* stage);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);
@@ -83,6 +88,7 @@ protected:
 	float				m_Radius;		// 半径
 	float				m_Gravity;		// 重力
 	bool				m_Active;		// アクティブフラグ
+	bool				m_IsGround;		// 地面の上にいる判定
 	CHARACTER_CATEGORY  m_Category;		// カテゴリー
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
 	CHARACTER_STATE		m_State;		// 状態

@@ -24,6 +24,9 @@ public:
 	// 解放
 	void Finalize(void) override;
 
+	// 地面の上にいる判定
+	bool OnGround(CStage* stage)override;
+
 private:
 	// 生存
 	void Alive(void) override;
@@ -31,10 +34,15 @@ private:
 	// 死亡
 	void Dead(void) override;
 
-	static const int m_width;
-	static const int m_height;
-	static const int m_max_life;
-	static const float m_radius;
-	static const vivid::Vector2 m_start_position;
+	static const int m_width;						// 幅
+	static const int m_height;						// 高さ
+	static const int m_max_life;					// 最大ライフ
+	static const float m_radius;					// 半径
+	static const vivid::Vector2 m_start_position;	// 初期位置
+	static const float m_jump_power;				// ジャンプ力
+
+	vivid::keyboard::KEY_ID	m_JumpKey;				// ジャンプキー
+	vivid::controller::BUTTON_ID m_JumpButton;		// ジャンプボタン
+	vivid::Vector2	m_Jump;							// ジャンプ
 
 };

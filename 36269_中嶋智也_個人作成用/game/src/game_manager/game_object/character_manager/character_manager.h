@@ -4,6 +4,7 @@
 #include <list>
 #include "character/character.h"
 #include "character/character_id.h"
+#include "../stage_manager/stage_manager.h"
 
 class CCharacterManager
 {
@@ -25,6 +26,9 @@ public:
 
 	// キャラクター作成
 	void Create(CHARACTER_ID id, const vivid::Vector2& position);
+
+	// 地面の上にいるかの判定
+	void OnGround(CStage* stage);
 
 private:
 	// コンストラクタ
