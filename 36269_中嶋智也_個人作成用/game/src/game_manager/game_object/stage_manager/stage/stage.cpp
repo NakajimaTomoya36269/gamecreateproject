@@ -3,6 +3,7 @@
 const int CStage::m_width = 300;
 const int CStage::m_height = 64;
 const float CStage::m_scroll_speed = 1.0f;
+const float CStage::m_friction = 0.9f;
 
 CStage::CStage(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))
@@ -19,6 +20,23 @@ void CStage::Initialize(const vivid::Vector2& position)
 
 void CStage::Update(void)
 {
+	namespace keyboard = vivid::keyboard;
+
+	bool right_move_key = keyboard::Button(keyboard::KEY_ID::RIGHT);
+	bool left_move_key = keyboard::Button(keyboard::KEY_ID::LEFT);
+
+	if (right_move_key)
+	{
+		m_Velocity.x -= m_scroll_speed;
+	}
+	if (left_move_key)
+	{
+		m_Velocity.x += m_scroll_speed;
+	}
+
+	m_Position += m_Velocity;
+
+	m_Velocity.x *= m_friction;
 }
 
 void CStage::Draw(void)

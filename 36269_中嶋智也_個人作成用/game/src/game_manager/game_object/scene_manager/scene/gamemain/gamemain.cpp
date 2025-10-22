@@ -14,7 +14,10 @@ void CGamemain::Initialize(void)
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
 	stage_manager.Initialize();
-	stage_manager.Create(vivid::Vector2(0.0f, 1016.0f));
+	for (int i = 0; i < 5; i++)
+	{
+		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 1016.0f));
+	}
 }
 
 void CGamemain::Update(void)

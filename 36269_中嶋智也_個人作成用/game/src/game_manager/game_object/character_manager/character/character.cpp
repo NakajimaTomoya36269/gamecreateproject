@@ -3,7 +3,7 @@
 #include "../../stage_manager/stage/stage.h"
 
 const float ICharacter::m_move_speed = 0.9f;
-const float ICharacter::m_gravity_speed = 1.0f;
+const float ICharacter::m_gravity_speed = 0.5f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 							CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -57,9 +57,11 @@ bool ICharacter::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y < stage->GetPosition().y)
+		if (m_Position.y + m_Height >= stage->GetPosition().y)
 		{
-			m_Position.y = m_Position.y - (float)stage->GetHeight();
+			m_Position.y = (float)(stage->GetPosition().y + stage->GetHeight() - m_Height);
+
+			m_Gravity = 0.0f;
 
 			m_IsGround = true;
 		}
@@ -67,6 +69,8 @@ bool ICharacter::OnGround(CStage* stage)
 	else
 	{
 		m_IsGround = false;
+		m_Gravity = m_gravity_speed;
+		m_Velocity.y += m_Gravity;
 	}
 
 	return m_IsGround;

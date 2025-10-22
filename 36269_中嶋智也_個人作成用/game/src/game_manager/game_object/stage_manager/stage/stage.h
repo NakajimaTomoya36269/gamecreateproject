@@ -35,6 +35,7 @@ private:
 	static const int	m_width;
 	static const int	m_height;
 	static const float	m_scroll_speed;
+	static const float	m_friction;
 
 	vivid::Vector2		m_Position;
 	vivid::Vector2		m_Velocity;

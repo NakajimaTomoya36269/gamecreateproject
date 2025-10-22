@@ -20,10 +20,8 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
-		CStage* stage = (CStage*)(*it);
-
-		CCharacterManager::GetInstance().OnGround(stage);
-		stage->Update();
+		CCharacterManager::GetInstance().OnGround((*it));
+		(*it)->Update();
 
 		++it;
 	}

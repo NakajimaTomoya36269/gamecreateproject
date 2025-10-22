@@ -2,18 +2,16 @@
 #include "../../../box_collider/box_collider.h"
 #include "../../../stage_manager/stage_manager.h"
 
-const int CPlayer::m_width = 128;
-const int CPlayer::m_height = 256;
+const int CPlayer::m_width = 100;
+const int CPlayer::m_height = 220;
 const int CPlayer::m_max_life = 1;
 const float CPlayer::m_radius = 64.0f;
-const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2(0.0f, 0.0f);
-const float CPlayer::m_jump_power = 10.0f;
+const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 0.0f);
+const float CPlayer::m_jump_power = 30.0f;
 
 CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
 		CHARACTER_CATEGORY::PLAYER, CHARACTER_ID::PLAYER)
-	, m_JumpKey(vivid::keyboard::KEY_ID::UP)
-	, m_JumpButton(vivid::controller::BUTTON_ID::B)
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 {
 }
@@ -37,8 +35,10 @@ void CPlayer::Update(void)
 	namespace keyboard = vivid::keyboard;
 	namespace controller = vivid::controller;
 
-	bool jump = keyboard::Trigger(m_JumpKey) || 
-		controller::Trigger(controller::DEVICE_ID::PLAYER1, m_JumpButton);
+	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
+	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
+
+	bool jump = jump_key || jump_button;
 
 	if (jump && m_IsGround)
 	{
@@ -53,7 +53,9 @@ void CPlayer::Update(void)
 void CPlayer::Draw(void)
 {
 	vivid::DrawTexture("data\\player.png", m_Position);
+#ifdef _DEBUG
 	vivid::DrawText(40, std::to_string(m_Position.y), vivid::Vector2(0.0f, 0.0f));
+#endif 
 }
 
 void CPlayer::Finalize(void)
@@ -62,16 +64,14 @@ void CPlayer::Finalize(void)
 
 bool CPlayer::OnGround(CStage* stage)
 {
-	//const float height = (float)(stage->GetPosition().y - (float)stage->GetHeight());
-
 	if (!stage)return false;
 
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_width, m_height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y >= stage->GetPosition().y)
+		if (m_Position.y + m_height >= stage->GetPosition().y)
 		{
-			m_Position.y = (float)(m_Position.y - m_height - stage->GetHeight());
+			m_Position.y = stage->GetPosition().y - (float)m_height;
 
 			m_Velocity.y = 0.0f;
 
@@ -81,7 +81,6 @@ bool CPlayer::OnGround(CStage* stage)
 	else
 	{
 		m_IsGround = false;
-
 		m_Velocity.y += m_Gravity;
 	}
 

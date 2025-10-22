@@ -41,8 +41,6 @@ private:
 	static const vivid::Vector2 m_start_position;	// 初期位置
 	static const float m_jump_power;				// ジャンプ力
 
-	vivid::keyboard::KEY_ID	m_JumpKey;				// ジャンプキー
-	vivid::controller::BUTTON_ID m_JumpButton;		// ジャンプボタン
 	vivid::Vector2	m_Jump;							// ジャンプ
 
 };
