@@ -27,6 +27,8 @@ public:
 	// ステージの作成
 	void Create(const vivid::Vector2& position);
 
+	bool GetIsGround(void);
+
 private:
 	// コンストラクタ
 	CStageManager(void);

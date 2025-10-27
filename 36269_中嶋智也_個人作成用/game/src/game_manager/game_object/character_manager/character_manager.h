@@ -28,7 +28,9 @@ public:
 	void Create(CHARACTER_ID id, const vivid::Vector2& position);
 
 	// 地面の上にいるかの判定
-	void OnGround(CStage* stage);
+	bool OnGround(CStage* stage);
+
+	void Jump(void);
 
 private:
 	// コンストラクタ

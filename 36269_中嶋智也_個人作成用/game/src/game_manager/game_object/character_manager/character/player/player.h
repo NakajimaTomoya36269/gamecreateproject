@@ -34,6 +34,8 @@ private:
 	// €–S
 	void Dead(void) override;
 
+	void Jump(void) override;
+
 	static const int m_width;						// •
 	static const int m_height;						// ‚‚³
 	static const int m_max_life;					// Å‘åƒ‰ƒCƒt

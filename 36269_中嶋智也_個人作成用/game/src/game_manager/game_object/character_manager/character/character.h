@@ -36,6 +36,8 @@ public:
 	// 地面の上にいる判定
 	virtual bool OnGround(CStage* stage);
 
+	virtual void Jump(void);
+
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);
 

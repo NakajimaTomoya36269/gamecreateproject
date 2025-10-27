@@ -22,8 +22,10 @@ void CGamemain::Initialize(void)
 
 void CGamemain::Update(void)
 {
-	CCharacterManager::GetInstance().Update();
 	CStageManager::GetInstance().Update();
+	CCharacterManager::GetInstance().Update();
+	if (CStageManager::GetInstance().GetIsGround())
+		CCharacterManager::GetInstance().Jump();
 }
 
 void CGamemain::Draw(void)

@@ -86,7 +86,23 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 	m_CharacterList.push_back(character);
 }
 
-void CCharacterManager::OnGround(CStage* stage)
+bool CCharacterManager::OnGround(CStage* stage)
+{
+	if (m_CharacterList.empty())return false;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->OnGround(stage))
+			return true;
+		++it;
+	}
+	return false;
+}
+
+void CCharacterManager::Jump(void)
 {
 	if (m_CharacterList.empty())return;
 
@@ -95,8 +111,7 @@ void CCharacterManager::OnGround(CStage* stage)
 
 	while (it != end)
 	{
-		if ((*it)->OnGround(stage))
-			return;
+		(*it)->Jump();
 		++it;
 	}
 }

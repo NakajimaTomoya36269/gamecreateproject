@@ -7,7 +7,7 @@ const int CPlayer::m_height = 220;
 const int CPlayer::m_max_life = 1;
 const float CPlayer::m_radius = 64.0f;
 const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 0.0f);
-const float CPlayer::m_jump_power = 30.0f;
+const float CPlayer::m_jump_power = 40.0f;
 
 CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
@@ -32,21 +32,6 @@ void CPlayer::Initialize(const vivid::Vector2& position)
 
 void CPlayer::Update(void)
 {
-	namespace keyboard = vivid::keyboard;
-	namespace controller = vivid::controller;
-
-	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
-	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
-
-	bool jump = jump_key || jump_button;
-
-	if (jump && m_IsGround)
-	{
-		m_Velocity.y -= m_Jump.y;
-	}
-
-	m_Position.y += m_Velocity.y;
-
 	ICharacter::Update();
 }
 
@@ -75,23 +60,39 @@ bool CPlayer::OnGround(CStage* stage)
 
 			m_Velocity.y = 0.0f;
 
-			m_IsGround = true;
+			return true;
 		}
 	}
 	else
 	{
-		m_IsGround = false;
 		m_Velocity.y += m_Gravity;
 	}
 
-	return m_IsGround;
+	return false;
 }
 
 void CPlayer::Alive(void)
 {
-
+	m_Position.y += m_Velocity.y;
 }
 
 void CPlayer::Dead(void)
 {
+}
+
+void CPlayer::Jump(void)
+{
+	namespace keyboard = vivid::keyboard;
+	namespace controller = vivid::controller;
+
+	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
+	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
+
+	bool jump = jump_key || jump_button;
+
+	if (jump)
+	{
+		m_Velocity.y -= m_Jump.y;
+	}
+	m_Position.y += m_Velocity.y;
 }

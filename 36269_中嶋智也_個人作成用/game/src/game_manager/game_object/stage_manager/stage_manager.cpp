@@ -20,7 +20,6 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
-		CCharacterManager::GetInstance().OnGround((*it));
 		(*it)->Update();
 
 		++it;
@@ -67,6 +66,23 @@ void CStageManager::Create(const vivid::Vector2& position)
 	stage->Initialize(position);
 
 	m_StageList.push_back(stage);
+}
+
+bool CStageManager::GetIsGround(void)
+{
+	STAGE_LIST::iterator it = m_StageList.begin();
+	STAGE_LIST::iterator end = m_StageList.end();
+
+	while (it != end)
+	{
+		if (CCharacterManager::GetInstance().OnGround((*it)))
+		{
+			return true;
+		}
+		++it;
+	}
+
+	return false;
 }
 
 CStageManager::CStageManager(void)

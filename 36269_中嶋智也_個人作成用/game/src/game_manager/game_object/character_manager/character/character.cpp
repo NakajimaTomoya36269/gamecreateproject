@@ -14,6 +14,7 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_MaxLife(life)
 	, m_Category(category)
 	, m_CharacterID(character_id)
+	, m_State(CHARACTER_STATE::ALIVE)
 	, m_Active(true)
 	, m_IsGround(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
@@ -31,6 +32,7 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_Active = true;
 	m_Gravity = m_gravity_speed;
+	m_State = CHARACTER_STATE::ALIVE;
 }
 
 void ICharacter::Update(void)
@@ -63,17 +65,19 @@ bool ICharacter::OnGround(CStage* stage)
 
 			m_Gravity = 0.0f;
 
-			m_IsGround = true;
+			return true;
 		}
 	}
 	else
 	{
-		m_IsGround = false;
-		m_Gravity = m_gravity_speed;
 		m_Velocity.y += m_Gravity;
 	}
 
-	return m_IsGround;
+	return false;
+}
+
+void ICharacter::Jump(void)
+{
 }
 
 CHARACTER_ID ICharacter::GetCharacterID(void)
@@ -138,6 +142,7 @@ int ICharacter::GetLife(void)
 
 void ICharacter::Alive(void)
 {
+	Jump();
 }
 
 void ICharacter::Dead(void)
