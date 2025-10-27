@@ -36,7 +36,14 @@ public:
 	// 地面の上にいる判定
 	virtual bool OnGround(CStage* stage);
 
+	// ジャンプ
 	virtual void Jump(void);
+
+	// 重力変更フラグの取得
+	virtual bool GetGravityChange(void) = 0;
+
+	// 重力変更
+	virtual void ChangeGravity(void);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);

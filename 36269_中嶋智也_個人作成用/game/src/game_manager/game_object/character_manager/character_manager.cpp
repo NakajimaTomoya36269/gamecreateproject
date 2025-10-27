@@ -115,3 +115,17 @@ void CCharacterManager::Jump(void)
 		++it;
 	}
 }
+
+void CCharacterManager::ChangeGravity(void)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->ChangeGravity();
+		++it;
+	}
+}

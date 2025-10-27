@@ -6,13 +6,14 @@ const int CPlayer::m_width = 100;
 const int CPlayer::m_height = 220;
 const int CPlayer::m_max_life = 1;
 const float CPlayer::m_radius = 64.0f;
-const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 0.0f);
+const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
 const float CPlayer::m_jump_power = 40.0f;
 
 CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
 		CHARACTER_CATEGORY::PLAYER, CHARACTER_ID::PLAYER)
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
+	, m_GravityChange(false)
 {
 }
 
@@ -54,9 +55,17 @@ bool CPlayer::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_width, m_height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_height >= stage->GetPosition().y)
+		if (m_Position.y + m_height >= stage->GetPosition().y && !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_height;
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+		else if (m_Position.y <= stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
 			m_Velocity.y = 0.0f;
 
@@ -71,9 +80,21 @@ bool CPlayer::OnGround(CStage* stage)
 	return false;
 }
 
+bool CPlayer::GetGravityChange(void)
+{
+	return m_GravityChange;
+}
+
 void CPlayer::Alive(void)
 {
-	m_Position.y += m_Velocity.y;
+	if (m_GravityChange)
+	{
+		m_Position.y -= m_Velocity.y;
+	}
+	if (!m_GravityChange)
+	{
+		m_Position.y += m_Velocity.y;
+	}
 }
 
 void CPlayer::Dead(void)
@@ -94,5 +115,25 @@ void CPlayer::Jump(void)
 	{
 		m_Velocity.y -= m_Jump.y;
 	}
-	m_Position.y += m_Velocity.y;
+
+	if (!m_GravityChange)
+		m_Position.y += m_Velocity.y;
+	else
+		m_Position.y -= m_Velocity.y;
+}
+
+void CPlayer::ChangeGravity(void)
+{
+	namespace keyboard = vivid::keyboard;
+	namespace controller = vivid::controller;
+
+	bool gravity_change_key = keyboard::Trigger(keyboard::KEY_ID::SPACE);
+	bool gravity_change_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::A);
+
+	bool gravity_change = gravity_change_key || gravity_change_button;
+
+	if (gravity_change)
+	{
+		m_GravityChange = !m_GravityChange;
+	}
 }

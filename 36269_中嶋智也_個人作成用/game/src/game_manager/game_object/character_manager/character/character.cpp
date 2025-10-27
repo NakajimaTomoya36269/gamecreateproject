@@ -80,6 +80,10 @@ void ICharacter::Jump(void)
 {
 }
 
+void ICharacter::ChangeGravity(void)
+{
+}
+
 CHARACTER_ID ICharacter::GetCharacterID(void)
 {
 	return m_CharacterID;
@@ -142,7 +146,6 @@ int ICharacter::GetLife(void)
 
 void ICharacter::Alive(void)
 {
-	Jump();
 }
 
 void ICharacter::Dead(void)

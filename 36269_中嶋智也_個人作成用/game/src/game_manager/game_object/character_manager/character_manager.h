@@ -29,8 +29,12 @@ public:
 
 	// 地面の上にいるかの判定
 	bool OnGround(CStage* stage);
-
+	
+	// ジャンプ
 	void Jump(void);
+
+	// 重力変更
+	void ChangeGravity(void);
 
 private:
 	// コンストラクタ

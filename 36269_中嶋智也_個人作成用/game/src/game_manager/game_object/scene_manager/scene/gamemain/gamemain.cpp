@@ -17,6 +17,7 @@ void CGamemain::Initialize(void)
 	for (int i = 0; i < 5; i++)
 	{
 		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 1016.0f));
+		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 0.0f));
 	}
 }
 
@@ -25,7 +26,10 @@ void CGamemain::Update(void)
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();
 	if (CStageManager::GetInstance().GetIsGround())
+	{
+		CCharacterManager::GetInstance().ChangeGravity();
 		CCharacterManager::GetInstance().Jump();
+	}
 }
 
 void CGamemain::Draw(void)
