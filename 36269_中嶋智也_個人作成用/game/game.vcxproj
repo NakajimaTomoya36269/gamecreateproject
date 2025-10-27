@@ -175,8 +175,6 @@
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\scene.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene_manager.cpp" />
-    <ClCompile Include="src\game_manager\game_object\stage_manager\stage\ceiling\ceiling.cpp" />
-    <ClCompile Include="src\game_manager\game_object\stage_manager\stage\floor\floor.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\stage.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -201,8 +199,6 @@
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\scene_id.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\title\title.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene_manager.h" />
-    <ClInclude Include="src\game_manager\game_object\stage_manager\stage\ceiling\ceiling.h" />
-    <ClInclude Include="src\game_manager\game_object\stage_manager\stage\floor\floor.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\stage.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage_manager.h" />
   </ItemGroup>
