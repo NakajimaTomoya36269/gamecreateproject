@@ -2,7 +2,7 @@
 
 const int CStage::m_width = 300;
 const int CStage::m_height = 64;
-const float CStage::m_scroll_speed = 1.0f;
+const float CStage::m_scroll_speed = 60.0f;
 const float CStage::m_friction = 0.9f;
 
 CStage::CStage(void)
@@ -34,7 +34,7 @@ void CStage::Update(void)
 		m_Velocity.x += m_scroll_speed;
 	}
 
-	m_Position += m_Velocity;
+	m_Position += m_Velocity * vivid::GetDeltaTime();
 
 	m_Velocity.x *= m_friction;
 }

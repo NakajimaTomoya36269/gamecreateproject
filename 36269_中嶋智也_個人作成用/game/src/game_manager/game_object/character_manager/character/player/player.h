@@ -3,7 +3,8 @@
 #include "vivid.h"
 #include "../character.h"
 
-class CPlayer : public ICharacter
+class CPlayer 
+	: public ICharacter
 {
 public:
 	// コンストラクタ
@@ -27,9 +28,6 @@ public:
 	// 地面の上にいる判定
 	bool OnGround(CStage* stage)override;
 
-	// 重力変更フラグの取得
-	bool GetGravityChange(void) override;
-
 	// ジャンプ
 	void Jump(void) override;
 
@@ -51,6 +49,6 @@ private:
 	static const float m_jump_power;				// ジャンプ力
 
 	vivid::Vector2	m_Jump;							// ジャンプ
-	bool			m_GravityChange;				// 重力変更フラグ
+	float			m_Rotaition;					// 回転
 
 };

@@ -1,5 +1,8 @@
 #include "scene_manager.h"
 #include "scene/gamemain/gamemain.h"
+#include "scene/title/title.h"
+#include "scene/gameover/gameover.h"
+#include "scene/gameclear/gameclear.h"
 
 CSceneManager& CSceneManager::GetInstance(void)
 {
@@ -10,7 +13,7 @@ CSceneManager& CSceneManager::GetInstance(void)
 
 void CSceneManager::Initialize(void)
 {
-	ChangeScene(SCENE_ID::GAMEMAIN);
+	ChangeScene(SCENE_ID::TITLE);
 }
 
 void CSceneManager::Update(void)
@@ -60,13 +63,16 @@ void CSceneManager::Change(void)
 	switch (m_NextSceneID)
 	{
 	case SCENE_ID::TITLE:
+		m_Scene = new CTitle();
 		break;
 	case SCENE_ID::GAMEMAIN:
 		m_Scene = new CGamemain();
 		break;
 	case SCENE_ID::GAMEOVER:
+		m_Scene = new CGameOver();
 		break;
 	case SCENE_ID::GAMECLEAR:
+		m_Scene = new CGameClear();
 		break;
 	}
 

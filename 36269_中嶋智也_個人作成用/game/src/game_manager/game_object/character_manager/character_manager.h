@@ -29,6 +29,9 @@ public:
 
 	// 地面の上にいるかの判定
 	bool OnGround(CStage* stage);
+
+	// 天井にあたっているかの判定
+	void CheckHitCeiling(CStage* stage);
 	
 	// ジャンプ
 	void Jump(void);

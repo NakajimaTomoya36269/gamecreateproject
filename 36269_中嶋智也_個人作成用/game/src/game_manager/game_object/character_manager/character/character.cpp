@@ -6,7 +6,7 @@ const float ICharacter::m_move_speed = 0.9f;
 const float ICharacter::m_gravity_speed = 0.5f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
-							CHARACTER_CATEGORY category, CHARACTER_ID character_id)
+	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
 	: m_Width(width)
 	, m_Height(height)
 	, m_Radius(radius)
@@ -17,8 +17,11 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_State(CHARACTER_STATE::ALIVE)
 	, m_Active(true)
 	, m_IsGround(false)
+	, m_GravityChange(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
+	, m_Rect{ 0, 0, m_Width, m_Height }
+	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 {
 }
 
@@ -31,6 +34,8 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_Active = true;
+	m_GravityChange = false;
+	m_IsGround = false;
 	m_Gravity = m_gravity_speed;
 	m_State = CHARACTER_STATE::ALIVE;
 }
@@ -59,11 +64,19 @@ bool ICharacter::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_Height >= stage->GetPosition().y)
+		if (m_Position.y + m_Height > stage->GetPosition().y && !m_GravityChange)
 		{
-			m_Position.y = (float)(stage->GetPosition().y + stage->GetHeight() - m_Height);
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
-			m_Gravity = 0.0f;
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
+
+			m_Velocity.y = 0.0f;
 
 			return true;
 		}
@@ -82,6 +95,28 @@ void ICharacter::Jump(void)
 
 void ICharacter::ChangeGravity(void)
 {
+}
+
+void ICharacter::CheckHitCeiling(CStage* stage)
+{
+	if (!stage) return;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.y < stage->GetPosition().y + (float)stage->GetHeight() && !m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
+
+			m_Velocity.y = 0.0f;
+		}
+		if (m_Position.y + m_Height > stage->GetPosition().y && m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
+
+			m_Velocity.y = 0.0f;
+		}
+	}
 }
 
 CHARACTER_ID ICharacter::GetCharacterID(void)
@@ -124,6 +159,16 @@ void ICharacter::SetGravity(float gravity)
 	m_Gravity = gravity;
 }
 
+bool ICharacter::GetGravityChange(void)
+{
+	return m_GravityChange;
+}
+
+void ICharacter::SetGravityChange(bool gravity)
+{
+	m_GravityChange = gravity;
+}
+
 bool ICharacter::GetActive(void)
 {
 	return m_Active;
@@ -146,6 +191,14 @@ int ICharacter::GetLife(void)
 
 void ICharacter::Alive(void)
 {
+	if (m_GravityChange)
+	{
+		m_Position.y -= m_Velocity.y;
+	}
+	if (!m_GravityChange)
+	{
+		m_Position.y += m_Velocity.y;
+	}
 }
 
 void ICharacter::Dead(void)

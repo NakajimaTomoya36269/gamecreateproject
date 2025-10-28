@@ -102,6 +102,20 @@ bool CCharacterManager::OnGround(CStage* stage)
 	return false;
 }
 
+void CCharacterManager::CheckHitCeiling(CStage* stage)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->CheckHitCeiling(stage);
+		++it;
+	}
+}
+
 void CCharacterManager::Jump(void)
 {
 	if (m_CharacterList.empty())return;

@@ -1,6 +1,7 @@
 #include "player.h"
 #include "../../../box_collider/box_collider.h"
 #include "../../../stage_manager/stage_manager.h"
+#include "../../../scene_manager/scene_manager.h"
 
 const int CPlayer::m_width = 100;
 const int CPlayer::m_height = 220;
@@ -13,7 +14,7 @@ CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
 		CHARACTER_CATEGORY::PLAYER, CHARACTER_ID::PLAYER)
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
-	, m_GravityChange(false)
+	, m_Rotaition(0.0f)
 {
 }
 
@@ -38,9 +39,10 @@ void CPlayer::Update(void)
 
 void CPlayer::Draw(void)
 {
-	vivid::DrawTexture("data\\player.png", m_Position);
+	vivid::DrawTexture("data\\player.png", m_Position, 0xffffffff, 
+						m_Rect, m_Anchor, vivid::Vector2(1.0f, 1.0f), m_Rotaition);
 #ifdef _DEBUG
-	vivid::DrawText(40, std::to_string(m_Position.y), vivid::Vector2(0.0f, 0.0f));
+	vivid::DrawText(40, std::to_string(m_Position.y), vivid::Vector2(0.0f, 40.0f));
 #endif 
 }
 
@@ -55,7 +57,7 @@ bool CPlayer::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_width, m_height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_height >= stage->GetPosition().y && !m_GravityChange)
+		if (m_Position.y + m_height > stage->GetPosition().y && !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_height;
 
@@ -63,7 +65,7 @@ bool CPlayer::OnGround(CStage* stage)
 
 			return true;
 		}
-		else if (m_Position.y <= stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
@@ -80,25 +82,27 @@ bool CPlayer::OnGround(CStage* stage)
 	return false;
 }
 
-bool CPlayer::GetGravityChange(void)
-{
-	return m_GravityChange;
-}
-
 void CPlayer::Alive(void)
 {
 	if (m_GravityChange)
 	{
 		m_Position.y -= m_Velocity.y;
+		m_Rotaition = cos(270.0f * 3.14f / 180.0f);
 	}
 	if (!m_GravityChange)
 	{
 		m_Position.y += m_Velocity.y;
+		m_Rotaition = cos(90.0f * 3.14f / 180.0f);
+	}
+	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT)
+	{
+		m_State = CHARACTER_STATE::DEAD;
 	}
 }
 
 void CPlayer::Dead(void)
 {
+	CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEOVER);
 }
 
 void CPlayer::Jump(void)
@@ -117,9 +121,9 @@ void CPlayer::Jump(void)
 	}
 
 	if (!m_GravityChange)
-		m_Position.y += m_Velocity.y;
+		m_Position.y += m_Velocity.y * vivid::GetDeltaTime();
 	else
-		m_Position.y -= m_Velocity.y;
+		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }
 
 void CPlayer::ChangeGravity(void)

@@ -39,11 +39,11 @@ public:
 	// ジャンプ
 	virtual void Jump(void);
 
-	// 重力変更フラグの取得
-	virtual bool GetGravityChange(void) = 0;
-
 	// 重力変更
 	virtual void ChangeGravity(void);
+
+	// 天井にあたっているかの判定
+	virtual void CheckHitCeiling(CStage* stage);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);
@@ -63,12 +63,6 @@ public:
 	// 高さの取得
 	int GetHeight(void);
 
-	// 重力の取得
-	float GetGravity(void);
-
-	// 重力の設定
-	void SetGravity(float gravity);
-
 	// アクティブフラグの取得
 	bool GetActive(void);
 
@@ -81,8 +75,20 @@ public:
 	// ライフの設定
 	int GetLife(void);
 
+	// 重力の取得
+	float GetGravity(void);
+
+	// 重力の設定
+	void SetGravity(float gravity);
+
+	// 重力変更フラグの取得
+	bool GetGravityChange(void);
+
+	// 重力変更フラグの設定
+	void SetGravityChange(bool gravity);
+
 protected:
-	// 生きている
+	// 生存
 	virtual void Alive(void);
 
 	// 死亡
@@ -90,6 +96,8 @@ protected:
 
 	vivid::Vector2		m_Position;		// 位置
 	vivid::Vector2		m_Velocity;		// 速さ
+	vivid::Rect			m_Rect;			// 表示範囲
+	vivid::Vector2		m_Anchor;		// 中心
 	int  				m_Width;		// 幅
 	int				    m_Height;		// 高さ
 	int					m_Life;			// ライフ
@@ -98,6 +106,7 @@ protected:
 	float				m_Gravity;		// 重力
 	bool				m_Active;		// アクティブフラグ
 	bool				m_IsGround;		// 地面の上にいる判定
+	bool				m_GravityChange;// 重力変更フラグ
 	CHARACTER_CATEGORY  m_Category;		// カテゴリー
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
 	CHARACTER_STATE		m_State;		// 状態

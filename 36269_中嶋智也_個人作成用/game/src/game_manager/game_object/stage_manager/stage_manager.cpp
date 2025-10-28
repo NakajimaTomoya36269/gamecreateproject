@@ -20,6 +20,7 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
+		//CCharacterManager::GetInstance().CheckHitCeiling((*it));
 		(*it)->Update();
 
 		++it;
