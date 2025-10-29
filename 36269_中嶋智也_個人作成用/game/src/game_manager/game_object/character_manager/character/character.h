@@ -43,7 +43,7 @@ public:
 	virtual void ChangeGravity(void);
 
 	// 天井にあたっているかの判定
-	virtual void CheckHitCeiling(CStage* stage);
+	virtual bool CheckHitCeiling(CStage* stage);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);

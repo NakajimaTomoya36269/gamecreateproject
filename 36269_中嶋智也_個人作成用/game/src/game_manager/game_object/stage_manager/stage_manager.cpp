@@ -20,8 +20,9 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
-		//CCharacterManager::GetInstance().CheckHitCeiling((*it));
-		(*it)->Update();
+		CStage* stage = (CStage*)(*it);
+		CCharacterManager::GetInstance().CheckHitCeiling(stage);
+		stage->Update();
 
 		++it;
 	}

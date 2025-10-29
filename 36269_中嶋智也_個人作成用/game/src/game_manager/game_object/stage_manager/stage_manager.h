@@ -27,6 +27,7 @@ public:
 	// ステージの作成
 	void Create(const vivid::Vector2& position);
 
+	// 地面の上にいるかの判定の取得
 	bool GetIsGround(void);
 
 private:

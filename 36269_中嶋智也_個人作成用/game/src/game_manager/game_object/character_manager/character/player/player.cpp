@@ -8,7 +8,7 @@ const int CPlayer::m_height = 220;
 const int CPlayer::m_max_life = 1;
 const float CPlayer::m_radius = 64.0f;
 const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
-const float CPlayer::m_jump_power = 40.0f;
+const float CPlayer::m_jump_power = 50.0f;
 
 CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
@@ -39,8 +39,9 @@ void CPlayer::Update(void)
 
 void CPlayer::Draw(void)
 {
-	vivid::DrawTexture("data\\player.png", m_Position, 0xffffffff, 
-						m_Rect, m_Anchor, vivid::Vector2(1.0f, 1.0f), m_Rotaition);
+	const vivid::Vector2 scale = vivid::Vector2(1.0f, 1.0f);
+
+	vivid::DrawTexture("data\\player.png", m_Position, 0xffffffff);
 #ifdef _DEBUG
 	vivid::DrawText(40, std::to_string(m_Position.y), vivid::Vector2(0.0f, 40.0f));
 #endif 
@@ -54,12 +55,12 @@ bool CPlayer::OnGround(CStage* stage)
 {
 	if (!stage)return false;
 
-	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_width, m_height,
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_height > stage->GetPosition().y && !m_GravityChange)
+		if (m_Position.y + m_Height > stage->GetPosition().y && !m_GravityChange)
 		{
-			m_Position.y = stage->GetPosition().y - (float)m_height;
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
 			m_Velocity.y = 0.0f;
 
@@ -67,7 +68,7 @@ bool CPlayer::OnGround(CStage* stage)
 		}
 		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
 		{
-			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight(); 
 
 			m_Velocity.y = 0.0f;
 
@@ -87,12 +88,12 @@ void CPlayer::Alive(void)
 	if (m_GravityChange)
 	{
 		m_Position.y -= m_Velocity.y;
-		m_Rotaition = cos(270.0f * 3.14f / 180.0f);
+		//m_Rotaition = sin(90.0f * 3.14f / 180.0f);
 	}
 	if (!m_GravityChange)
 	{
 		m_Position.y += m_Velocity.y;
-		m_Rotaition = cos(90.0f * 3.14f / 180.0f);
+		//m_Rotaition = sin(270.0f * 3.14f / 180.0f);
 	}
 	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT)
 	{
@@ -102,6 +103,7 @@ void CPlayer::Alive(void)
 
 void CPlayer::Dead(void)
 {
+	m_Active = false;
 	CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEOVER);
 }
 

@@ -20,8 +20,8 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_GravityChange(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
-	, m_Rect{ 0, 0, m_Width, m_Height }
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
+	, m_Rect{ 0, 0, m_Width, m_Height }
 {
 }
 
@@ -97,9 +97,9 @@ void ICharacter::ChangeGravity(void)
 {
 }
 
-void ICharacter::CheckHitCeiling(CStage* stage)
+bool ICharacter::CheckHitCeiling(CStage* stage)
 {
-	if (!stage) return;
+	if (!stage) return false;
 
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
@@ -109,14 +109,20 @@ void ICharacter::CheckHitCeiling(CStage* stage)
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
 			m_Velocity.y = 0.0f;
+
+			return true;
 		}
-		if (m_Position.y + m_Height > stage->GetPosition().y && m_GravityChange)
+		 else if (m_Position.y + m_Height > stage->GetPosition().y && m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
 			m_Velocity.y = 0.0f;
+
+			return true;
 		}
 	}
+
+	return false;
 }
 
 CHARACTER_ID ICharacter::GetCharacterID(void)
