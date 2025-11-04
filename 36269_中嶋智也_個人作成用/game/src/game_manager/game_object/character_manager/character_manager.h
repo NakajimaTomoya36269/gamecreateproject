@@ -39,6 +39,7 @@ public:
 	// 重力変更
 	void ChangeGravity(void);
 
+
 private:
 	// コンストラクタ
 	CCharacterManager(void) = default;

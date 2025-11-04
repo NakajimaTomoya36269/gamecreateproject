@@ -34,6 +34,9 @@ public:
 	// d—Í•ÏX
 	//void ChangeGravity(void) override;
 
+	// “Vˆä‚É‚ ‚½‚Á‚Ä‚¢‚é‚©‚Ì”»’è
+	//bool CheckHitCeiling(CStage* stage) override;
+
 private:
 	// ¶‘¶
 	void Alive(void) override;

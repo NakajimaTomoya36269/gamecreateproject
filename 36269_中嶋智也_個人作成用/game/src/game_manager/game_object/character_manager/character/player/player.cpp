@@ -86,6 +86,36 @@ bool CPlayer::OnGround(CStage* stage)
 }
 */
 
+/*
+bool CPlayer::CheckHitCeiling(CStage* stage)
+{
+	if (!stage) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.y < stage->GetPosition().y + (float)stage->GetHeight() && !m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+		else if (m_Position.y + m_Height > stage->GetPosition().y && m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+*/
+
 void CPlayer::Alive(void)
 {
 	if (m_GravityChange)

@@ -63,7 +63,7 @@ bool ICharacter::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_Height > stage->GetPosition().y && !m_GravityChange)
+		if (m_Velocity.y > 0.0f && !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
@@ -71,7 +71,7 @@ bool ICharacter::OnGround(CStage* stage)
 
 			return true;
 		}
-		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		else if (m_Velocity.y > 0.0f && m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
@@ -116,7 +116,7 @@ bool ICharacter::CheckHitCeiling(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y < stage->GetPosition().y + (float)stage->GetHeight() && !m_GravityChange)
+		if (m_Velocity.y < 0.0f && !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
@@ -124,7 +124,7 @@ bool ICharacter::CheckHitCeiling(CStage* stage)
 
 			return true;
 		}
-		 else if (m_Position.y + m_Height > stage->GetPosition().y && m_GravityChange)
+		 else if (m_Velocity.y < 0.0f && m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
