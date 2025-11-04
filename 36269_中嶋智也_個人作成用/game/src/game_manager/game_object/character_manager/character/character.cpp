@@ -4,6 +4,7 @@
 
 const float ICharacter::m_move_speed = 0.9f;
 const float ICharacter::m_gravity_speed = 0.5f;
+const float ICharacter::m_max_gravity = 30.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -16,7 +17,6 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_CharacterID(character_id)
 	, m_State(CHARACTER_STATE::ALIVE)
 	, m_Active(true)
-	, m_IsGround(false)
 	, m_GravityChange(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
@@ -35,7 +35,6 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_Active = true;
 	m_GravityChange = false;
-	m_IsGround = false;
 	m_Gravity = m_gravity_speed;
 	m_State = CHARACTER_STATE::ALIVE;
 }
@@ -83,7 +82,8 @@ bool ICharacter::OnGround(CStage* stage)
 	}
 	else
 	{
-		m_Velocity.y += m_Gravity;
+		if (m_Velocity.y < m_max_gravity)
+			m_Velocity.y += m_Gravity;
 	}
 
 	return false;
@@ -95,6 +95,18 @@ void ICharacter::Jump(void)
 
 void ICharacter::ChangeGravity(void)
 {
+	namespace keyboard = vivid::keyboard;
+	namespace controller = vivid::controller;
+
+	bool gravity_change_key = keyboard::Trigger(keyboard::KEY_ID::SPACE);
+	bool gravity_change_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::A);
+
+	bool gravity_change = gravity_change_key || gravity_change_button;
+
+	if (gravity_change)
+	{
+		m_GravityChange = !m_GravityChange;
+	}
 }
 
 bool ICharacter::CheckHitCeiling(CStage* stage)

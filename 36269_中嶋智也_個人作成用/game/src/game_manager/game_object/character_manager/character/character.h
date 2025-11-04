@@ -105,7 +105,6 @@ protected:
 	float				m_Radius;		// 半径
 	float				m_Gravity;		// 重力
 	bool				m_Active;		// アクティブフラグ
-	bool				m_IsGround;		// 地面の上にいる判定
 	bool				m_GravityChange;// 重力変更フラグ
 	CHARACTER_CATEGORY  m_Category;		// カテゴリー
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
@@ -113,4 +112,5 @@ protected:
 
 	static const float  m_move_speed;	// 動く速さ
 	static const float  m_gravity_speed;// 重力の強さ
+	static const float	m_max_gravity;	// 重力最大値
 };

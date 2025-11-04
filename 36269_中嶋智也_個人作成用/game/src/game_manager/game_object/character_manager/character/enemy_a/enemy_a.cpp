@@ -1,4 +1,6 @@
 #include "enemy_a.h"
+#include "../../../box_collider/box_collider.h"
+#include "../../../stage_manager/stage_manager.h"
 
 const int	CEnemyA::m_width = 40;
 const int	CEnemyA::m_height = 40;
@@ -40,6 +42,34 @@ void CEnemyA::Finalize(void)
 
 bool CEnemyA::OnGround(CStage* stage)
 {
+	if (!stage)return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.y + m_Height > stage->GetPosition().y && !m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		{
+			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+	}
+	else
+	{
+		if (m_Velocity.y < m_max_gravity)
+			m_Velocity.y += m_Gravity;
+	}
+
 	return false;
 }
 
@@ -50,11 +80,11 @@ void CEnemyA::Alive(void)
 	bool left_move_key = keyboard::Button(keyboard::KEY_ID::LEFT);
 	if (right_move_key)
 	{
-		m_Velocity.x += m_move_speed;
+		m_Velocity.x -= m_move_speed;
 	}
 	if (left_move_key)
 	{
-		m_Velocity.x -= m_move_speed;
+		m_Velocity.x += m_move_speed;
 	}
 
 	m_Position.x += m_Velocity.x * vivid::GetDeltaTime();
@@ -69,6 +99,7 @@ void CEnemyA::Alive(void)
 	{
 		m_Position.y += m_Velocity.y;
 	}
+
 	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT)
 	{
 		m_State = CHARACTER_STATE::DEAD;

@@ -26,13 +26,13 @@ public:
 	void Finalize(void) override;
 
 	// 地面の上にいる判定
-	bool OnGround(CStage* stage)override;
+	//bool OnGround(CStage* stage)override;
 
 	// ジャンプ
 	void Jump(void) override;
 
 	// 重力変更
-	void ChangeGravity(void) override;
+	//void ChangeGravity(void) override;
 
 private:
 	// 生存

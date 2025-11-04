@@ -51,6 +51,7 @@ void CPlayer::Finalize(void)
 {
 }
 
+/*
 bool CPlayer::OnGround(CStage* stage)
 {
 	if (!stage)return false;
@@ -77,23 +78,23 @@ bool CPlayer::OnGround(CStage* stage)
 	}
 	else
 	{
-		m_Velocity.y += m_Gravity;
+		if (m_Velocity.y < m_max_gravity)
+			m_Velocity.y += m_Gravity;
 	}
 
 	return false;
 }
+*/
 
 void CPlayer::Alive(void)
 {
 	if (m_GravityChange)
 	{
 		m_Position.y -= m_Velocity.y;
-		//m_Rotaition = sin(90.0f * 3.14f / 180.0f);
 	}
 	if (!m_GravityChange)
 	{
 		m_Position.y += m_Velocity.y;
-		//m_Rotaition = sin(270.0f * 3.14f / 180.0f);
 	}
 	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT)
 	{
@@ -128,6 +129,7 @@ void CPlayer::Jump(void)
 		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }
 
+/*
 void CPlayer::ChangeGravity(void)
 {
 	namespace keyboard = vivid::keyboard;
@@ -143,3 +145,4 @@ void CPlayer::ChangeGravity(void)
 		m_GravityChange = !m_GravityChange;
 	}
 }
+*/
