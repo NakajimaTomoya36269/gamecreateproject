@@ -2,7 +2,6 @@
 #include "../../box_collider/box_collider.h"
 #include "../../stage_manager/stage/stage.h"
 
-const float ICharacter::m_move_speed = 0.9f;
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 
@@ -63,7 +62,8 @@ bool ICharacter::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Velocity.y > 0.0f && !m_GravityChange)
+		if (m_Velocity.y > 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y
+			&& !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
@@ -71,7 +71,8 @@ bool ICharacter::OnGround(CStage* stage)
 
 			return true;
 		}
-		else if (m_Velocity.y > 0.0f && m_GravityChange)
+		else if (m_Velocity.y > 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight()
+			&& m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
@@ -116,7 +117,7 @@ bool ICharacter::CheckHitCeiling(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Velocity.y < 0.0f && !m_GravityChange)
+		if (m_Velocity.y < 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight() && !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
@@ -124,11 +125,51 @@ bool ICharacter::CheckHitCeiling(CStage* stage)
 
 			return true;
 		}
-		 else if (m_Velocity.y < 0.0f && m_GravityChange)
+		 else if (m_Velocity.y < 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y && m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
 			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool ICharacter::CheckHitRightWall(CStage* stage)
+{
+	if (!stage) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.x + (float)m_Width < stage->GetPosition().x)
+		{
+			m_Position.x = stage->GetPosition().x - (float)m_Width;
+
+			m_Velocity.x = 0.0f;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool ICharacter::CheckHitLeftWall(CStage* stage)
+{
+	if (!stage) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Position.x > stage->GetPosition().x + (float)stage->GetWidth())
+		{
+			m_Position.x = stage->GetPosition().x + (float)stage->GetWidth();
+
+			m_Velocity.x = 0.0f;
 
 			return true;
 		}

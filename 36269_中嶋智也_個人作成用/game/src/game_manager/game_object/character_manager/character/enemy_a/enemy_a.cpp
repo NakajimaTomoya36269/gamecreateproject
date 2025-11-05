@@ -47,7 +47,8 @@ bool CEnemyA::OnGround(CStage* stage)
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
 	{
-		if (m_Position.y + m_Height > stage->GetPosition().y && !m_GravityChange)
+		if (m_Velocity.y > 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y
+			&& !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
@@ -55,7 +56,8 @@ bool CEnemyA::OnGround(CStage* stage)
 
 			return true;
 		}
-		else if (m_Position.y < stage->GetPosition().y + stage->GetHeight() && m_GravityChange)
+		else if (m_Velocity.y > 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight()
+			&& m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 

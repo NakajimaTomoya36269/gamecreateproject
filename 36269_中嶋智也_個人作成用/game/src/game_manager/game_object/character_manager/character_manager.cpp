@@ -118,6 +118,36 @@ void CCharacterManager::CheckHitCeiling(CStage* stage)
 	}
 }
 
+void CCharacterManager::CheckHitRightWall(CStage* stage)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitRightWall(stage))
+			return;
+		++it;
+	}
+}
+
+void CCharacterManager::CheckHitLeftWall(CStage* stage)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitLeftWall(stage))
+			return;
+		++it;
+	}
+}
+
 void CCharacterManager::Jump(void)
 {
 	if (m_CharacterList.empty())return;

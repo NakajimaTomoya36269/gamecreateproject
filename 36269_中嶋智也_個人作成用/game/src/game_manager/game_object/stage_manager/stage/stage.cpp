@@ -62,3 +62,13 @@ vivid::Vector2 CStage::GetPosition(void)
 {
 	return m_Position;
 }
+
+vivid::Vector2 CStage::GetVelocity(void)
+{
+	return m_Velocity;
+}
+
+void CStage::ResetVelocity(void)
+{
+	m_Velocity.x = 0.0f;
+}

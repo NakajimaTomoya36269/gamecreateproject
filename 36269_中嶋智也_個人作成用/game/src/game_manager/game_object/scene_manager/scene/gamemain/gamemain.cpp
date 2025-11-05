@@ -17,7 +17,7 @@ void CGamemain::Initialize(void)
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
-	character_manager.Create(CHARACTER_ID::ENEMYA, vivid::Vector2(500.0f, 976.0f));
+	//character_manager.Create(CHARACTER_ID::ENEMYA, vivid::Vector2(500.0f, 976.0f));
 	stage_manager.Initialize();
 	for (int i = 0; i < 5; i++)
 	{
@@ -25,6 +25,7 @@ void CGamemain::Initialize(void)
 		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 0.0f));
 	}
 	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 600.0f));
+	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 952.0f));
 }
 
 void CGamemain::Update(void)

@@ -25,17 +25,8 @@ public:
 	// 解放
 	void Finalize(void) override;
 
-	// 地面の上にいる判定
-	//bool OnGround(CStage* stage)override;
-
 	// ジャンプ
 	void Jump(void) override;
-
-	// 重力変更
-	//void ChangeGravity(void) override;
-
-	// 天井にあたっているかの判定
-	//bool CheckHitCeiling(CStage* stage) override;
 
 private:
 	// 生存

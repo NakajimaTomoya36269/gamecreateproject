@@ -21,6 +21,8 @@ void CStageManager::Update(void)
 	while (it != end)
 	{
 		CStage* stage = (CStage*)(*it);
+		CCharacterManager::GetInstance().CheckHitRightWall(stage);
+		CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
 		stage->Update();
 

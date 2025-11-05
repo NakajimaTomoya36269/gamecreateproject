@@ -32,6 +32,12 @@ public:
 
 	// 天井にあたっているかの判定
 	void CheckHitCeiling(CStage* stage);
+
+	// 右壁にあたっているかの判定
+	void CheckHitRightWall(CStage* stage);
+
+	// 左壁にあたっているかの判定
+	void CheckHitLeftWall(CStage* stage);
 	
 	// ジャンプ
 	void Jump(void);

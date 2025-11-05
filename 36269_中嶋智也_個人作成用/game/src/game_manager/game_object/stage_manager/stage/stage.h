@@ -31,6 +31,10 @@ public:
 	// ˆÊ’u‚ÌŽæ“¾
 	vivid::Vector2 GetPosition(void);
 
+	vivid::Vector2 GetVelocity(void);
+
+	void ResetVelocity(void);
+
 private:
 	static const int	m_width;
 	static const int	m_height;

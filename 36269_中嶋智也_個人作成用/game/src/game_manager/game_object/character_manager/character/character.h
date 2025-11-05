@@ -45,6 +45,12 @@ public:
 	// 天井にあたっているかの判定
 	virtual bool CheckHitCeiling(CStage* stage);
 
+	// 右壁にあたっているかの判定
+	virtual bool CheckHitRightWall(CStage* stage);
+
+	// 左壁にあたっているかの判定
+	virtual bool CheckHitLeftWall(CStage* stage);
+
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);
 
@@ -110,7 +116,6 @@ protected:
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
 	CHARACTER_STATE		m_State;		// 状態
 
-	static const float  m_move_speed;	// 動く速さ
 	static const float  m_gravity_speed;// 重力の強さ
 	static const float	m_max_gravity;	// 重力最大値
 };
