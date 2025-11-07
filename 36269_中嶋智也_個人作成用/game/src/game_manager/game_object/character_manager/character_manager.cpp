@@ -175,3 +175,19 @@ void CCharacterManager::ChangeGravity(void)
 		++it;
 	}
 }
+
+bool CCharacterManager::CheckHitGoal(CGoal& goal)
+{
+	if (m_CharacterList.empty())return false;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitGoal(goal))
+			return true;
+		++it;
+	}
+	return false;
+}

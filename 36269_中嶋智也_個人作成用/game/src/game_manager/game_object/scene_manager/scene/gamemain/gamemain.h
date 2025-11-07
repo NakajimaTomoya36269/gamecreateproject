@@ -2,6 +2,7 @@
 
 #include "../scene.h"
 #include "vivid.h"
+#include "../../../goal/goal.h"
 
 class CGamemain : public IScene
 {
@@ -28,4 +29,6 @@ private:
 	static const int	m_font_size;	// フォントサイズ
 
 	vivid::Vector2		m_Position;		// 位置
+
+	CGoal				m_goal;			// ゴールクラスのオブジェクトの作成
 };

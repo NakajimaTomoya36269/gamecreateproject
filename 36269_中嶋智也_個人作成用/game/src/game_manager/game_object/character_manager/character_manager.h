@@ -45,6 +45,8 @@ public:
 	// 重力変更
 	void ChangeGravity(void);
 
+	// ゴールの旗のアタリ判定
+	bool CheckHitGoal(CGoal& goal);
 
 private:
 	// コンストラクタ

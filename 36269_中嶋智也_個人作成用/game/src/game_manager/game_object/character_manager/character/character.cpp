@@ -228,6 +228,17 @@ void ICharacter::SetGravityChange(bool gravity)
 	m_GravityChange = gravity;
 }
 
+bool ICharacter::CheckHitGoal(CGoal& goal)
+{
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		goal.GetPosition(), goal.GetWidth(), goal.GetHeight()))
+	{
+		return true;
+	}
+	return false;
+
+}
+
 bool ICharacter::GetActive(void)
 {
 	return m_Active;

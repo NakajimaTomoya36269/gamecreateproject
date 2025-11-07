@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include "character_id.h"
+#include "../../goal/goal.h"
 
 class CStage;
 
@@ -92,6 +93,8 @@ public:
 
 	// 重力変更フラグの設定
 	void SetGravityChange(bool gravity);
+
+	bool CheckHitGoal(CGoal& goal);
 
 protected:
 	// 生存

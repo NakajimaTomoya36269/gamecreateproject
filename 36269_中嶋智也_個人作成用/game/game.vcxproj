@@ -170,6 +170,7 @@
     <ClCompile Include="src\game_manager\game_object\character_manager\character\enemy_a\enemy_a.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character\player\player.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character_manager.cpp" />
+    <ClCompile Include="src\game_manager\game_object\goal\goal.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gameclear\gameclear.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gamemain\gamemain.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\gameover\gameover.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="src\game_manager\game_object\character_manager\character\player\player.h" />
     <ClInclude Include="src\game_manager\game_object\character_manager\character_manager.h" />
     <ClInclude Include="src\game_manager\game_object\game_object.h" />
+    <ClInclude Include="src\game_manager\game_object\goal\goal.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gameclear\gameclear.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gamemain\gamemain.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gameover\gameover.h" />

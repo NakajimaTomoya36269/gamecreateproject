@@ -26,6 +26,8 @@ void CGamemain::Initialize(void)
 	}
 	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 600.0f));
 	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 952.0f));
+
+	m_goal.Initialize(vivid::Vector2(0.0f, 472.0f));
 }
 
 void CGamemain::Update(void)
@@ -37,6 +39,11 @@ void CGamemain::Update(void)
 		CCharacterManager::GetInstance().ChangeGravity();
 		CCharacterManager::GetInstance().Jump();
 	}
+	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
+	{
+		CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMECLEAR);
+	}
+	m_goal.Update();
 
 	namespace keyboard = vivid::keyboard;
 	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
@@ -57,6 +64,7 @@ void CGamemain::Update(void)
 void CGamemain::Draw(void)
 {
 	CStageManager::GetInstance().Draw();
+	m_goal.Draw();
 	CCharacterManager::GetInstance().Draw();
 
 #ifdef _DEBUG
@@ -69,4 +77,5 @@ void CGamemain::Finalize(void)
 {
 	CCharacterManager::GetInstance().Finalize();
 	CStageManager::GetInstance().Finalize();
+	m_goal.Finalize();
 }
