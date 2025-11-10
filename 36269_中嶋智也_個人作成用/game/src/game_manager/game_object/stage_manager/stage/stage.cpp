@@ -1,4 +1,6 @@
 #include "stage.h"
+#include "../../character_manager/character_manager.h"
+#include "../../box_collider/box_collider.h"
 
 const int CStage::m_width = 300;
 const int CStage::m_height = 64;
@@ -63,12 +65,30 @@ vivid::Vector2 CStage::GetPosition(void)
 	return m_Position;
 }
 
-vivid::Vector2 CStage::GetVelocity(void)
+bool CStage::CheckHitCharacter(ICharacter* character, float& position_x)
 {
-	return m_Velocity;
-}
+	if (!character) return false;
 
-void CStage::ResetVelocity(void)
-{
-	m_Velocity.x = 0.0f;
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_width, m_height,
+		character->GetPosition(), character->GetWidth(), character->GetHeight()))
+	{
+		if (m_Velocity.x > 0.0f && position_x + (float)character->GetWidth() < m_Position.x)
+		{
+			position_x = m_Position.x - (float)character->GetWidth();
+
+			m_Velocity.x = 0.0f;
+
+			return true;
+		}
+		if (m_Velocity.x < 0.0f && position_x > m_Position.x + (float)m_width)
+		{
+			position_x = m_Position.x + (float)m_width;
+
+			m_Velocity.x = 0.0f;
+
+			return true;
+		}
+	}
+
+	return false;
 }

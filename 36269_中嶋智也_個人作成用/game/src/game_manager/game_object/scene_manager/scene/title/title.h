@@ -27,6 +27,8 @@ public:
 
 private:
 	static const int	m_font_size;	// フォントサイズ
+	static const int	m_title_font_size;	// タイトルフォントサイズ
 
 	vivid::Vector2		m_Position;		// 位置
+	vivid::Vector2		m_TitlePosition;	// タイトルの位置
 };

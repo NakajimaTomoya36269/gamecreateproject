@@ -1,5 +1,6 @@
 #pragma once
 #include "vivid.h"
+#include "../../character_manager/character/character.h"
 
 class CStage
 {
@@ -31,9 +32,8 @@ public:
 	// 位置の取得
 	vivid::Vector2 GetPosition(void);
 
-	vivid::Vector2 GetVelocity(void);
-
-	void ResetVelocity(void);
+	// キャラクターのアタリ判定
+	bool CheckHitCharacter(ICharacter* character, float& position_x);
 
 private:
 	static const int	m_width;

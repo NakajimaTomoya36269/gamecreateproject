@@ -60,6 +60,9 @@ public:
 
 	// 位置の取得
 	vivid::Vector2 GetPosition(void);
+
+	// X座標の位置を取得
+	 float GetPositionX(void);
 	
 	// 位置の設定
 	void SetPosition(const vivid::Vector2 position);

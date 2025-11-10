@@ -26,6 +26,9 @@ void CCharacterManager::Update(void)
 		ICharacter* character = (ICharacter*)(*it);
 
 		character->Update();
+
+		CStageManager::GetInstance().CheckHitCharacter(character, character->GetPositionX());
+
 		if (!character->GetActive())
 		{
 			character->Finalize();

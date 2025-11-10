@@ -30,6 +30,10 @@ public:
 	// 地面の上にいるかの判定の取得
 	bool GetIsGround(void);
 
+	// キャラクターのアタリ判定
+	void CheckHitCharacter(ICharacter* character, float&& position_x);
+
+
 private:
 	// コンストラクタ
 	CStageManager(void);

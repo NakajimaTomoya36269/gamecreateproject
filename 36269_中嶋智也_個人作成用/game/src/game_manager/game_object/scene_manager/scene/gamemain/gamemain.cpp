@@ -21,11 +21,11 @@ void CGamemain::Initialize(void)
 	stage_manager.Initialize();
 	for (int i = 0; i < 5; i++)
 	{
-		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 1016.0f));
-		CStageManager::GetInstance().Create(vivid::Vector2(i * 300.0f, 0.0f));
+		stage_manager.Create(vivid::Vector2(i * 300.0f, 1016.0f));
+		stage_manager.Create(vivid::Vector2(i * 300.0f, 0.0f));
 	}
-	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 600.0f));
-	CStageManager::GetInstance().Create(vivid::Vector2(0.0f, 952.0f));
+	stage_manager.Create(vivid::Vector2(0.0f, 600.0f));
+	stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
 
 	m_goal.Initialize(vivid::Vector2(0.0f, 472.0f));
 }

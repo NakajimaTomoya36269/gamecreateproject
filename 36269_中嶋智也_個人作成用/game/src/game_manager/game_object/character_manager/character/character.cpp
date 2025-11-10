@@ -193,6 +193,11 @@ vivid::Vector2 ICharacter::GetPosition(void)
 	return m_Position;
 }
 
+float ICharacter::GetPositionX(void)
+{
+	return m_Position.x;
+}
+
 void ICharacter::SetPosition(const vivid::Vector2 position)
 {
 	m_Position = position;

@@ -21,8 +21,8 @@ void CStageManager::Update(void)
 	while (it != end)
 	{
 		CStage* stage = (CStage*)(*it);
-		CCharacterManager::GetInstance().CheckHitRightWall(stage);
-		CCharacterManager::GetInstance().CheckHitLeftWall(stage);
+		//CCharacterManager::GetInstance().CheckHitRightWall(stage);
+		//CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
 		stage->Update();
 
@@ -87,6 +87,21 @@ bool CStageManager::GetIsGround(void)
 	}
 
 	return false;
+}
+
+void CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
+{
+	STAGE_LIST::iterator it = m_StageList.begin();
+	STAGE_LIST::iterator end = m_StageList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitCharacter(character, position_x))
+		{
+			return;
+		}
+		++it;
+	}
 }
 
 CStageManager::CStageManager(void)
