@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../character.h"
+#include "../enemy.h"
 #include "vivid.h"
 
 class CEnemyA
-	: public ICharacter
+	: public IEnemy
 {
 public:
 	// コンストラクタ
@@ -25,9 +25,6 @@ public:
 	// 解放
 	void Finalize(void) override;
 
-	// 地面の上にいる判定
-	bool OnGround(CStage* stage)override;
-
 private:
 	// 生存
 	void Alive(void) override;
@@ -35,12 +32,8 @@ private:
 	// 死亡
 	void Dead(void) override;
 
-	static const int		m_width;		// 幅
-	static const int		m_height;		// 高さ
-	static const float		m_radius;		// 半径
-	static const int		m_max_life;		// 最大ライフ
-	static const float		m_move_speed;	// 移動の速さ
-	static const float		m_friction;		// 摩擦力
-
-	vivid::Vector2			m_Position;		// 位置
+	static const int		m_width;	// 幅
+	static const int		m_height;	// 高さ
+	static const float		m_radius;	// 半径
+	static const int		m_max_life;	// 最大ライフ
 };

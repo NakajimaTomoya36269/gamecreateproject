@@ -26,6 +26,8 @@ public:
 
 private:
 	static const int	m_font_size;		// フォントサイズ
+	static const int	m_gameover_font_size;	// ゲームオーバーフォントサイズ
 
 	vivid::Vector2		m_Position;			// 位置
+	vivid::Vector2		m_GameOverPosition;	// ゲームオーバーの位置
 };

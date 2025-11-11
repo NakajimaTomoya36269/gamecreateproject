@@ -26,6 +26,8 @@ public:
 
 private:
 	static const int	m_font_size;		// フォントサイズ
+	static const int	m_gameclear_font_size;	// ゲームクリアフォントサイズ
 
 	vivid::Vector2		m_Position;			// 位置
+	vivid::Vector2		m_GameClearPosition;	// ゲームクリアの位置
 };

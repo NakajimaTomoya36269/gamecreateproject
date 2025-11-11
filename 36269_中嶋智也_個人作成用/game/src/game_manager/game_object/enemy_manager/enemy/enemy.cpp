@@ -1,0 +1,127 @@
+#include "enemy.h"
+#include "../../box_collider/box_collider.h"
+#include "../../stage_manager/stage/stage.h"
+
+const float IEnemy::m_gravity_speed = 0.5f;
+const float IEnemy::m_max_gravity = 30.0f;
+const float IEnemy::m_scroll_speed = 60.0f;
+const float IEnemy::m_friction = 0.9f;
+
+IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
+	: m_Width(width)
+	, m_Height(height)
+	, m_Radius(radius)
+	, m_Life(life)
+	, m_MaxLife(life)
+	, m_EnemyID(enemy_id)
+	, m_State(ENEMY_STATE::ALIVE)
+	, m_Active(true)
+	, m_Position(vivid::Vector2(0.0f, 0.0f))
+	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
+	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
+	, m_Rect{ 0, 0, m_Width, m_Height }
+{
+}
+
+void IEnemy::Initialize(const vivid::Vector2& position)
+{
+	m_Position = position;
+	m_Velocity = vivid::Vector2(0.0f, 0.0f);
+	m_Active = true;
+	m_State = ENEMY_STATE::ALIVE;
+}
+
+void IEnemy::Update(void)
+{
+	switch (m_State)
+	{
+	case ENEMY_STATE::ALIVE: Alive(); break;
+	case ENEMY_STATE::DEAD: Dead(); break;
+	}
+}
+
+void IEnemy::Draw(void)
+{
+}
+
+void IEnemy::Finalize(void)
+{
+}
+
+bool IEnemy::OnGround(CStage* stage)
+{
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		if (m_Velocity.y > 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y)
+		{
+			m_Position.y = stage->GetPosition().y - (float)m_Height;
+
+			m_Velocity.y = 0.0f;
+
+			return true;
+		}
+	}
+	else
+	{
+		if (m_Velocity.y < m_max_gravity)
+			m_Velocity.y += m_Gravity;
+	}
+
+	return false;
+}
+
+vivid::Vector2 IEnemy::GetPosition(void)
+{
+	return m_Position;
+}
+
+void IEnemy::SetPosition(const vivid::Vector2 position)
+{
+	m_Position = position;
+}
+
+int IEnemy::GetWidth(void)
+{
+	return m_Width;
+}
+
+int IEnemy::GetHeight(void)
+{
+	return m_Height;
+}
+
+bool IEnemy::GetActive(void)
+{
+	return m_Active;
+}
+
+void IEnemy::SetActive(bool active)
+{
+	m_Active = active;
+}
+
+void IEnemy::Alive(void)
+{
+	namespace keyboard = vivid::keyboard;
+
+	bool right_move_key = keyboard::Button(keyboard::KEY_ID::RIGHT);
+	bool left_move_key = keyboard::Button(keyboard::KEY_ID::LEFT);
+
+	if (right_move_key)
+	{
+		m_Velocity.x -= m_scroll_speed;
+	}
+	if (left_move_key)
+	{
+		m_Velocity.x += m_scroll_speed;
+	}
+
+	m_Position.x += m_Velocity.x * vivid::GetDeltaTime();
+	m_Position.y += m_Velocity.y;
+	m_Velocity.x *= m_friction;
+}
+
+void IEnemy::Dead(void)
+{
+}

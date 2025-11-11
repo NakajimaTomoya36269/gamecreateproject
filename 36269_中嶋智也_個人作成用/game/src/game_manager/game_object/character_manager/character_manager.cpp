@@ -1,6 +1,5 @@
 #include "character_manager.h"
 #include "character/player/player.h"
-#include "character/enemy_a/enemy_a.h"
 
 CCharacterManager& CCharacterManager::GetInstance(void)
 {
@@ -81,7 +80,6 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 	switch (id)
 	{
 	case CHARACTER_ID::PLAYER: character = new CPlayer();	break;
-	case CHARACTER_ID::ENEMYA: character = new CEnemyA();   break;
 	}
 
 	if (!character) return;
