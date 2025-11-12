@@ -1,5 +1,6 @@
 #include "stage_manager.h"
 #include "../character_manager/character_manager.h"
+#include "../enemy_manager/enemy_manager.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -24,6 +25,7 @@ void CStageManager::Update(void)
 		//CCharacterManager::GetInstance().CheckHitRightWall(stage);
 		//CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
+		CEnemyManager::GetInstance().OnGround(stage);
 		stage->Update();
 
 		++it;

@@ -35,9 +35,14 @@ void CEnemyA::Finalize(void)
 void CEnemyA::Alive(void)
 {
 	IEnemy::Alive();
+	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT + m_Height)
+	{
+		m_State = ENEMY_STATE::DEAD;
+	}
 }
 
 void CEnemyA::Dead(void)
 {
+	m_Active = false;
 	IEnemy::Dead();
 }

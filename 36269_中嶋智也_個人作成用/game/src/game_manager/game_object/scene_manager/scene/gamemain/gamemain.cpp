@@ -1,6 +1,7 @@
 #include "gamemain.h"
 #include "../../../character_manager/character_manager.h"
 #include "../../../stage_manager/stage_manager.h"
+#include "../../../enemy_manager/enemy_manager.h"
 #include "../../scene_manager.h"
 
 const int CGamemain::m_font_size = 40;
@@ -14,6 +15,7 @@ void CGamemain::Initialize(void)
 {
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
 	CStageManager& stage_manager = CStageManager::GetInstance();
+	CEnemyManager& enemy_manager = CEnemyManager::GetInstance();
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
@@ -25,6 +27,9 @@ void CGamemain::Initialize(void)
 	}
 	stage_manager.Create(vivid::Vector2(0.0f, 600.0f));
 	stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
+
+	enemy_manager.Initialize();
+	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 400.0f));
 
 	m_goal.Initialize(vivid::Vector2(0.0f, 472.0f));
 }
@@ -38,6 +43,9 @@ void CGamemain::Update(void)
 		CCharacterManager::GetInstance().ChangeGravity();
 		CCharacterManager::GetInstance().Jump();
 	}
+
+	CEnemyManager::GetInstance().Update();
+
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{
 		CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMECLEAR);
@@ -64,6 +72,7 @@ void CGamemain::Draw(void)
 {
 	CStageManager::GetInstance().Draw();
 	m_goal.Draw();
+	CEnemyManager::GetInstance().Draw();
 	CCharacterManager::GetInstance().Draw();
 
 #ifdef _DEBUG
@@ -76,5 +85,6 @@ void CGamemain::Finalize(void)
 {
 	CCharacterManager::GetInstance().Finalize();
 	CStageManager::GetInstance().Finalize();
+	CEnemyManager::GetInstance().Finalize();
 	m_goal.Finalize();
 }
