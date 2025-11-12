@@ -27,6 +27,7 @@ void IEnemy::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
+	m_Gravity = m_gravity_speed;
 	m_Active = true;
 	m_State = ENEMY_STATE::ALIVE;
 }

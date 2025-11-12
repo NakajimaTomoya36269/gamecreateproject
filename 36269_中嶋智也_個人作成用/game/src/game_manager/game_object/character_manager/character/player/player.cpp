@@ -61,7 +61,7 @@ void CPlayer::Alive(void)
 	{
 		m_Position.y += m_Velocity.y;
 	}
-	if (m_Position.y < 0.0f || m_Position.y >(float)vivid::WINDOW_HEIGHT + m_Height)
+	if (m_Position.y < 0.0f || m_Position.y + m_Height >(float)vivid::WINDOW_HEIGHT || m_Life <= 0)
 	{
 		m_State = CHARACTER_STATE::DEAD;
 	}
@@ -93,21 +93,3 @@ void CPlayer::Jump(void)
 	else
 		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }
-
-/*
-void CPlayer::ChangeGravity(void)
-{
-	namespace keyboard = vivid::keyboard;
-	namespace controller = vivid::controller;
-
-	bool gravity_change_key = keyboard::Trigger(keyboard::KEY_ID::SPACE);
-	bool gravity_change_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::A);
-
-	bool gravity_change = gravity_change_key || gravity_change_button;
-
-	if (gravity_change)
-	{
-		m_GravityChange = !m_GravityChange;
-	}
-}
-*/

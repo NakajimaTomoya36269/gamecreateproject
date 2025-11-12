@@ -1,6 +1,7 @@
 #include "character.h"
 #include "../../box_collider/box_collider.h"
 #include "../../stage_manager/stage/stage.h"
+#include "../../enemy_manager/enemy/enemy.h"
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
@@ -175,6 +176,19 @@ bool ICharacter::CheckHitLeftWall(CStage* stage)
 		}
 	}
 
+	return false;
+}
+
+bool ICharacter::CheckHitEnemy(IEnemy* enemy)
+{
+	if (!enemy) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
+		enemy->GetPosition(), enemy->GetWidth(), enemy->GetHeight()))
+	{
+		m_Life--;
+		return true;
+	}
 	return false;
 }
 

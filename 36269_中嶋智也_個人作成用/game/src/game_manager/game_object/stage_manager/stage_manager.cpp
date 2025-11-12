@@ -74,7 +74,7 @@ void CStageManager::Create(const vivid::Vector2& position)
 	m_StageList.push_back(stage);
 }
 
-bool CStageManager::GetIsGround(void)
+bool CStageManager::OnGround(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();

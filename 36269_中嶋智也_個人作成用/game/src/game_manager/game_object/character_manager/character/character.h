@@ -5,6 +5,7 @@
 #include "../../goal/goal.h"
 
 class CStage;
+class IEnemy;
 
 enum class CHARACTER_STATE
 {
@@ -51,6 +52,9 @@ public:
 
 	// 左壁にあたっているかの判定
 	virtual bool CheckHitLeftWall(CStage* stage);
+
+	// 敵のアタリ判定
+	virtual bool CheckHitEnemy(IEnemy* enemy);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);

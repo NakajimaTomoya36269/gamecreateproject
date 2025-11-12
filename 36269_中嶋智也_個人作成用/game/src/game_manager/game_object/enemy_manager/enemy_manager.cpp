@@ -1,5 +1,6 @@
 #include "enemy_manager.h"
 #include "enemy/enemy_a/enemy_a.h"
+#include "../character_manager/character_manager.h"
 
 CEnemyManager& CEnemyManager::GetInstance(void)
 {
@@ -21,6 +22,8 @@ void CEnemyManager::Update(void)
 	while (it != end)
 	{
 		IEnemy* enemy = (IEnemy*)(*it);
+
+		CCharacterManager::GetInstance().CheckHitEnemy(enemy);
 
 		enemy->Update();
 

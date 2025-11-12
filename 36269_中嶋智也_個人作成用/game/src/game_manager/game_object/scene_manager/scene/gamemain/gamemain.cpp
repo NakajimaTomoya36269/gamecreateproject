@@ -26,10 +26,12 @@ void CGamemain::Initialize(void)
 		stage_manager.Create(vivid::Vector2(i * 300.0f, 0.0f));
 	}
 	stage_manager.Create(vivid::Vector2(0.0f, 600.0f));
-	stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
+	//stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
 
 	enemy_manager.Initialize();
-	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 400.0f));
+	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 976.0f));
+	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(400.0f, 976.0f));
+	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(600.0f, 976.0f));
 
 	m_goal.Initialize(vivid::Vector2(0.0f, 472.0f));
 }
@@ -38,13 +40,12 @@ void CGamemain::Update(void)
 {
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();
-	if (CStageManager::GetInstance().GetIsGround())
+	CEnemyManager::GetInstance().Update();
+	if (CStageManager::GetInstance().OnGround())
 	{
 		CCharacterManager::GetInstance().ChangeGravity();
 		CCharacterManager::GetInstance().Jump();
 	}
-
-	CEnemyManager::GetInstance().Update();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{
@@ -55,6 +56,13 @@ void CGamemain::Update(void)
 	namespace keyboard = vivid::keyboard;
 	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
 	bool change_gameclear_scene_key = keyboard::Trigger(keyboard::KEY_ID::X);
+	bool reset_key = keyboard::Trigger(keyboard::KEY_ID::R);
+
+	if (reset_key)
+	{
+		Finalize();
+		Initialize();
+	}
 
 #ifdef _DEBUG
 	if (change_gameover_scene_key)

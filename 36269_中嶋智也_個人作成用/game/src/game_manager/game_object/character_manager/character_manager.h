@@ -5,6 +5,7 @@
 #include "character/character.h"
 #include "character/character_id.h"
 #include "../stage_manager/stage_manager.h"
+#include "../enemy_manager/enemy_manager.h"
 
 class CCharacterManager
 {
@@ -38,6 +39,9 @@ public:
 
 	// 左壁にあたっているかの判定
 	void CheckHitLeftWall(CStage* stage);
+
+	// 敵のアタリ判定
+	void CheckHitEnemy(IEnemy* enemy);
 	
 	// ジャンプ
 	void Jump(void);

@@ -28,7 +28,7 @@ public:
 	void Create(const vivid::Vector2& position);
 
 	// 地面の上にいるかの判定の取得
-	bool GetIsGround(void);
+	bool OnGround(void);
 
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(ICharacter* character, float&& position_x);

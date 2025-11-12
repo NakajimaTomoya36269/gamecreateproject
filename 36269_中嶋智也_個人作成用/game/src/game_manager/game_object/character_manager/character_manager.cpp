@@ -149,6 +149,21 @@ void CCharacterManager::CheckHitLeftWall(CStage* stage)
 	}
 }
 
+void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitEnemy(enemy))
+			return;
+		++it;
+	}
+}
+
 void CCharacterManager::Jump(void)
 {
 	if (m_CharacterList.empty())return;
