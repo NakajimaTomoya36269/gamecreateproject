@@ -36,4 +36,8 @@ private:
 	static const int		m_height;	// 高さ
 	static const float		m_radius;	// 半径
 	static const int		m_max_life;	// 最大ライフ
+	static const float		m_move_speed;	// 動く速さ
+	static const float		m_max_speed;	// 最大スピード
+
+	vivid::Vector2			m_MoveVelocity;	// 動く速さ
 };

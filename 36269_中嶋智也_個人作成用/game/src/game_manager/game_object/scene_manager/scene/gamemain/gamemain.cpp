@@ -44,7 +44,6 @@ void CGamemain::Update(void)
 	if (CStageManager::GetInstance().OnGround())
 	{
 		CCharacterManager::GetInstance().ChangeGravity();
-		CCharacterManager::GetInstance().Jump();
 	}
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))

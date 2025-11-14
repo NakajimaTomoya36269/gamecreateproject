@@ -26,7 +26,7 @@ public:
 	void Finalize(void) override;
 
 	// ƒWƒƒƒ“ƒv
-	void Jump(void) override;
+	void Jump(CStage* stage) override;
 
 private:
 	// ¶‘¶

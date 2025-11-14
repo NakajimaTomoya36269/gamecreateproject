@@ -25,6 +25,7 @@ void CStageManager::Update(void)
 		//CCharacterManager::GetInstance().CheckHitRightWall(stage);
 		//CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
+		CCharacterManager::GetInstance().Jump(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
 		stage->Update();
 

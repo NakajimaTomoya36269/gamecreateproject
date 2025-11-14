@@ -164,7 +164,7 @@ void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
 	}
 }
 
-void CCharacterManager::Jump(void)
+void CCharacterManager::Jump(CStage* stage)
 {
 	if (m_CharacterList.empty())return;
 
@@ -173,7 +173,7 @@ void CCharacterManager::Jump(void)
 
 	while (it != end)
 	{
-		(*it)->Jump();
+		(*it)->Jump(stage);
 		++it;
 	}
 }

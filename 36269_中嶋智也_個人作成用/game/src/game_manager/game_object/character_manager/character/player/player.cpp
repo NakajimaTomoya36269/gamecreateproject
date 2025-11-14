@@ -73,7 +73,7 @@ void CPlayer::Dead(void)
 	CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEOVER);
 }
 
-void CPlayer::Jump(void)
+void CPlayer::Jump(CStage* stage)
 {
 	namespace keyboard = vivid::keyboard;
 	namespace controller = vivid::controller;
@@ -83,7 +83,7 @@ void CPlayer::Jump(void)
 
 	bool jump = jump_key || jump_button;
 
-	if (jump)
+	if (jump && ICharacter::OnGround(stage))
 	{
 		m_Velocity.y -= m_Jump.y;
 	}

@@ -39,7 +39,7 @@ public:
 	virtual bool OnGround(CStage* stage);
 
 	// ジャンプ
-	virtual void Jump(void);
+	virtual void Jump(CStage* stage);
 
 	// 重力変更
 	virtual void ChangeGravity(void);

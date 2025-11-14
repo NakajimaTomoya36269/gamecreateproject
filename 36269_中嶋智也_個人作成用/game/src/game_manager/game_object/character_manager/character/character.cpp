@@ -91,7 +91,7 @@ bool ICharacter::OnGround(CStage* stage)
 	return false;
 }
 
-void ICharacter::Jump(void)
+void ICharacter::Jump(CStage* stage)
 {
 }
 

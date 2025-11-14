@@ -44,7 +44,7 @@ public:
 	void CheckHitEnemy(IEnemy* enemy);
 	
 	// ジャンプ
-	void Jump(void);
+	void Jump(CStage* stage);
 
 	// 重力変更
 	void ChangeGravity(void);
