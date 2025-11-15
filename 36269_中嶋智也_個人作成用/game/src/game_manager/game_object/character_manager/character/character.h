@@ -42,7 +42,7 @@ public:
 	virtual void Jump(CStage* stage);
 
 	// d—Í•ÏX
-	virtual void ChangeGravity(void);
+	virtual void ChangeGravity(CStage* stage);
 
 	// “Vˆä‚É‚ ‚½‚Á‚Ä‚¢‚é‚©‚Ì”»’è
 	virtual bool CheckHitCeiling(CStage* stage);

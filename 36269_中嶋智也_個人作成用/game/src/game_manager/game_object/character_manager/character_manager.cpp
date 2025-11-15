@@ -178,7 +178,7 @@ void CCharacterManager::Jump(CStage* stage)
 	}
 }
 
-void CCharacterManager::ChangeGravity(void)
+void CCharacterManager::ChangeGravity(CStage* stage)
 {
 	if (m_CharacterList.empty())return;
 
@@ -187,7 +187,7 @@ void CCharacterManager::ChangeGravity(void)
 
 	while (it != end)
 	{
-		(*it)->ChangeGravity();
+		(*it)->ChangeGravity(stage);
 		++it;
 	}
 }

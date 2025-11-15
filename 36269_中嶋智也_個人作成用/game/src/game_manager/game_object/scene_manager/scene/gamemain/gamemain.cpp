@@ -43,7 +43,6 @@ void CGamemain::Update(void)
 	CEnemyManager::GetInstance().Update();
 	if (CStageManager::GetInstance().OnGround())
 	{
-		CCharacterManager::GetInstance().ChangeGravity();
 	}
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))

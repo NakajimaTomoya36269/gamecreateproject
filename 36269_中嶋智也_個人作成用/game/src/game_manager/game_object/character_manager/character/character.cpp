@@ -95,7 +95,7 @@ void ICharacter::Jump(CStage* stage)
 {
 }
 
-void ICharacter::ChangeGravity(void)
+void ICharacter::ChangeGravity(CStage* stage)
 {
 	namespace keyboard = vivid::keyboard;
 	namespace controller = vivid::controller;
@@ -105,7 +105,7 @@ void ICharacter::ChangeGravity(void)
 
 	bool gravity_change = gravity_change_key || gravity_change_button;
 
-	if (gravity_change)
+	if (gravity_change && OnGround(stage))
 	{
 		m_GravityChange = !m_GravityChange;
 	}
