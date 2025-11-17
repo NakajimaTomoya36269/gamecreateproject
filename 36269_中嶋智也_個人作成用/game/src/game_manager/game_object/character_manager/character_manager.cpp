@@ -26,8 +26,6 @@ void CCharacterManager::Update(void)
 
 		character->Update();
 
-		CStageManager::GetInstance().CheckHitCharacter(character, character->GetPositionX());
-
 		if (!character->GetActive())
 		{
 			character->Finalize();
@@ -90,7 +88,7 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 
 bool CCharacterManager::OnGround(CStage* stage)
 {
-	if (m_CharacterList.empty())return false;
+	if (!stage)return false;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -104,9 +102,9 @@ bool CCharacterManager::OnGround(CStage* stage)
 	return false;
 }
 
-void CCharacterManager::CheckHitCeiling(CStage* stage)
+bool CCharacterManager::CheckHitCeiling(CStage* stage)
 {
-	if (m_CharacterList.empty())return;
+	if (!stage)return false;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -114,14 +112,14 @@ void CCharacterManager::CheckHitCeiling(CStage* stage)
 	while (it != end)
 	{
 		if ((*it)->CheckHitCeiling(stage))
-			return;
+			return true;
 		++it;
 	}
+	return false;
 }
-
-void CCharacterManager::CheckHitRightWall(CStage* stage)
+bool CCharacterManager::CheckHitRightWall(CStage* stage)
 {
-	if (m_CharacterList.empty())return;
+	if (!stage)return false;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -129,14 +127,15 @@ void CCharacterManager::CheckHitRightWall(CStage* stage)
 	while (it != end)
 	{
 		if ((*it)->CheckHitRightWall(stage))
-			return;
+			return true;
 		++it;
 	}
+	return false;
 }
 
-void CCharacterManager::CheckHitLeftWall(CStage* stage)
+bool CCharacterManager::CheckHitLeftWall(CStage* stage)
 {
-	if (m_CharacterList.empty())return;
+	if (!stage)return false;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -144,14 +143,15 @@ void CCharacterManager::CheckHitLeftWall(CStage* stage)
 	while (it != end)
 	{
 		if ((*it)->CheckHitLeftWall(stage))
-			return;
+			return true;
 		++it;
 	}
+	return false;
 }
 
 void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
 {
-	if (m_CharacterList.empty())return;
+	if (!enemy)return;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -166,7 +166,7 @@ void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
 
 void CCharacterManager::Jump(CStage* stage)
 {
-	if (m_CharacterList.empty())return;
+	if (!stage)return;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -180,7 +180,7 @@ void CCharacterManager::Jump(CStage* stage)
 
 void CCharacterManager::ChangeGravity(CStage* stage)
 {
-	if (m_CharacterList.empty())return;
+	if (!stage)return;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
@@ -206,4 +206,21 @@ bool CCharacterManager::CheckHitGoal(CGoal& goal)
 		++it;
 	}
 	return false;
+}
+
+void CCharacterManager::CheckHitCharacter(void)
+{
+	if (m_CharacterList.empty())return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if (CStageManager::GetInstance().CheckHitCharacter((*it), (*it)->GetPositionX()))
+		{
+			return;
+		}
+		++it;
+	}
 }

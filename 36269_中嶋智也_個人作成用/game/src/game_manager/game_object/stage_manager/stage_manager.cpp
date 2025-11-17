@@ -76,7 +76,7 @@ void CStageManager::Create(const vivid::Vector2& position)
 	m_StageList.push_back(stage);
 }
 
-bool CStageManager::OnGround(void)
+void CStageManager::OnGround(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();
@@ -85,16 +85,35 @@ bool CStageManager::OnGround(void)
 	{
 		if (CCharacterManager::GetInstance().OnGround((*it)))
 		{
-			return true;
+			return;
 		}
 		++it;
 	}
 
-	return false;
+	return;
 }
 
-void CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
+void CStageManager::EnemyOnGround(void)
 {
+	STAGE_LIST::iterator it = m_StageList.begin();
+	STAGE_LIST::iterator end = m_StageList.end();
+
+	while (it != end)
+	{
+		if (CEnemyManager::GetInstance().OnGround((*it)))
+		{
+			return;
+		}
+		++it;
+	}
+
+	return;
+}
+
+bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
+{
+	if (!character) return false;
+
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();
 
@@ -102,10 +121,11 @@ void CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 	{
 		if ((*it)->CheckHitCharacter(character, position_x))
 		{
-			return;
+			return true;
 		}
 		++it;
 	}
+	return false;
 }
 
 CStageManager::CStageManager(void)

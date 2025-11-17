@@ -27,11 +27,14 @@ public:
 	// ステージの作成
 	void Create(const vivid::Vector2& position);
 
-	// 地面の上にいるかの判定の取得
-	bool OnGround(void);
+	// 地面の上にいるかの判定
+	void OnGround(void);
+
+	// 敵が地面の上にいるかの判定
+	void EnemyOnGround(void);
 
 	// キャラクターのアタリ判定
-	void CheckHitCharacter(ICharacter* character, float&& position_x);
+	bool CheckHitCharacter(ICharacter* character, float&& position_x);
 
 
 private:

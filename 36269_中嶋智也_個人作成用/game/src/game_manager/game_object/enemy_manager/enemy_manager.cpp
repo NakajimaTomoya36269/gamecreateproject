@@ -85,17 +85,20 @@ void CEnemyManager::Create(ENEMY_ID id, const vivid::Vector2& position)
 	m_EnemyList.push_back(enemy);
 }
 
-void CEnemyManager::OnGround(CStage* stage)
+bool CEnemyManager::OnGround(CStage* stage)
 {
+	if (!stage) return false;
+
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
 	while (it != end)
 	{
 		if ((*it)->OnGround(stage))
-			return;
+			return true;
 		++it;
 	}
+	return false;
 }
 
 CEnemyManager::CEnemyManager(void)

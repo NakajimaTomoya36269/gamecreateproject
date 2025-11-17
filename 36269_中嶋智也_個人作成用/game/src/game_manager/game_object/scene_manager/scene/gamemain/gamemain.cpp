@@ -40,10 +40,10 @@ void CGamemain::Update(void)
 {
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();
+	CCharacterManager::GetInstance().CheckHitCharacter();
 	CEnemyManager::GetInstance().Update();
-	if (CStageManager::GetInstance().OnGround())
-	{
-	}
+	CStageManager::GetInstance().OnGround();
+	CStageManager::GetInstance().EnemyOnGround();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{

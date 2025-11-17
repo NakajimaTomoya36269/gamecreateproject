@@ -32,13 +32,13 @@ public:
 	bool OnGround(CStage* stage);
 
 	// 天井にあたっているかの判定
-	void CheckHitCeiling(CStage* stage);
+	bool CheckHitCeiling(CStage* stage);
 
 	// 右壁にあたっているかの判定
-	void CheckHitRightWall(CStage* stage);
+	bool CheckHitRightWall(CStage* stage);
 
 	// 左壁にあたっているかの判定
-	void CheckHitLeftWall(CStage* stage);
+	bool CheckHitLeftWall(CStage* stage);
 
 	// 敵のアタリ判定
 	void CheckHitEnemy(IEnemy* enemy);
@@ -51,6 +51,9 @@ public:
 
 	// ゴールの旗のアタリ判定
 	bool CheckHitGoal(CGoal& goal);
+
+	// キャラクターのアタリ判定
+	void CheckHitCharacter(void);
 
 private:
 	// コンストラクタ
