@@ -29,25 +29,25 @@ public:
 	void Create(CHARACTER_ID id, const vivid::Vector2& position);
 
 	// 地面の上にいるかの判定
-	bool OnGround(CStage* stage);
+	bool OnGround(IStage* stage);
 
 	// 天井にあたっているかの判定
-	bool CheckHitCeiling(CStage* stage);
+	bool CheckHitCeiling(IStage* stage);
 
 	// 右壁にあたっているかの判定
-	bool CheckHitRightWall(CStage* stage);
+	bool CheckHitRightWall(IStage* stage);
 
 	// 左壁にあたっているかの判定
-	bool CheckHitLeftWall(CStage* stage);
+	bool CheckHitLeftWall(IStage* stage);
 
 	// 敵のアタリ判定
 	void CheckHitEnemy(IEnemy* enemy);
 	
 	// ジャンプ
-	void Jump(CStage* stage);
+	void Jump(IStage* stage);
 
 	// 重力変更
-	void ChangeGravity(CStage* stage);
+	void ChangeGravity(IStage* stage);
 
 	// ゴールの旗のアタリ判定
 	bool CheckHitGoal(CGoal& goal);

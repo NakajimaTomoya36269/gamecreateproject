@@ -1,27 +1,28 @@
 #pragma once
 #include "vivid.h"
+#include "stage_id.h"
 #include "../../character_manager/character/character.h"
 
-class CStage
+class IStage
 {
 public:
 	// コンストラクタ
-	CStage(void);
+	IStage(int width, int height, STAGE_ID id);
 
 	// デストラクタ
-	~CStage(void) = default;
+	virtual ~IStage(void) = default;
 
 	// 初期化
-	void Initialize(const vivid::Vector2& position);
+	virtual void Initialize(const vivid::Vector2& position);
 
 	// 更新
-	void Update(void);
+	virtual void Update(void);
 
 	// 描画
-	void Draw(void);
+	virtual void Draw(void);
 
 	// 解放
-	void Finalize(void);
+	virtual void Finalize(void);
 
 	// 幅の取得
 	int GetWidth(void);
@@ -33,14 +34,15 @@ public:
 	vivid::Vector2 GetPosition(void);
 
 	// キャラクターのアタリ判定
-	bool CheckHitCharacter(ICharacter* character, float& position_x);
+	virtual bool CheckHitCharacter(ICharacter* character, float& position_x);
 
-private:
-	static const int	m_width;
-	static const int	m_height;
+protected:
 	static const float	m_scroll_speed;
 	static const float	m_friction;
 
+	int					m_Width;
+	int					m_Height;
+	STAGE_ID			m_StageID;
 	vivid::Vector2		m_Position;
 	vivid::Vector2		m_Velocity;
 };

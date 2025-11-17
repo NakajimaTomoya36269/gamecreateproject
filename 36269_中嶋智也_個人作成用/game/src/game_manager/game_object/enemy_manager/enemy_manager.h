@@ -28,7 +28,7 @@ public:
 	void Create(ENEMY_ID id, const vivid::Vector2& position);
 
 	// 地面の上にいる判定
-	bool OnGround(CStage* stage);
+	bool OnGround(IStage* stage);
 
 private:
 	// コンストラクタ

@@ -5,6 +5,7 @@
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
+const float ICharacter::m_jump_power = 30.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -22,6 +23,7 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
+	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 {
 }
 
@@ -37,6 +39,7 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_GravityChange = false;
 	m_Gravity = m_gravity_speed;
 	m_State = CHARACTER_STATE::ALIVE;
+	m_Jump = vivid::Vector2(0.0f, 0.0f);
 }
 
 void ICharacter::Update(void)
@@ -56,7 +59,7 @@ void ICharacter::Finalize(void)
 {
 }
 
-bool ICharacter::OnGround(CStage* stage)
+bool ICharacter::OnGround(IStage* stage)
 {
 	if (!stage)return false;
 
@@ -91,11 +94,28 @@ bool ICharacter::OnGround(CStage* stage)
 	return false;
 }
 
-void ICharacter::Jump(CStage* stage)
+void ICharacter::Jump(IStage* stage)
 {
+	namespace keyboard = vivid::keyboard;
+	namespace controller = vivid::controller;
+
+	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
+	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
+
+	bool jump = jump_key || jump_button;
+
+	if (jump && OnGround(stage))
+	{
+		m_Velocity.y -= m_Jump.y;
+	}
+
+	if (!m_GravityChange)
+		m_Position.y += m_Velocity.y * vivid::GetDeltaTime();
+	else
+		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }
 
-void ICharacter::ChangeGravity(CStage* stage)
+void ICharacter::ChangeGravity(IStage* stage)
 {
 	namespace keyboard = vivid::keyboard;
 	namespace controller = vivid::controller;
@@ -111,7 +131,7 @@ void ICharacter::ChangeGravity(CStage* stage)
 	}
 }
 
-bool ICharacter::CheckHitCeiling(CStage* stage)
+bool ICharacter::CheckHitCeiling(IStage* stage)
 {
 	if (!stage) return false;
 
@@ -139,7 +159,7 @@ bool ICharacter::CheckHitCeiling(CStage* stage)
 	return false;
 }
 
-bool ICharacter::CheckHitRightWall(CStage* stage)
+bool ICharacter::CheckHitRightWall(IStage* stage)
 {
 	if (!stage) return false;
 
@@ -159,7 +179,7 @@ bool ICharacter::CheckHitRightWall(CStage* stage)
 	return false;
 }
 
-bool ICharacter::CheckHitLeftWall(CStage* stage)
+bool ICharacter::CheckHitLeftWall(IStage* stage)
 {
 	if (!stage) return false;
 

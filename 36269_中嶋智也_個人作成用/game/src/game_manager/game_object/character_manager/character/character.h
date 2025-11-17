@@ -4,7 +4,7 @@
 #include "character_id.h"
 #include "../../goal/goal.h"
 
-class CStage;
+class IStage;
 class IEnemy;
 
 enum class CHARACTER_STATE
@@ -36,22 +36,22 @@ public:
 	virtual void Finalize(void);
 
 	// 地面の上にいる判定
-	virtual bool OnGround(CStage* stage);
+	virtual bool OnGround(IStage* stage);
 
 	// ジャンプ
-	virtual void Jump(CStage* stage);
+	virtual void Jump(IStage* stage);
 
 	// 重力変更
-	virtual void ChangeGravity(CStage* stage);
+	virtual void ChangeGravity(IStage* stage);
 
 	// 天井にあたっているかの判定
-	virtual bool CheckHitCeiling(CStage* stage);
+	virtual bool CheckHitCeiling(IStage* stage);
 
 	// 右壁にあたっているかの判定
-	virtual bool CheckHitRightWall(CStage* stage);
+	virtual bool CheckHitRightWall(IStage* stage);
 
 	// 左壁にあたっているかの判定
-	virtual bool CheckHitLeftWall(CStage* stage);
+	virtual bool CheckHitLeftWall(IStage* stage);
 
 	// 敵のアタリ判定
 	virtual bool CheckHitEnemy(IEnemy* enemy);
@@ -114,6 +114,8 @@ protected:
 	vivid::Vector2		m_Velocity;		// 速さ
 	vivid::Rect			m_Rect;			// 表示範囲
 	vivid::Vector2		m_Anchor;		// 中心
+	vivid::Vector2		m_Jump;			// ジャンプ
+
 	int  				m_Width;		// 幅
 	int				    m_Height;		// 高さ
 	int					m_Life;			// ライフ
@@ -128,4 +130,5 @@ protected:
 
 	static const float  m_gravity_speed;// 重力の強さ
 	static const float	m_max_gravity;	// 重力最大値
+	static const float m_jump_power;	// ジャンプ力
 };

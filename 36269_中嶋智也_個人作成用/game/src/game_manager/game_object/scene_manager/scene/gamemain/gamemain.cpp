@@ -20,12 +20,10 @@ void CGamemain::Initialize(void)
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
 	stage_manager.Initialize();
-	for (int i = 0; i < 5; i++)
-	{
-		stage_manager.Create(vivid::Vector2(i * 300.0f, 1016.0f));
-		stage_manager.Create(vivid::Vector2(i * 300.0f, 0.0f));
-	}
-	stage_manager.Create(vivid::Vector2(0.0f, 600.0f));
+	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(0.0f, 600.0f));
+	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 1016.0f));
+	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 0.0f));
+
 	//stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
 
 	enemy_manager.Initialize();

@@ -3,8 +3,9 @@
 #include "vivid.h"
 #include <list>
 #include "stage/stage.h"
+#include "stage/stage_id.h"
 
-class CStage;
+class IStage;
 
 class CStageManager
 {
@@ -25,7 +26,7 @@ public:
 	void Finalize(void);
 
 	// ステージの作成
-	void Create(const vivid::Vector2& position);
+	void Create(STAGE_ID id, const vivid::Vector2& position);
 
 	// 地面の上にいるかの判定
 	void OnGround(void);
@@ -51,7 +52,7 @@ private:
 	CStageManager operator=(const CStageManager& rhs) = delete;
 
 	// ステージリスト型
-	using STAGE_LIST = std::list<CStage*>;
+	using STAGE_LIST = std::list<IStage*>;
 
 	// ステージリスト
 	STAGE_LIST m_StageList;

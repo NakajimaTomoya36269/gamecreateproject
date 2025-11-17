@@ -49,7 +49,7 @@ void IEnemy::Finalize(void)
 {
 }
 
-bool IEnemy::OnGround(CStage* stage)
+bool IEnemy::OnGround(IStage* stage)
 {
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
 		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))

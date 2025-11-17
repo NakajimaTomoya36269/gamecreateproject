@@ -1,6 +1,8 @@
 #include "stage_manager.h"
 #include "../character_manager/character_manager.h"
 #include "../enemy_manager/enemy_manager.h"
+#include "stage/short_floor/short_floor.h"
+#include "stage/long_floor/long_floor.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -21,7 +23,7 @@ void CStageManager::Update(void)
 
 	while (it != end)
 	{
-		CStage* stage = (CStage*)(*it);
+		IStage* stage = (IStage*)(*it);
 		//CCharacterManager::GetInstance().CheckHitRightWall(stage);
 		//CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
@@ -63,11 +65,15 @@ void CStageManager::Finalize(void)
 	m_StageList.clear();
 }
 
-void CStageManager::Create(const vivid::Vector2& position)
+void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 {
-	CStage* stage = nullptr;
+	IStage* stage = nullptr;
 
-	stage = new CStage();
+	switch (id)
+	{
+	case STAGE_ID::SHORT_FLOOR: stage = new CShortFloor();	break;
+	case STAGE_ID::LONG_FLOOR:	stage = new CLongFloor();	break;
+	}
 
 	if (!stage)	return;
 

@@ -1,6 +1,5 @@
 #include "player.h"
 #include "../../../box_collider/box_collider.h"
-#include "../../../stage_manager/stage_manager.h"
 #include "../../../scene_manager/scene_manager.h"
 
 const int CPlayer::m_width = 100;
@@ -8,12 +7,10 @@ const int CPlayer::m_height = 220;
 const int CPlayer::m_max_life = 1;
 const float CPlayer::m_radius = 64.0f;
 const vivid::Vector2 CPlayer::m_start_position = vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
-const float CPlayer::m_jump_power = 50.0f;
 
 CPlayer::CPlayer(void)
 	: ICharacter(m_width, m_height, m_radius, m_max_life,
 		CHARACTER_CATEGORY::PLAYER, CHARACTER_ID::PLAYER)
-	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 	, m_Rotaition(0.0f)
 {
 }
@@ -71,25 +68,4 @@ void CPlayer::Dead(void)
 {
 	m_Active = false;
 	CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEOVER);
-}
-
-void CPlayer::Jump(CStage* stage)
-{
-	namespace keyboard = vivid::keyboard;
-	namespace controller = vivid::controller;
-
-	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
-	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
-
-	bool jump = jump_key || jump_button;
-
-	if (jump && ICharacter::OnGround(stage))
-	{
-		m_Velocity.y -= m_Jump.y;
-	}
-
-	if (!m_GravityChange)
-		m_Position.y += m_Velocity.y * vivid::GetDeltaTime();
-	else
-		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }

@@ -3,7 +3,7 @@
 #include "enemy_id.h"
 #include "vivid.h"
 
-class CStage;
+class IStage;
 
 enum class ENEMY_STATE
 {
@@ -33,7 +33,7 @@ public:
 	virtual void Finalize(void);
 
 	// °‚Ì“–‚½‚è”»’è
-	virtual bool OnGround(CStage* stage);
+	virtual bool OnGround(IStage* stage);
 
 	// ˆÊ’u‚Ìæ“¾
 	vivid::Vector2 GetPosition(void);

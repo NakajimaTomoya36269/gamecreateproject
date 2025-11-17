@@ -25,9 +25,6 @@ public:
 	// 解放
 	void Finalize(void) override;
 
-	// ジャンプ
-	void Jump(CStage* stage) override;
-
 private:
 	// 生存
 	void Alive(void) override;
@@ -40,9 +37,7 @@ private:
 	static const int m_max_life;					// 最大ライフ
 	static const float m_radius;					// 半径
 	static const vivid::Vector2 m_start_position;	// 初期位置
-	static const float m_jump_power;				// ジャンプ力
 
-	vivid::Vector2	m_Jump;							// ジャンプ
 	float			m_Rotaition;					// 回転
 
 };

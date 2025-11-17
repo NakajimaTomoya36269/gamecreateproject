@@ -86,7 +86,7 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 	m_CharacterList.push_back(character);
 }
 
-bool CCharacterManager::OnGround(CStage* stage)
+bool CCharacterManager::OnGround(IStage* stage)
 {
 	if (!stage)return false;
 
@@ -102,7 +102,7 @@ bool CCharacterManager::OnGround(CStage* stage)
 	return false;
 }
 
-bool CCharacterManager::CheckHitCeiling(CStage* stage)
+bool CCharacterManager::CheckHitCeiling(IStage* stage)
 {
 	if (!stage)return false;
 
@@ -117,7 +117,7 @@ bool CCharacterManager::CheckHitCeiling(CStage* stage)
 	}
 	return false;
 }
-bool CCharacterManager::CheckHitRightWall(CStage* stage)
+bool CCharacterManager::CheckHitRightWall(IStage* stage)
 {
 	if (!stage)return false;
 
@@ -133,7 +133,7 @@ bool CCharacterManager::CheckHitRightWall(CStage* stage)
 	return false;
 }
 
-bool CCharacterManager::CheckHitLeftWall(CStage* stage)
+bool CCharacterManager::CheckHitLeftWall(IStage* stage)
 {
 	if (!stage)return false;
 
@@ -164,7 +164,7 @@ void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
 	}
 }
 
-void CCharacterManager::Jump(CStage* stage)
+void CCharacterManager::Jump(IStage* stage)
 {
 	if (!stage)return;
 
@@ -178,7 +178,7 @@ void CCharacterManager::Jump(CStage* stage)
 	}
 }
 
-void CCharacterManager::ChangeGravity(CStage* stage)
+void CCharacterManager::ChangeGravity(IStage* stage)
 {
 	if (!stage)return;
 
