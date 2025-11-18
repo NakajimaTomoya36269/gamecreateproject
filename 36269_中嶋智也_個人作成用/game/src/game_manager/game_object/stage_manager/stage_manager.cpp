@@ -24,13 +24,14 @@ void CStageManager::Update(void)
 	while (it != end)
 	{
 		IStage* stage = (IStage*)(*it);
+		stage->Update();
 		//CCharacterManager::GetInstance().CheckHitRightWall(stage);
 		//CCharacterManager::GetInstance().CheckHitLeftWall(stage);
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
 		CCharacterManager::GetInstance().Jump(stage);
 		CCharacterManager::GetInstance().ChangeGravity(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
-		stage->Update();
+		CEnemyManager::GetInstance().MoveArea(stage);
 
 		++it;
 	}

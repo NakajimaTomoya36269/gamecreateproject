@@ -100,11 +100,11 @@ void ICharacter::Jump(IStage* stage)
 	namespace controller = vivid::controller;
 
 	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
-	bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
+	//bool jump_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::B);
 
-	bool jump = jump_key || jump_button;
+	//bool jump = jump_key || jump_button;
 
-	if (jump && OnGround(stage))
+	if (jump_key && OnGround(stage))
 	{
 		m_Velocity.y -= m_Jump.y;
 	}
@@ -121,11 +121,11 @@ void ICharacter::ChangeGravity(IStage* stage)
 	namespace controller = vivid::controller;
 
 	bool gravity_change_key = keyboard::Trigger(keyboard::KEY_ID::SPACE);
-	bool gravity_change_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::A);
+	//bool gravity_change_button = controller::Trigger(controller::DEVICE_ID::PLAYER1, controller::BUTTON_ID::A);
 
-	bool gravity_change = gravity_change_key || gravity_change_button;
+	//bool gravity_change = gravity_change_key || gravity_change_button;
 
-	if (gravity_change && OnGround(stage))
+	if (gravity_change_key && OnGround(stage))
 	{
 		m_GravityChange = !m_GravityChange;
 	}

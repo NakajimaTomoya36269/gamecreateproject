@@ -4,12 +4,10 @@ const int	CEnemyA::m_width = 40;
 const int	CEnemyA::m_height = 40;
 const float CEnemyA::m_radius = 20.0f;
 const int	CEnemyA::m_max_life = 1;
-const float CEnemyA::m_move_speed = 10.0f;
 const float CEnemyA::m_max_speed = 1200.0f;
 
 CEnemyA::CEnemyA(void)
 	: IEnemy(m_width, m_height, m_radius, m_max_life, ENEMY_ID::ENEMYA)
-	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))
 {
 }
 
@@ -18,8 +16,6 @@ void CEnemyA::Initialize(const vivid::Vector2& position)
 	IEnemy::Initialize(position);
 
 	m_Life = m_MaxLife = m_max_life;
-
-	m_MoveVelocity = vivid::Vector2(0.0f, 0.0f);
 }
 
 void CEnemyA::Update(void)
@@ -29,6 +25,7 @@ void CEnemyA::Update(void)
 
 void CEnemyA::Draw(void)
 {
+	IEnemy::Draw();
 	vivid::DrawTexture("data\\enemy_a.png", m_Position);
 }
 

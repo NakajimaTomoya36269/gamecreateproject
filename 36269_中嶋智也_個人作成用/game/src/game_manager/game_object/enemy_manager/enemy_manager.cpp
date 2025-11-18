@@ -101,6 +101,20 @@ bool CEnemyManager::OnGround(IStage* stage)
 	return false;
 }
 
+void CEnemyManager::MoveArea(IStage* stage)
+{
+	if (!stage) return;
+
+	ENEMY_LIST::iterator it = m_EnemyList.begin();
+	ENEMY_LIST::iterator end = m_EnemyList.end();
+
+	while (it != end)
+	{
+		(*it)->MoveArea(stage);
+		++it;
+	}
+}
+
 CEnemyManager::CEnemyManager(void)
 {
 }

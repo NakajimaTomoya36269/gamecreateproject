@@ -37,11 +37,11 @@ void CGamemain::Initialize(void)
 void CGamemain::Update(void)
 {
 	CStageManager::GetInstance().Update();
+	CStageManager::GetInstance().OnGround();
+	CStageManager::GetInstance().EnemyOnGround();
 	CCharacterManager::GetInstance().Update();
 	CCharacterManager::GetInstance().CheckHitCharacter();
 	CEnemyManager::GetInstance().Update();
-	CStageManager::GetInstance().OnGround();
-	CStageManager::GetInstance().EnemyOnGround();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{

@@ -65,6 +65,11 @@ vivid::Vector2 IStage::GetPosition(void)
 	return m_Position;
 }
 
+STAGE_ID IStage::GetStageID(void)
+{
+	return m_StageID;
+}
+
 bool IStage::CheckHitCharacter(ICharacter* character, float& position_x)
 {
 	if (!character) return false;

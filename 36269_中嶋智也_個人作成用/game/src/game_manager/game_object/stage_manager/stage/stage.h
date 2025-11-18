@@ -33,6 +33,9 @@ public:
 	// 位置の取得
 	vivid::Vector2 GetPosition(void);
 
+	// ステージIDの取得
+	STAGE_ID GetStageID(void);
+
 	// キャラクターのアタリ判定
 	virtual bool CheckHitCharacter(ICharacter* character, float& position_x);
 

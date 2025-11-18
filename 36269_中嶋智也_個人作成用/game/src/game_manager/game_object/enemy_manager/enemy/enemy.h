@@ -53,6 +53,9 @@ public:
 	// アクティブフラグの設定
 	void SetActive(bool active);
 
+	// 動く範囲
+	void MoveArea(IStage* stage);
+
 protected:
 	// 生存
 	virtual void Alive(void);
@@ -64,6 +67,7 @@ protected:
 	vivid::Vector2		m_Velocity;		// 速さ
 	vivid::Rect			m_Rect;			// 表示範囲
 	vivid::Vector2		m_Anchor;		// 中心
+	vivid::Vector2		m_MoveVelocity;	// 動く速さ
 	int  				m_Width;		// 幅
 	int				    m_Height;		// 高さ
 	int					m_Life;			// ライフ
@@ -71,6 +75,7 @@ protected:
 	float				m_Radius;		// 半径
 	float				m_Gravity;		// 重力
 	bool				m_Active;		// アクティブフラグ
+	bool				m_MoveChange;	// 移動方向を変えるフラグ
 	ENEMY_STATE			m_State;		// 状態
 	ENEMY_ID			m_EnemyID;		// 敵ID
 
@@ -78,4 +83,6 @@ protected:
 	static const float	m_max_gravity;	// 重力最大値
 	static const float	m_scroll_speed; // スクロールの速さ
 	static const float  m_friction;		// 摩擦力
+	static const float	m_move_speed;	// 動く速さ
+	static const float	m_max_speed;	// 最大スピード
 };

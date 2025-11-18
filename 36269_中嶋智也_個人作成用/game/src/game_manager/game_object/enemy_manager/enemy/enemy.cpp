@@ -1,10 +1,13 @@
 #include "enemy.h"
 #include "../../box_collider/box_collider.h"
 #include "../../stage_manager/stage/stage.h"
+#include "../../stage_manager/stage/long_floor/long_floor.h"
 
 const float IEnemy::m_gravity_speed = 0.5f;
 const float IEnemy::m_max_gravity = 30.0f;
 const float IEnemy::m_scroll_speed = 60.0f;
+const float IEnemy::m_move_speed = 3.0f;
+const float IEnemy::m_max_speed = 20.0f;
 const float IEnemy::m_friction = 0.9f;
 
 IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
@@ -16,8 +19,10 @@ IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
 	, m_EnemyID(enemy_id)
 	, m_State(ENEMY_STATE::ALIVE)
 	, m_Active(true)
+	, m_MoveChange(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
+	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
 {
@@ -27,8 +32,10 @@ void IEnemy::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
+	m_MoveVelocity = vivid::Vector2(0.0f, 0.0f);
 	m_Gravity = m_gravity_speed;
 	m_Active = true;
+	m_MoveChange = false;
 	m_State = ENEMY_STATE::ALIVE;
 }
 
@@ -43,6 +50,10 @@ void IEnemy::Update(void)
 
 void IEnemy::Draw(void)
 {
+#ifdef _DEBUG
+	vivid::DrawText(40, std::to_string(m_MoveVelocity.x), vivid::Vector2(0.0f, 80.0f));
+#endif 
+
 }
 
 void IEnemy::Finalize(void)
@@ -100,6 +111,41 @@ bool IEnemy::GetActive(void)
 void IEnemy::SetActive(bool active)
 {
 	m_Active = active;
+}
+
+void IEnemy::MoveArea(IStage* stage)
+{
+	if (!stage) return;
+
+	CLongFloor* long_floor = dynamic_cast<CLongFloor*>(stage);
+
+	if (!long_floor) return;
+
+	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth())
+	{
+		m_Position.x = long_floor->GetPosition().x + (float)long_floor->GetWidth();
+		m_MoveChange = true;
+	}
+	else if (m_Position.x < long_floor->GetPosition().x)
+	{
+		m_Position.x = long_floor->GetPosition().x;
+		m_MoveChange = false;
+	}
+	if (m_MoveVelocity.x < m_max_speed)
+	{
+		if (m_MoveChange)
+		{
+			m_MoveVelocity.x -= m_move_speed;
+		}
+		else
+		{
+			m_MoveVelocity.x += m_move_speed;
+		}
+	}
+
+	m_Position.x += m_MoveVelocity.x * vivid::GetDeltaTime();
+
+	m_MoveVelocity.x *= m_friction;
 }
 
 void IEnemy::Alive(void)
