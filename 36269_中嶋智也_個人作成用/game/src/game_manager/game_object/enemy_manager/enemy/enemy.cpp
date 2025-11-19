@@ -7,7 +7,7 @@ const float IEnemy::m_gravity_speed = 0.5f;
 const float IEnemy::m_max_gravity = 30.0f;
 const float IEnemy::m_scroll_speed = 60.0f;
 const float IEnemy::m_move_speed = 3.0f;
-const float IEnemy::m_max_speed = 20.0f;
+const float IEnemy::m_max_speed = 100.0f;
 const float IEnemy::m_friction = 0.9f;
 
 IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
@@ -121,14 +121,12 @@ void IEnemy::MoveArea(IStage* stage)
 
 	if (!long_floor) return;
 
-	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth())
+	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth() - 200.0f)
 	{
-		m_Position.x = long_floor->GetPosition().x + (float)long_floor->GetWidth();
 		m_MoveChange = true;
 	}
 	else if (m_Position.x < long_floor->GetPosition().x)
 	{
-		m_Position.x = long_floor->GetPosition().x;
 		m_MoveChange = false;
 	}
 	if (m_MoveVelocity.x < m_max_speed)
