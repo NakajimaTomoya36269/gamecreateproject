@@ -22,9 +22,8 @@ void CGamemain::Initialize(void)
 	stage_manager.Initialize();
 	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(0.0f, 600.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 1016.0f));
+	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1600.0f, 1016.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 0.0f));
-
-	//stage_manager.Create(vivid::Vector2(0.0f, 952.0f));
 
 	enemy_manager.Initialize();
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 976.0f));
