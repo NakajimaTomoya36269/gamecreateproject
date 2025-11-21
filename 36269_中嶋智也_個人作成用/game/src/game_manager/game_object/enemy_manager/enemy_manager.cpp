@@ -110,11 +110,7 @@ void CEnemyManager::MoveArea(IStage* stage)
 
 	while (it != end)
 	{
-		if (OnGround(stage))
-		{
-			(*it)->MoveArea(stage);
-			return;
-		}
+		(*it)->MoveArea(stage);
 		++it;
 	}
 }
