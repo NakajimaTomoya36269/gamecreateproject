@@ -88,7 +88,7 @@ vivid::Vector2 IEnemy::GetPosition(void)
 	return m_Position;
 }
 
-void IEnemy::SetPosition(const vivid::Vector2 position)
+void IEnemy::SetPosition(const vivid::Vector2& position)
 {
 	m_Position = position;
 }

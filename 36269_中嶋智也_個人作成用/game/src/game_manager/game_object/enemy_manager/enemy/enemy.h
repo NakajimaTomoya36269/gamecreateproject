@@ -39,7 +39,7 @@ public:
 	vivid::Vector2 GetPosition(void);
 
 	// ˆÊ’u‚Ìİ’è
-	void SetPosition(const vivid::Vector2 position);
+	void SetPosition(const vivid::Vector2& position);
 
 	// •‚Ìæ“¾
 	int GetWidth(void);
