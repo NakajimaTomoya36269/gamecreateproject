@@ -36,12 +36,6 @@ void CEnemyA::Finalize(void)
 
 void CEnemyA::Alive(void)
 {
-	//if (m_MoveVelocity.x < m_max_speed)
-		m_MoveVelocity.x += m_move_speed;
-
-	m_Position.x += m_MoveVelocity.x * vivid::GetDeltaTime();
-	m_MoveVelocity.x *= m_friction;
-
 	IEnemy::Alive();
 	if (m_Position.y < 0.0f || m_Position.y + m_Height >(float)vivid::WINDOW_HEIGHT)
 	{

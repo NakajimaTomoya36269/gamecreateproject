@@ -20,9 +20,9 @@ void CGamemain::Initialize(void)
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
 	stage_manager.Initialize();
-	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(0.0f, 600.0f));
+	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(1620.0f, 600.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 1016.0f));
-	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1600.0f, 1016.0f));
+	//stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1600.0f, 1016.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 0.0f));
 
 	enemy_manager.Initialize();
@@ -30,7 +30,7 @@ void CGamemain::Initialize(void)
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(400.0f, 976.0f));
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(600.0f, 976.0f));
 
-	m_goal.Initialize(vivid::Vector2(0.0f, 472.0f));
+	m_goal.Initialize(vivid::Vector2(1820.0f, 472.0f));
 }
 
 void CGamemain::Update(void)

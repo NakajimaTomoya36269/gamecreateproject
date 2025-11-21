@@ -115,13 +115,15 @@ void IEnemy::SetActive(bool active)
 
 void IEnemy::MoveArea(IStage* stage)
 {
+	const float move_area_margin = 200.0f;
+
 	if (!stage) return;
 
 	CLongFloor* long_floor = dynamic_cast<CLongFloor*>(stage);
 
 	if (!long_floor) return;
 
-	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth() - 200.0f)
+	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth() - move_area_margin)
 	{
 		m_MoveChange = true;
 	}
