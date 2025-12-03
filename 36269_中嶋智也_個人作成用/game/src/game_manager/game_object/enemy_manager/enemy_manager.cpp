@@ -1,5 +1,6 @@
 #include "enemy_manager.h"
 #include "enemy/enemy_a/enemy_a.h"
+#include "enemy/enemy_b/enemy_b.h"
 #include "../character_manager/character_manager.h"
 
 CEnemyManager& CEnemyManager::GetInstance(void)
@@ -76,7 +77,7 @@ void CEnemyManager::Create(ENEMY_ID id, const vivid::Vector2& position)
 	switch (id)
 	{
 	case ENEMY_ID::ENEMYA: enemy = new CEnemyA(); break;
-	case ENEMY_ID::ENEMYB:	break;
+	case ENEMY_ID::ENEMYB:	enemy = new CEnemyB(); break;
 	}
 
 	if (!enemy) return;

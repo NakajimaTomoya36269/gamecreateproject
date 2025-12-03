@@ -3,15 +3,15 @@
 #include "../enemy.h"
 #include "vivid.h"
 
-class CEnemyA
+class CEnemyB
 	: public IEnemy
 {
 public:
 	// コンストラクタ
-	CEnemyA(void);
+	CEnemyB(void);
 
 	// デストラクタ
-	~CEnemyA(void) = default;
+	~CEnemyB(void);
 
 	// 初期化
 	void Initialize(const vivid::Vector2& position) override;
@@ -25,6 +25,9 @@ public:
 	// 解放
 	void Finalize(void) override;
 
+	// 床のアタリ判定
+	bool OnGround(IStage* stage) override;
+
 private:
 	// 生存
 	void Alive(void) override;
@@ -32,8 +35,8 @@ private:
 	// 死亡
 	void Dead(void) override;
 
-	static const int		m_width;	// 幅
-	static const int		m_height;	// 高さ
-	static const float		m_radius;	// 半径
-	static const int		m_max_life;	// 最大ライフ
+	static const int			m_width;		// 幅
+	static const int			m_height;		// 高さ
+	static const float			m_radius;		// 半径
+	static const int			m_max_life;		// 最大ライフ
 };

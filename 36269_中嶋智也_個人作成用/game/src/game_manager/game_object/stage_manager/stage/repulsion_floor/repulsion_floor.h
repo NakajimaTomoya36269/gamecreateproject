@@ -14,10 +14,10 @@ public:
 	~CRepulsionFloor(void) = default;
 
 	// ‰Šú‰»
-	void Initialize(const vivid::Vector2& position);
+	void Initialize(const vivid::Vector2& position) override;
 
 	// •`‰æ
-	void Draw(void);
+	void Draw(void) override;
 
 private:
 	static const int			m_width;		// •

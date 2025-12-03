@@ -54,7 +54,7 @@ void IEnemy::Update(void)
 void IEnemy::Draw(void)
 {
 #ifdef _DEBUG
-	vivid::DrawText(40, std::to_string(m_MoveVelocity.x), vivid::Vector2(0.0f, 80.0f));
+	//vivid::DrawText(40, std::to_string(m_MoveVelocity.x), vivid::Vector2(0.0f, 80.0f));
 #endif 
 
 }
@@ -175,7 +175,6 @@ void IEnemy::Alive(void)
 	}
 
 	m_Position.x += m_Velocity.x * vivid::GetDeltaTime();
-	m_Position.y += m_Velocity.y;
 	m_Velocity.x *= m_friction;
 }
 

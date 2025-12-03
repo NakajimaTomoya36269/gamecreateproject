@@ -1,5 +1,4 @@
 #include "player.h"
-#include "../../../box_collider/box_collider.h"
 #include "../../../scene_manager/scene_manager.h"
 
 const int CPlayer::m_width = 100;

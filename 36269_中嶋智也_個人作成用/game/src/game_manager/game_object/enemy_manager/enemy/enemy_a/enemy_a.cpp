@@ -4,7 +4,6 @@ const int	CEnemyA::m_width = 40;
 const int	CEnemyA::m_height = 40;
 const float CEnemyA::m_radius = 20.0f;
 const int	CEnemyA::m_max_life = 1;
-const float CEnemyA::m_max_speed = 1200.0f;
 
 CEnemyA::CEnemyA(void)
 	: IEnemy(m_width, m_height, m_radius, m_max_life, ENEMY_ID::ENEMYA)
@@ -37,6 +36,7 @@ void CEnemyA::Finalize(void)
 void CEnemyA::Alive(void)
 {
 	IEnemy::Alive();
+	m_Position.y += m_Velocity.y;
 	if (m_Position.y < 0.0f || m_Position.y + m_Height >(float)vivid::WINDOW_HEIGHT)
 	{
 		m_State = ENEMY_STATE::DEAD;

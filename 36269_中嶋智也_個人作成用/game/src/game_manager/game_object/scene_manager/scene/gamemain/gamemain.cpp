@@ -32,6 +32,7 @@ void CGamemain::Initialize(void)
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 976.0f));
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(400.0f, 976.0f));
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(600.0f, 976.0f));
+	enemy_manager.Create(ENEMY_ID::ENEMYB, vivid::Vector2(0.0f, 40.0f));
 
 	m_goal.Initialize(vivid::Vector2(1820.0f, 472.0f));
 }
