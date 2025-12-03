@@ -122,8 +122,10 @@ protected:
 	int					m_MaxLife;		// 最大ライフ
 	float				m_Radius;		// 半径
 	float				m_Gravity;		// 重力
+	float				m_JumpUpTimer;	// ジャンプ力が上がる時間
 	bool				m_Active;		// アクティブフラグ
 	bool				m_GravityChange;// 重力変更フラグ
+	bool				m_JumpUp;		// ジャンプ力が上がるフラグ
 	CHARACTER_CATEGORY  m_Category;		// カテゴリー
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
 	CHARACTER_STATE		m_State;		// 状態
@@ -131,4 +133,5 @@ protected:
 	static const float  m_gravity_speed;// 重力の強さ
 	static const float	m_max_gravity;	// 重力最大値
 	static const float	m_jump_power;	// ジャンプ力
+	static const float	m_jump_up_max_time;	// ジャンプ力が上がる最大時間
 };

@@ -6,6 +6,7 @@
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
+const float ICharacter::m_jump_up_max_time = 100.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -19,11 +20,13 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_State(CHARACTER_STATE::ALIVE)
 	, m_Active(true)
 	, m_GravityChange(false)
+	, m_JumpUp(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
+	, m_JumpUpTimer(0.0f)
 {
 }
 
@@ -40,6 +43,7 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Gravity = m_gravity_speed;
 	m_State = CHARACTER_STATE::ALIVE;
 	m_Jump = vivid::Vector2(0.0f, 0.0f);
+	m_JumpUpTimer = 0.0f;
 }
 
 void ICharacter::Update(void)
@@ -313,14 +317,6 @@ int ICharacter::GetLife(void)
 
 void ICharacter::Alive(void)
 {
-	if (m_GravityChange)
-	{
-		m_Position.y -= m_Velocity.y;
-	}
-	if (!m_GravityChange)
-	{
-		m_Position.y += m_Velocity.y;
-	}
 }
 
 void ICharacter::Dead(void)
