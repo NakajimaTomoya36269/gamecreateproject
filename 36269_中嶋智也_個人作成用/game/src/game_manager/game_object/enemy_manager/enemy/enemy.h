@@ -68,6 +68,7 @@ protected:
 	vivid::Rect			m_Rect;			// 表示範囲
 	vivid::Vector2		m_Anchor;		// 中心
 	vivid::Vector2		m_MoveVelocity;	// 動く速さ
+	vivid::Vector2		m_Jump;			// ジャンプ
 	int  				m_Width;		// 幅
 	int				    m_Height;		// 高さ
 	int					m_Life;			// ライフ
@@ -85,4 +86,5 @@ protected:
 	static const float  m_friction;		// 摩擦力
 	static const float	m_move_speed;	// 動く速さ
 	static const float	m_max_speed;	// 最大スピード
+	static const float	m_jump_power;	// ジャンプ力
 };

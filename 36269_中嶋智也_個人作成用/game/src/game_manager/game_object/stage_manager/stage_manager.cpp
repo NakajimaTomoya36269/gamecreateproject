@@ -3,6 +3,7 @@
 #include "../enemy_manager/enemy_manager.h"
 #include "stage/short_floor/short_floor.h"
 #include "stage/long_floor/long_floor.h"
+#include "stage/repulsion_floor/repulsion_floor.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -74,6 +75,7 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	{
 	case STAGE_ID::SHORT_FLOOR: stage = new CShortFloor();	break;
 	case STAGE_ID::LONG_FLOOR:	stage = new CLongFloor();	break;
+	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor();	break;
 	}
 
 	if (!stage)	return;

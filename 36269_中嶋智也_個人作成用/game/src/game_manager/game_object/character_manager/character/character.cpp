@@ -75,6 +75,11 @@ bool ICharacter::OnGround(IStage* stage)
 
 			m_Velocity.y = 0.0f;
 
+			if (stage->GetStageID() == STAGE_ID::REPULSION_FLOOR)
+			{
+				m_Velocity.y -= m_Jump.y / 2.0f;
+			}
+
 			return true;
 		}
 		else if (m_Velocity.y > 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight()

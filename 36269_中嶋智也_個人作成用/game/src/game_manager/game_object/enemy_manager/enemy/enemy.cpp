@@ -9,6 +9,7 @@ const float IEnemy::m_scroll_speed = 60.0f;
 const float IEnemy::m_move_speed = 3.0f;
 const float IEnemy::m_max_speed = 100.0f;
 const float IEnemy::m_friction = 0.9f;
+const float IEnemy::m_jump_power = 30.0f;
 
 IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
 	: m_Width(width)
@@ -25,6 +26,7 @@ IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
 	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
+	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 {
 }
 
@@ -33,6 +35,7 @@ void IEnemy::Initialize(const vivid::Vector2& position)
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_MoveVelocity = vivid::Vector2(0.0f, 0.0f);
+	m_Jump = vivid::Vector2(0.0f, m_jump_power);
 	m_Gravity = m_gravity_speed;
 	m_Active = true;
 	m_MoveChange = false;
@@ -72,6 +75,11 @@ bool IEnemy::OnGround(IStage* stage)
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
 			m_Velocity.y = 0.0f;
+
+			if (stage->GetStageID() == STAGE_ID::REPULSION_FLOOR)
+			{
+				m_Velocity.y -= m_Jump.y;
+			}
 
 			return true;
 		}

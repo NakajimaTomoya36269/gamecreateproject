@@ -130,5 +130,5 @@ protected:
 
 	static const float  m_gravity_speed;// 重力の強さ
 	static const float	m_max_gravity;	// 重力最大値
-	static const float m_jump_power;	// ジャンプ力
+	static const float	m_jump_power;	// ジャンプ力
 };
