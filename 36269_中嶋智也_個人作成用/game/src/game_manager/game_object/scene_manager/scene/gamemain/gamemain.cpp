@@ -21,8 +21,9 @@ void CGamemain::Initialize(void)
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
 	stage_manager.Initialize();
 	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(1620.0f, 600.0f));
+	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(0.0f, 600.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 1016.0f));
-	//stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1600.0f, 1016.0f));
+	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1600.0f, 1016.0f));
 	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 0.0f));
 
 	enemy_manager.Initialize();
@@ -39,7 +40,7 @@ void CGamemain::Update(void)
 	CStageManager::GetInstance().OnGround();
 	CStageManager::GetInstance().EnemyOnGround();
 	CCharacterManager::GetInstance().Update();
-	CCharacterManager::GetInstance().CheckHitCharacter();
+	//CCharacterManager::GetInstance().CheckHitCharacter();
 	CEnemyManager::GetInstance().Update();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))

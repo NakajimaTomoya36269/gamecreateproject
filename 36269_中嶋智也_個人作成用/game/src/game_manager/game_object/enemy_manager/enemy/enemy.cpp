@@ -62,10 +62,12 @@ void IEnemy::Finalize(void)
 
 bool IEnemy::OnGround(IStage* stage)
 {
-	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
-		stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	if (m_Position.x + (float)m_Width > stage->GetPosition().x &&
+		m_Position.x < stage->GetPosition().x + (float)stage->GetWidth() &&
+		m_Position.y + (float)m_Height > stage->GetPosition().y &&
+		m_Position.y < stage->GetPosition().y + stage->GetHeight())
 	{
-		if (m_Velocity.y > 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y)
+		if (m_Position.y + (float)m_Height > stage->GetPosition().y)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
 
