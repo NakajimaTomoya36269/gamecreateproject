@@ -2,6 +2,7 @@
 #include "../../box_collider/box_collider.h"
 #include "../../stage_manager/stage/stage.h"
 #include "../../enemy_manager/enemy/enemy.h"
+#include "../../item_manager/item/item.h"
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
@@ -226,6 +227,11 @@ bool ICharacter::CheckHitEnemy(IEnemy* enemy)
 		m_Life--;
 		return true;
 	}
+	return false;
+}
+
+bool ICharacter::CheckHitItem(IItem* item)
+{
 	return false;
 }
 

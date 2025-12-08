@@ -6,6 +6,7 @@
 
 class IStage;
 class IEnemy;
+class IItem;
 
 enum class CHARACTER_STATE
 {
@@ -55,6 +56,9 @@ public:
 
 	// 敵のアタリ判定
 	virtual bool CheckHitEnemy(IEnemy* enemy);
+
+	// アイテムのアタリ判定
+	virtual bool CheckHitItem(IItem* item);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);
