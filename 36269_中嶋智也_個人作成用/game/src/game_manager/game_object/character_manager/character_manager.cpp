@@ -208,6 +208,36 @@ bool CCharacterManager::CheckHitGoal(CGoal& goal)
 	return false;
 }
 
+void CCharacterManager::CheckHitItem(IItem* item)
+{
+	if (!item) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitItem(item))
+			return;
+		++it;
+	}
+}
+
+void CCharacterManager::JumpUp(IItem* item)
+{
+	if (!item) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->JumpUp(item);
+
+		++it;
+	}
+}
+
 void CCharacterManager::CheckHitCharacter(void)
 {
 	if (m_CharacterList.empty())return;

@@ -1,6 +1,7 @@
 #include "item_manager.h"
 #include "item/item.h"
 #include "item/jump_up_item/jump_up_item.h"
+#include "../character_manager/character_manager.h"
 
 CItemManager& CItemManager::GetInstance(void)
 {
@@ -24,6 +25,8 @@ void CItemManager::Update(void)
 		IItem* item = (IItem*)(*it);
 
 		item->Update();
+		CCharacterManager::GetInstance().CheckHitItem(item);
+		CCharacterManager::GetInstance().JumpUp(item);
 
 		if (!item->GetActive())
 		{

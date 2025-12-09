@@ -6,6 +6,7 @@
 #include "character/character_id.h"
 #include "../stage_manager/stage_manager.h"
 #include "../enemy_manager/enemy_manager.h"
+#include "../item_manager/item_manager.h"
 
 class CCharacterManager
 {
@@ -51,6 +52,12 @@ public:
 
 	// ゴールの旗のアタリ判定
 	bool CheckHitGoal(CGoal& goal);
+
+	// アイテムのアタリ判定
+	void CheckHitItem(IItem* item);
+
+	// ジャンプ力が上がる
+	void JumpUp(IItem* item);
 
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(void);

@@ -45,7 +45,7 @@ public:
 private:
 	int				m_Width;	// 幅
 	int				m_Height;	// 高さ
-	bool			m_Active;	// アクティブフラグ
+	bool			m_ActiveFlag;// アクティブフラグ
 	vivid::Vector2	m_Position;	// 位置
 	vivid::Vector2	m_Velocity;	// 速さ
 	ITEM_ID			m_ItemID;	// アイテムのID

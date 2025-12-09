@@ -57,7 +57,15 @@ void CPlayer::Alive(void)
 	{
 		m_Position.y += m_Velocity.y;
 	}
-	if (m_Position.y < 0.0f || m_Position.y + m_Height >(float)vivid::WINDOW_HEIGHT || m_Life <= 0)
+	if (!m_GravityChange && m_Position.y + m_Height > (float)vivid::WINDOW_HEIGHT)
+	{
+		m_State = CHARACTER_STATE::DEAD;
+	}
+	else if (m_GravityChange && m_Position.y < 0.0f)
+	{
+		m_State = CHARACTER_STATE::DEAD;
+	}
+	else if (m_Life <= 0)
 	{
 		m_State = CHARACTER_STATE::DEAD;
 	}

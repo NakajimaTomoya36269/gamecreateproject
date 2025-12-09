@@ -7,7 +7,7 @@ IItem::IItem(int width, int height, ITEM_ID id)
 	: m_Width(width)
 	, m_Height(height)
 	, m_ItemID(id)
-	, m_Active(true)
+	, m_ActiveFlag(true)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 {
@@ -21,7 +21,7 @@ void IItem::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
-	m_Active = true;
+	m_ActiveFlag = true;
 }
 
 void IItem::Update(void)
@@ -70,12 +70,12 @@ vivid::Vector2 IItem::GetPosition(void)
 
 bool IItem::GetActive(void)
 {
-	return m_Active;
+	return m_ActiveFlag;
 }
 
 void IItem::SetActive(bool active)
 {
-	m_Active = active;
+	m_ActiveFlag = active;
 }
 
 ITEM_ID IItem::GetItemID(void)

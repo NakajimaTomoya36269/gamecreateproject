@@ -105,7 +105,11 @@ public:
 	// 重力変更フラグの設定
 	void SetGravityChange(bool gravity);
 
+	// ゴールとのアタリ判定
 	bool CheckHitGoal(CGoal& goal);
+
+	// ジャンプ力が上がる
+	void JumpUp(IItem* item);
 
 protected:
 	// 生存
@@ -138,4 +142,5 @@ protected:
 	static const float	m_max_gravity;	// 重力最大値
 	static const float	m_jump_power;	// ジャンプ力
 	static const float	m_jump_up_max_time;	// ジャンプ力が上がる最大時間
+	static const float	m_jump_up_power;// ジャンプ力上昇
 };

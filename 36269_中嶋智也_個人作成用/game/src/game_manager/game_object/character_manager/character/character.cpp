@@ -8,6 +8,7 @@ const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
 const float ICharacter::m_jump_up_max_time = 100.0f;
+const float ICharacter::m_jump_up_power = 60.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -232,6 +233,18 @@ bool ICharacter::CheckHitEnemy(IEnemy* enemy)
 
 bool ICharacter::CheckHitItem(IItem* item)
 {
+	if (!item) return false;
+
+	if (m_Position.x + (float)m_Width > item->GetPosition().x &&
+		m_Position.x < item->GetPosition().x + (float)item->GetWidth() &&
+		m_Position.y + (float)m_Height > item->GetPosition().y &&
+		m_Position.y < item->GetPosition().y + (float)item->GetHeight())
+	{
+		item->SetActive(false);
+
+		return true;
+	}
+
 	return false;
 }
 
@@ -299,6 +312,29 @@ bool ICharacter::CheckHitGoal(CGoal& goal)
 	}
 	return false;
 
+}
+
+void ICharacter::JumpUp(IItem* item)
+{
+	if (CheckHitItem(item))
+	{
+		if (item->GetItemID() == ITEM_ID::JUMP_UP_ITEM)
+		{
+			m_JumpUp = true;
+		}
+	}
+
+	if (m_JumpUp)
+	{
+		m_JumpUpTimer = m_jump_up_max_time;
+		m_Jump.y = m_jump_up_power;
+		m_JumpUp = false;
+	}
+
+	if (--m_JumpUpTimer < 0.0f)
+	{
+		m_Jump.y = m_jump_power;
+	}
 }
 
 bool ICharacter::GetActive(void)
