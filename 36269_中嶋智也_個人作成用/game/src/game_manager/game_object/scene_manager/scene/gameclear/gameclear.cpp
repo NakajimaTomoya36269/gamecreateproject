@@ -50,6 +50,8 @@ void CGameClear::Update(void)
 
 void CGameClear::Draw(void)
 {
+	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
+
 	vivid::DrawText(m_gameclear_font_size, "GameClear", m_GameClearPosition, 0xff0000aa);
 
 	vivid::DrawText(m_enter_font_size, "Push Enter to Title", m_EnterPosition);

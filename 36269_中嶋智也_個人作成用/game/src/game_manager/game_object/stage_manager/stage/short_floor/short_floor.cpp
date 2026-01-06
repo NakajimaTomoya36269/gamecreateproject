@@ -21,5 +21,5 @@ void CShortFloor::Initialize(const vivid::Vector2& position)
 
 void CShortFloor::Draw(void)
 {
-	vivid::DrawTexture("data\\short_floor.png", m_Position, 0xff000000);
+	vivid::DrawTexture("data\\short_floor.png", m_Position, 0xff000066);
 }

@@ -44,6 +44,8 @@ void CGameOver::Update(void)
 
 void CGameOver::Draw(void)
 {
+	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
+
 	vivid::DrawText(m_gameover_font_size, "GameOver", m_GameOverPosition, 0xffff0000);
 
 	vivid::DrawText(m_enter_font_size, "Push Enter to Title", m_EnterPosition);

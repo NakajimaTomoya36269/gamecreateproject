@@ -54,7 +54,13 @@ void CTitle::Update(void)
 void CTitle::Draw(void)
 {
 
+#if 0
 	vivid::DrawText(m_title_font_size, "Reverse\nGravity", m_TitlePosition);
+#endif
+
+	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
+
+	vivid::DrawTexture("data\\title.png", vivid::Vector2(220.0f, 0.0f));
 
 	vivid::DrawText(m_enter_font_size, "Push Enter to Start", m_EnterPosition);
 

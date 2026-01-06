@@ -20,6 +20,7 @@ void CJumpUpItem::Update(void)
 
 void CJumpUpItem::Draw(void)
 {
+	vivid::DrawTexture("data\\enemy_a.png", m_Position);
 }
 
 void CJumpUpItem::Finalize(void)

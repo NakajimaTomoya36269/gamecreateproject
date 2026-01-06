@@ -42,7 +42,7 @@ public:
 	// アイテムIDの取得
 	ITEM_ID GetItemID(void);
 
-private:
+protected:
 	int				m_Width;	// 幅
 	int				m_Height;	// 高さ
 	bool			m_ActiveFlag;// アクティブフラグ

@@ -2,6 +2,7 @@
 #include "../../../character_manager/character_manager.h"
 #include "../../../stage_manager/stage_manager.h"
 #include "../../../enemy_manager/enemy_manager.h"
+#include "../../../item_manager/item_manager.h"
 #include "../../scene_manager.h"
 
 const int CGamemain::m_font_size = 40;
@@ -16,6 +17,7 @@ void CGamemain::Initialize(void)
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
 	CStageManager& stage_manager = CStageManager::GetInstance();
 	CEnemyManager& enemy_manager = CEnemyManager::GetInstance();
+	CItemManager& item_manager = CItemManager::GetInstance();
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
@@ -35,6 +37,9 @@ void CGamemain::Initialize(void)
 	enemy_manager.Create(ENEMY_ID::ENEMYB, vivid::Vector2(0.0f, 40.0f));
 
 	m_goal.Initialize(vivid::Vector2(1820.0f, 472.0f));
+
+	item_manager.Initilaize();
+	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(600.0f, 600.0f));
 }
 
 void CGamemain::Update(void)
@@ -51,6 +56,8 @@ void CGamemain::Update(void)
 		CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMECLEAR);
 	}
 	m_goal.Update();
+
+	CItemManager::GetInstance().Update();
 
 	namespace keyboard = vivid::keyboard;
 	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
@@ -77,8 +84,10 @@ void CGamemain::Update(void)
 
 void CGamemain::Draw(void)
 {
+	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
 	CStageManager::GetInstance().Draw();
 	m_goal.Draw();
+	CItemManager::GetInstance().Draw();
 	CEnemyManager::GetInstance().Draw();
 	CCharacterManager::GetInstance().Draw();
 
@@ -93,5 +102,6 @@ void CGamemain::Finalize(void)
 	CCharacterManager::GetInstance().Finalize();
 	CStageManager::GetInstance().Finalize();
 	CEnemyManager::GetInstance().Finalize();
+	CItemManager::GetInstance().Finalize();
 	m_goal.Finalize();
 }

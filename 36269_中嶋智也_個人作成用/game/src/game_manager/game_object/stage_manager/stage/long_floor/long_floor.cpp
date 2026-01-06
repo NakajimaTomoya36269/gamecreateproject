@@ -21,5 +21,5 @@ void CLongFloor::Initialize(const vivid::Vector2& position)
 
 void CLongFloor::Draw(void)
 {
-	vivid::DrawTexture("data\\long_floor.png", m_Position, 0xff000000);
+	vivid::DrawTexture("data\\long_floor.png", m_Position, 0xff000066);
 }
