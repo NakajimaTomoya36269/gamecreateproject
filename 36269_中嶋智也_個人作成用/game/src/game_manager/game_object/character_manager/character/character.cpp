@@ -7,7 +7,7 @@
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
-const float ICharacter::m_jump_up_max_time = 100.0f;
+const float ICharacter::m_jump_up_max_time = 300.0f;
 const float ICharacter::m_jump_up_power = 60.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
@@ -316,6 +316,8 @@ bool ICharacter::CheckHitGoal(CGoal& goal)
 
 void ICharacter::JumpUp(IItem* item)
 {
+	if (!item) return;
+
 	if (CheckHitItem(item))
 	{
 		if (item->GetItemID() == ITEM_ID::JUMP_UP_ITEM)

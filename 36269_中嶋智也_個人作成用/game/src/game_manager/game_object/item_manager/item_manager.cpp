@@ -1,6 +1,7 @@
 #include "item_manager.h"
 #include "item/item.h"
 #include "item/jump_up_item/jump_up_item.h"
+#include "item/invincible_item/invincible_item.h"
 #include "../character_manager/character_manager.h"
 
 CItemManager& CItemManager::GetInstance(void)
@@ -78,6 +79,7 @@ void CItemManager::Create(ITEM_ID id, const vivid::Vector2& position)
 	switch (id)
 	{
 	case ITEM_ID::JUMP_UP_ITEM: item = new CJumpUpItem(); break;
+	case ITEM_ID::INVINCIBLE_ITEM: item = new CInvincibleItem(); break;
 	}
 
 	if (!item) return;

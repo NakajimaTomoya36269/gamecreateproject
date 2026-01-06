@@ -44,6 +44,8 @@ bool CEnemyB::OnGround(IStage* stage)
 	{
 		if (m_Velocity.y > 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight())
 		{
+			m_CurrentStage = stage;
+
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
 
 			m_Velocity.y = 0.0f;

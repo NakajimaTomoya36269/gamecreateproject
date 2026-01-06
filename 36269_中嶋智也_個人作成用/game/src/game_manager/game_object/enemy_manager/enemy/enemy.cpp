@@ -27,6 +27,7 @@ IEnemy::IEnemy(int width, int height, float radius, int life, ENEMY_ID enemy_id)
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
+	, m_CurrentStage(nullptr)
 {
 }
 
@@ -79,7 +80,11 @@ bool IEnemy::OnGround(IStage* stage)
 			if (stage->GetStageID() == STAGE_ID::REPULSION_FLOOR)
 			{
 				m_Velocity.y -= m_Jump.y;
+
+				return true;
 			}
+
+			m_CurrentStage = stage;
 
 			return true;
 		}
@@ -125,7 +130,7 @@ void IEnemy::SetActive(bool active)
 
 void IEnemy::MoveArea(IStage* stage)
 {
-	const float move_area_margin = 200.0f;
+	const float move_area_margin = 50.0f;
 
 	if (!stage) return;
 
@@ -133,11 +138,13 @@ void IEnemy::MoveArea(IStage* stage)
 
 	if (!long_floor) return;
 
-	if (m_Position.x > long_floor->GetPosition().x + (float)long_floor->GetWidth() - move_area_margin)
+	if (!m_CurrentStage) return;
+
+	if (m_Position.x > m_CurrentStage->GetPosition().x + (float)m_CurrentStage->GetWidth() - move_area_margin)
 	{
 		m_MoveChange = true;
 	}
-	else if (m_Position.x < long_floor->GetPosition().x)
+	else if (m_Position.x < m_CurrentStage->GetPosition().x)
 	{
 		m_MoveChange = false;
 	}

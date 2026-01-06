@@ -79,6 +79,7 @@ protected:
 	bool				m_MoveChange;	// 移動方向を変えるフラグ
 	ENEMY_STATE			m_State;		// 状態
 	ENEMY_ID			m_EnemyID;		// 敵ID
+	IStage*				m_CurrentStage;
 
 	static const float  m_gravity_speed;// 重力の強さ
 	static const float	m_max_gravity;	// 重力最大値
