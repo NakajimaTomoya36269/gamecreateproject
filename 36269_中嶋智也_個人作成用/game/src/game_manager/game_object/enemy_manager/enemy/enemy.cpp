@@ -6,8 +6,7 @@
 const float IEnemy::m_gravity_speed = 0.5f;
 const float IEnemy::m_max_gravity = 30.0f;
 const float IEnemy::m_scroll_speed = 60.0f;
-const float IEnemy::m_move_speed = 3.0f;
-const float IEnemy::m_max_speed = 100.0f;
+const float IEnemy::m_move_speed = 5.0f;
 const float IEnemy::m_friction = 0.9f;
 const float IEnemy::m_jump_power = 30.0f;
 
@@ -128,15 +127,9 @@ void IEnemy::SetActive(bool active)
 	m_Active = active;
 }
 
-void IEnemy::MoveArea(IStage* stage)
+void IEnemy::MoveArea(void)
 {
 	const float move_area_margin = 50.0f;
-
-	if (!stage) return;
-
-	CLongFloor* long_floor = dynamic_cast<CLongFloor*>(stage);
-
-	if (!long_floor) return;
 
 	if (!m_CurrentStage) return;
 
@@ -148,16 +141,13 @@ void IEnemy::MoveArea(IStage* stage)
 	{
 		m_MoveChange = false;
 	}
-	if (m_MoveVelocity.x < m_max_speed)
+	if (m_MoveChange)
 	{
-		if (m_MoveChange)
-		{
-			m_MoveVelocity.x -= m_move_speed;
-		}
-		else
-		{
-			m_MoveVelocity.x += m_move_speed;
-		}
+		m_MoveVelocity.x -= m_move_speed;
+	}
+	else
+	{
+		m_MoveVelocity.x += m_move_speed;
 	}
 
 	m_Position.x += m_MoveVelocity.x * vivid::GetDeltaTime();
@@ -167,6 +157,8 @@ void IEnemy::MoveArea(IStage* stage)
 
 void IEnemy::Alive(void)
 {
+	MoveArea();
+
 	namespace keyboard = vivid::keyboard;
 
 	bool right_move_key = keyboard::Button(keyboard::KEY_ID::RIGHT);

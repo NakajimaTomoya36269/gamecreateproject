@@ -32,7 +32,6 @@ void CStageManager::Update(void)
 		CCharacterManager::GetInstance().Jump(stage);
 		CCharacterManager::GetInstance().ChangeGravity(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
-		CEnemyManager::GetInstance().MoveArea(stage);
 
 		++it;
 	}

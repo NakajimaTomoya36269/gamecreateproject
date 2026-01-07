@@ -30,9 +30,6 @@ public:
 	// 地面の上にいる判定
 	bool OnGround(IStage* stage);
 
-	// 移動範囲
-	void MoveArea(IStage* stage);
-
 private:
 	// コンストラクタ
 	CEnemyManager(void);

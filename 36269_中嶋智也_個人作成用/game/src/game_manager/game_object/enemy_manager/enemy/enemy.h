@@ -54,7 +54,7 @@ public:
 	void SetActive(bool active);
 
 	// 動く範囲
-	void MoveArea(IStage* stage);
+	void MoveArea(void);
 
 protected:
 	// 生存
@@ -86,6 +86,5 @@ protected:
 	static const float	m_scroll_speed; // スクロールの速さ
 	static const float  m_friction;		// 摩擦力
 	static const float	m_move_speed;	// 動く速さ
-	static const float	m_max_speed;	// 最大スピード
 	static const float	m_jump_power;	// ジャンプ力
 };
