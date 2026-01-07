@@ -24,6 +24,8 @@ public:
 	// 解放
 	virtual void Finalize(void);
 
+	virtual void GimmickOn(void);
+
 	// 幅の取得
 	int GetWidth(void);
 
@@ -39,6 +41,7 @@ public:
 protected:
 	int					m_Width;		// 幅
 	int					m_Height;		// 高さ
+	bool				m_OnFlag;		// ギミックが発動しているかのフラグ
 	vivid::Vector2		m_Position;		// 位置
 	vivid::Vector2		m_Velocity;		// 速さ
 	GIMMICK_ID			m_GimmickID;	// ギミックID

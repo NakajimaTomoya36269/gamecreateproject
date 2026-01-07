@@ -43,6 +43,8 @@ void CGamemain::Initialize(void)
 	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(600.0f, 600.0f));
 	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(800.0f, 600.0f));
 	item_manager.Create(ITEM_ID::INVINCIBLE_ITEM, vivid::Vector2(400.0f, 400.0f));
+
+	m_background.Initialize();
 }
 
 void CGamemain::Update(void)
@@ -61,6 +63,8 @@ void CGamemain::Update(void)
 	m_goal.Update();
 
 	CItemManager::GetInstance().Update();
+
+	m_background.Update();
 
 	namespace keyboard = vivid::keyboard;
 	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
@@ -87,7 +91,7 @@ void CGamemain::Update(void)
 
 void CGamemain::Draw(void)
 {
-	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
+	m_background.Draw();
 	CStageManager::GetInstance().Draw();
 	m_goal.Draw();
 	CItemManager::GetInstance().Draw();
@@ -107,4 +111,5 @@ void CGamemain::Finalize(void)
 	CEnemyManager::GetInstance().Finalize();
 	CItemManager::GetInstance().Finalize();
 	m_goal.Finalize();
+	m_background.Finalize();
 }

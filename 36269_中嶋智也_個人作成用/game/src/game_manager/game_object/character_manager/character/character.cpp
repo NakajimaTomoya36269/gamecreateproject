@@ -3,6 +3,7 @@
 #include "../../stage_manager/stage/stage.h"
 #include "../../enemy_manager/enemy/enemy.h"
 #include "../../item_manager/item/item.h"
+#include "../../gimmick_manager/gimmick/gimmick.h"
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
@@ -247,6 +248,30 @@ bool ICharacter::CheckHitItem(IItem* item)
 		m_Position.y < item->GetPosition().y + (float)item->GetHeight())
 	{
 		item->SetActive(false);
+
+		return true;
+	}
+
+	return false;
+}
+
+bool ICharacter::CheckHitGimmick(IGimmick* gimmick)
+{
+	namespace keyboard = vivid::keyboard;
+
+	bool switch_on_flag = keyboard::Trigger(keyboard::KEY_ID::DOWN);
+
+	if (!gimmick) return false;
+
+	if (m_Position.x + (float)m_Width > gimmick->GetPosition().x &&
+		m_Position.x < gimmick->GetPosition().x + (float)gimmick->GetWidth() &&
+		m_Position.y + (float)m_Height > gimmick->GetPosition().y &&
+		m_Position.y < gimmick->GetPosition().y + (float)gimmick->GetHeight())
+	{
+		if (gimmick->GetGimmickID() == GIMMICK_ID::SWITCH && switch_on_flag)
+		{
+			gimmick->GimmickOn();
+		}
 
 		return true;
 	}

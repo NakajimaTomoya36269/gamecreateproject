@@ -72,3 +72,7 @@ void CGimmickManager::Create(GIMMICK_ID id, const vivid::Vector2& position)
 	gimmick->Initialize(position);
 	m_GimmickList.push_back(gimmick);
 }
+
+CGimmickManager::CGimmickManager(void)
+{
+}

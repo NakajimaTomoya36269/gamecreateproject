@@ -9,6 +9,7 @@ IGimmick::IGimmick(int width, int height, GIMMICK_ID id)
 	, m_GimmickID(id)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
+	, m_OnFlag(false)
 {
 }
 
@@ -16,6 +17,7 @@ void IGimmick::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
+	m_OnFlag = false;
 }
 
 void IGimmick::Update(void)
@@ -45,6 +47,11 @@ void IGimmick::Draw(void)
 
 void IGimmick::Finalize(void)
 {
+}
+
+void IGimmick::GimmickOn(void)
+{
+	m_OnFlag = true;
 }
 
 int IGimmick::GetWidth(void)

@@ -3,6 +3,7 @@
 #include "../scene.h"
 #include "vivid.h"
 #include "../../../goal/goal.h"
+#include "../../../background/background.h"
 
 class CGamemain : public IScene
 {
@@ -30,5 +31,6 @@ private:
 
 	vivid::Vector2		m_Position;		// 位置
 
-	CGoal				m_goal;			// ゴールクラスのオブジェクトの作成
+	CGoal				m_goal;			// ゴールクラスのオブジェクト作成
+	CBackGround			m_background;	// 背景クラスのオブジェクト作成
 };
