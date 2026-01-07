@@ -111,6 +111,9 @@ public:
 	// ジャンプ力が上がる
 	void JumpUp(IItem* item);
 
+	// 無敵
+	void Invincible(IItem* item);
+
 protected:
 	// 生存
 	virtual void Alive(void);
@@ -124,23 +127,26 @@ protected:
 	vivid::Vector2		m_Anchor;		// 中心
 	vivid::Vector2		m_Jump;			// ジャンプ
 
-	int  				m_Width;		// 幅
-	int				    m_Height;		// 高さ
-	int					m_Life;			// ライフ
-	int					m_MaxLife;		// 最大ライフ
-	float				m_Radius;		// 半径
-	float				m_Gravity;		// 重力
-	float				m_JumpUpTimer;	// ジャンプ力が上がる時間
-	bool				m_Active;		// アクティブフラグ
-	bool				m_GravityChange;// 重力変更フラグ
-	bool				m_JumpUp;		// ジャンプ力が上がるフラグ
-	CHARACTER_CATEGORY  m_Category;		// カテゴリー
-	CHARACTER_ID		m_CharacterID;	// キャラクターID
-	CHARACTER_STATE		m_State;		// 状態
+	int  				m_Width;			// 幅
+	int				    m_Height;			// 高さ
+	int					m_Life;				// ライフ
+	int					m_MaxLife;			// 最大ライフ
+	float				m_Radius;			// 半径
+	float				m_Gravity;			// 重力
+	float				m_JumpUpTimer;		// ジャンプ力が上がる時間
+	float				m_InvincibleTimer;	// 無敵時間
+	bool				m_Active;			// アクティブフラグ
+	bool				m_GravityChange;	// 重力変更フラグ
+	bool				m_JumpUp;			// ジャンプ力が上がるフラグ
+	bool				m_InvincibleFlag;	// 無敵フラグ
+	CHARACTER_CATEGORY  m_Category;			// カテゴリー
+	CHARACTER_ID		m_CharacterID;		// キャラクターID
+	CHARACTER_STATE		m_State;			// 状態
 
-	static const float  m_gravity_speed;// 重力の強さ
-	static const float	m_max_gravity;	// 重力最大値
-	static const float	m_jump_power;	// ジャンプ力
-	static const float	m_jump_up_max_time;	// ジャンプ力が上がる最大時間
-	static const float	m_jump_up_power;// ジャンプ力上昇
+	static const float  m_gravity_speed;		// 重力の強さ
+	static const float	m_max_gravity;			// 重力最大値
+	static const float	m_jump_power;			// ジャンプ力
+	static const float	m_jump_up_max_time;		// ジャンプ力が上がる最大時間
+	static const float	m_jump_up_power;		// ジャンプ力上昇
+	static const float	m_invincible_max_time;	// 無敵最大時間
 };

@@ -9,6 +9,7 @@ const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
 const float ICharacter::m_jump_up_max_time = 300.0f;
 const float ICharacter::m_jump_up_power = 60.0f;
+const float ICharacter::m_invincible_max_time = 300.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -23,12 +24,14 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_Active(true)
 	, m_GravityChange(false)
 	, m_JumpUp(false)
+	, m_InvincibleFlag(false)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
 	, m_Rect{ 0, 0, m_Width, m_Height }
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 	, m_JumpUpTimer(0.0f)
+	, m_InvincibleTimer(0.0f)
 {
 }
 
@@ -42,10 +45,13 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_Active = true;
 	m_GravityChange = false;
+	m_JumpUp = false;
+	m_InvincibleFlag = false;
 	m_Gravity = m_gravity_speed;
 	m_State = CHARACTER_STATE::ALIVE;
 	m_Jump = vivid::Vector2(0.0f, 0.0f);
 	m_JumpUpTimer = 0.0f;
+	m_InvincibleTimer = 0.0f;
 }
 
 void ICharacter::Update(void)
@@ -222,8 +228,8 @@ bool ICharacter::CheckHitEnemy(IEnemy* enemy)
 {
 	if (!enemy) return false;
 
-	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height, 
-		enemy->GetPosition(), enemy->GetWidth(), enemy->GetHeight()))
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		enemy->GetPosition(), enemy->GetWidth(), enemy->GetHeight()) && !m_InvincibleFlag)
 	{
 		m_Life--;
 		return true;
@@ -323,20 +329,43 @@ void ICharacter::JumpUp(IItem* item)
 		if (item->GetItemID() == ITEM_ID::JUMP_UP_ITEM)
 		{
 			m_JumpUp = true;
+			m_JumpUpTimer = m_jump_up_max_time;
+			m_Jump.y = m_jump_up_power;
 		}
 	}
 
 	if (m_JumpUp)
 	{
-		m_JumpUpTimer = m_jump_up_max_time;
-		m_Jump.y = m_jump_up_power;
-		m_JumpUp = false;
+		if (--m_JumpUpTimer < 0.0f)
+		{
+			m_Jump.y = m_jump_power;
+			m_JumpUp = false;
+		}
 	}
 
-	if (--m_JumpUpTimer < 0.0f)
+}
+
+void ICharacter::Invincible(IItem* item)
+{
+	if (!item) return;
+
+	if (CheckHitItem(item))
 	{
-		m_Jump.y = m_jump_power;
+		if (item->GetItemID() == ITEM_ID::INVINCIBLE_ITEM)
+		{
+			m_InvincibleFlag = true;
+			m_InvincibleTimer = m_invincible_max_time;
+		}
 	}
+
+	if (m_InvincibleFlag)
+	{
+		if (--m_InvincibleTimer < 0.0f)
+		{
+			m_InvincibleFlag = false;
+		}
+	}
+
 }
 
 bool ICharacter::GetActive(void)

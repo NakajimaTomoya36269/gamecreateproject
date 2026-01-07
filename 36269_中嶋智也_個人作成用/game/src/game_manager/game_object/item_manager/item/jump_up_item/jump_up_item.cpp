@@ -8,21 +8,7 @@ CJumpUpItem::CJumpUpItem(void)
 {
 }
 
-void CJumpUpItem::Initialize(const vivid::Vector2& position)
-{
-	IItem::Initialize(position);
-}
-
-void CJumpUpItem::Update(void)
-{
-	IItem::Update();
-}
-
 void CJumpUpItem::Draw(void)
 {
-	vivid::DrawTexture("data\\enemy_a.png", m_Position);
-}
-
-void CJumpUpItem::Finalize(void)
-{
+	vivid::DrawTexture("data\\jump_up_item.png", m_Position);
 }

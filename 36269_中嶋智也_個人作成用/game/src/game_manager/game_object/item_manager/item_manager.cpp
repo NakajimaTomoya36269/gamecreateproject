@@ -28,6 +28,7 @@ void CItemManager::Update(void)
 		item->Update();
 		CCharacterManager::GetInstance().CheckHitItem(item);
 		CCharacterManager::GetInstance().JumpUp(item);
+		CCharacterManager::GetInstance().Invincible(item);
 
 		if (!item->GetActive())
 		{

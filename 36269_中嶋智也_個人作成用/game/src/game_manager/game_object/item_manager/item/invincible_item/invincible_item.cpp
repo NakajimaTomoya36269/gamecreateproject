@@ -8,21 +8,7 @@ CInvincibleItem::CInvincibleItem(void)
 {
 }
 
-void CInvincibleItem::Initialize(const vivid::Vector2& position)
-{
-	IItem::Initialize(position);
-}
-
-void CInvincibleItem::Update(void)
-{
-	IItem::Update();
-}
-
 void CInvincibleItem::Draw(void)
 {
 	vivid::DrawTexture("data\\enemy_a.png", m_Position);
-}
-
-void CInvincibleItem::Finalize(void)
-{
 }

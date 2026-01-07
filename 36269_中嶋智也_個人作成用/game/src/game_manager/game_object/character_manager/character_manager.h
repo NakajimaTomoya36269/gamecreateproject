@@ -59,6 +59,9 @@ public:
 	// ジャンプ力が上がる
 	void JumpUp(IItem* item);
 
+	// 無敵
+	void Invincible(IItem* item);
+
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(void);
 

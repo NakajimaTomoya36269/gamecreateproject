@@ -238,6 +238,21 @@ void CCharacterManager::JumpUp(IItem* item)
 	}
 }
 
+void CCharacterManager::Invincible(IItem* item)
+{
+	if (!item) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->Invincible(item);
+
+		++it;
+	}
+}
+
 void CCharacterManager::CheckHitCharacter(void)
 {
 	if (m_CharacterList.empty())return;
