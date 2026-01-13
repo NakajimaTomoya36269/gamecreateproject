@@ -1,6 +1,8 @@
 #include "gimmick_manager.h"
 #include "gimmick/gimmick.h"
 #include "gimmick/switch/switch.h"
+#include "../character_manager/character_manager.h"
+#include "../stage_manager/stage_manager.h"
 
 CGimmickManager& CGimmickManager::GetInstance(void)
 {
@@ -24,6 +26,8 @@ void CGimmickManager::Update(void)
 		IGimmick* gimmick = (IGimmick*)(*it);
 
 		gimmick->Update();
+		CCharacterManager::GetInstance().CheckHitGimmick(gimmick);
+		CStageManager::GetInstance().MoveChange(gimmick);
 
 		it++;
 	}

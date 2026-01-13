@@ -7,6 +7,7 @@
 #include "../stage_manager/stage_manager.h"
 #include "../enemy_manager/enemy_manager.h"
 #include "../item_manager/item_manager.h"
+#include "../gimmick_manager/gimmick_manager.h"
 
 class CCharacterManager
 {
@@ -61,6 +62,9 @@ public:
 
 	// 無敵
 	void Invincible(IItem* item);
+
+	// ギミックのアタリ判定
+	void CheckHitGimmick(IGimmick* gimmick);
 
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(void);

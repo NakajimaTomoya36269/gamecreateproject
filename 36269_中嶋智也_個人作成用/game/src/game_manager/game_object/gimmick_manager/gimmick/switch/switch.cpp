@@ -10,4 +10,5 @@ CSwitch::CSwitch(void)
 
 void CSwitch::Draw(void)
 {
+	vivid::DrawTexture("data\\enemy_a.png", m_Position, 0xff8eff8e);
 }

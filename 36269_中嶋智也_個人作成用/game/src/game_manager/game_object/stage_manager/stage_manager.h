@@ -6,6 +6,7 @@
 #include "stage/stage_id.h"
 
 class IStage;
+class IGimmick;
 
 class CStageManager
 {
@@ -36,6 +37,8 @@ public:
 
 	// キャラクターのアタリ判定
 	bool CheckHitCharacter(ICharacter* character, float&& position_x);
+
+	void MoveChange(IGimmick* gimmick);
 
 
 private:

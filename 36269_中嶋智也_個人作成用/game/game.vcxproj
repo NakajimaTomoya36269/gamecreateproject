@@ -189,6 +189,7 @@
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game_manager\game_object\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\long_floor\long_floor.cpp" />
+    <ClCompile Include="src\game_manager\game_object\stage_manager\stage\move_floor\move_floor.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\repulsion_floor\repulsion_floor.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\short_floor\short_floor.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\stage.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene\title\title.h" />
     <ClInclude Include="src\game_manager\game_object\scene_manager\scene_manager.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\long_floor\long_floor.h" />
+    <ClInclude Include="src\game_manager\game_object\stage_manager\stage\move_floor\move_floor.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\repulsion_floor\repulsion_floor.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\short_floor\short_floor.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\stage.h" />

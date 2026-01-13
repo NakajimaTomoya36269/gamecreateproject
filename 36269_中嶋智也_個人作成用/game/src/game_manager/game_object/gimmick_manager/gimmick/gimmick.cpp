@@ -51,7 +51,7 @@ void IGimmick::Finalize(void)
 
 void IGimmick::GimmickOn(void)
 {
-	m_OnFlag = true;
+	m_OnFlag = !m_OnFlag;
 }
 
 int IGimmick::GetWidth(void)
@@ -72,4 +72,9 @@ vivid::Vector2 IGimmick::GetPosition(void)
 GIMMICK_ID IGimmick::GetGimmickID(void)
 {
 	return m_GimmickID;
+}
+
+bool IGimmick::GetOnFlag(void)
+{
+	return m_OnFlag;
 }

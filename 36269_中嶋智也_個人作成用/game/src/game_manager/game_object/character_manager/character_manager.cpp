@@ -253,6 +253,21 @@ void CCharacterManager::Invincible(IItem* item)
 	}
 }
 
+void CCharacterManager::CheckHitGimmick(IGimmick* gimmick)
+{
+	if (!gimmick) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->CheckHitGimmick(gimmick);
+
+		++it;
+	}
+}
+
 void CCharacterManager::CheckHitCharacter(void)
 {
 	if (m_CharacterList.empty())return;

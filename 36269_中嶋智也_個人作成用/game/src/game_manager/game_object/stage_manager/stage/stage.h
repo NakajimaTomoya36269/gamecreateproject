@@ -3,6 +3,8 @@
 #include "stage_id.h"
 #include "../../character_manager/character/character.h"
 
+class IGimmick;
+
 class IStage
 {
 public:
@@ -23,6 +25,8 @@ public:
 
 	// ‰ğ•ú
 	virtual void Finalize(void);
+
+	virtual void MoveChange(IGimmick* gimmick);
 
 	// •‚Ìæ“¾
 	int GetWidth(void);

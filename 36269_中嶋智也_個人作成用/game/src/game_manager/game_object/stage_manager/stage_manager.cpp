@@ -1,9 +1,11 @@
 #include "stage_manager.h"
 #include "../character_manager/character_manager.h"
 #include "../enemy_manager/enemy_manager.h"
+#include "../gimmick_manager/gimmick_manager.h"
 #include "stage/short_floor/short_floor.h"
 #include "stage/long_floor/long_floor.h"
 #include "stage/repulsion_floor/repulsion_floor.h"
+#include "stage/move_floor/move_floor.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -72,9 +74,10 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 
 	switch (id)
 	{
-	case STAGE_ID::SHORT_FLOOR: stage = new CShortFloor();	break;
-	case STAGE_ID::LONG_FLOOR:	stage = new CLongFloor();	break;
-	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor();	break;
+	case STAGE_ID::SHORT_FLOOR: stage = new CShortFloor(); break;
+	case STAGE_ID::LONG_FLOOR: stage = new CLongFloor(); break;
+	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor(); break;
+	case STAGE_ID::MOVE_FLOOR: stage = new CMoveFloor(); break;
 	}
 
 	if (!stage)	return;
@@ -134,6 +137,20 @@ bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 		++it;
 	}
 	return false;
+}
+
+void CStageManager::MoveChange(IGimmick* gimmick)
+{
+	if (!gimmick) return;
+
+	STAGE_LIST::iterator it = m_StageList.begin();
+	STAGE_LIST::iterator end = m_StageList.end();
+
+	while (it != end)
+	{
+		(*it)->MoveChange(gimmick);
+		++it;
+	}
 }
 
 CStageManager::CStageManager(void)

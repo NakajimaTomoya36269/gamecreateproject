@@ -38,6 +38,9 @@ public:
 	// ギミックIDの取得
 	GIMMICK_ID GetGimmickID(void);
 
+	// ギミック発動フラグの取得
+	bool GetOnFlag(void);
+
 protected:
 	int					m_Width;		// 幅
 	int					m_Height;		// 高さ
