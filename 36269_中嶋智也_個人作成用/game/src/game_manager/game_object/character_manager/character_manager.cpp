@@ -253,16 +253,16 @@ void CCharacterManager::Invincible(IItem* item)
 	}
 }
 
-void CCharacterManager::CheckHitGimmick(IGimmick* gimmick)
+void CCharacterManager::CheckHitSwitch(ISwitch* sw)
 {
-	if (!gimmick) return;
+	if (!sw) return;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
 	while (it != end)
 	{
-		(*it)->CheckHitGimmick(gimmick);
+		(*it)->CheckHitSwitch(sw);
 
 		++it;
 	}

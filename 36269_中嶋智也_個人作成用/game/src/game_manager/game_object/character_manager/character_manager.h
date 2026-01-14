@@ -7,7 +7,7 @@
 #include "../stage_manager/stage_manager.h"
 #include "../enemy_manager/enemy_manager.h"
 #include "../item_manager/item_manager.h"
-#include "../gimmick_manager/gimmick_manager.h"
+#include "../switch_manager/switch_manager.h"
 
 class CCharacterManager
 {
@@ -64,7 +64,7 @@ public:
 	void Invincible(IItem* item);
 
 	// ギミックのアタリ判定
-	void CheckHitGimmick(IGimmick* gimmick);
+	void CheckHitSwitch(ISwitch* sw);
 
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(void);

@@ -1,17 +1,17 @@
 #pragma once
 
 #include "vivid.h"
-#include "../gimmick.h"
+#include "../switch.h"
 
-class CSwitch
-	: public IGimmick
+class CFloorSwitch
+	: public ISwitch
 {
 public:
 	// コンストラクタ
-	CSwitch(void);
+	CFloorSwitch(void);
 
 	// デストラクタ
-	~CSwitch(void) = default;
+	~CFloorSwitch(void) = default;
 
 	// 描画
 	void Draw(void) override;

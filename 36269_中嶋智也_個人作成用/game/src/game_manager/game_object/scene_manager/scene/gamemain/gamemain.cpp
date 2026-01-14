@@ -3,7 +3,7 @@
 #include "../../../stage_manager/stage_manager.h"
 #include "../../../enemy_manager/enemy_manager.h"
 #include "../../../item_manager/item_manager.h"
-#include "../../../gimmick_manager/gimmick_manager.h"
+#include "../../../switch_manager/switch_manager.h"
 #include "../../scene_manager.h"
 
 const int CGamemain::m_font_size = 40;
@@ -19,7 +19,7 @@ void CGamemain::Initialize(void)
 	CStageManager& stage_manager = CStageManager::GetInstance();
 	CEnemyManager& enemy_manager = CEnemyManager::GetInstance();
 	CItemManager& item_manager = CItemManager::GetInstance();
-	CGimmickManager& gimmick_manager = CGimmickManager::GetInstance();
+	CSwitchManager& switch_manager = CSwitchManager::GetInstance();
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
@@ -48,9 +48,9 @@ void CGamemain::Initialize(void)
 	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(800.0f, 600.0f));
 	item_manager.Create(ITEM_ID::INVINCIBLE_ITEM, vivid::Vector2(400.0f, 400.0f));
 
-	gimmick_manager.Initialize();
-	gimmick_manager.Create(GIMMICK_ID::SWITCH, vivid::Vector2(3100.0f, 900.0f));
-	gimmick_manager.Create(GIMMICK_ID::SWITCH, vivid::Vector2(3000.0f, 900.0f));
+	switch_manager.Initialize();
+	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH, vivid::Vector2(3100.0f, 900.0f));
+	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH , vivid::Vector2(3000.0f, 900.0f));
 
 	m_background.Initialize();
 }
@@ -63,7 +63,7 @@ void CGamemain::Update(void)
 	CCharacterManager::GetInstance().Update();
 	//CCharacterManager::GetInstance().CheckHitCharacter();
 	CEnemyManager::GetInstance().Update();
-	CGimmickManager::GetInstance().Update();
+	CSwitchManager::GetInstance().Update();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{
@@ -106,7 +106,7 @@ void CGamemain::Draw(void)
 	CItemManager::GetInstance().Draw();
 	CEnemyManager::GetInstance().Draw();
 	CCharacterManager::GetInstance().Draw();
-	CGimmickManager::GetInstance().Draw();
+	CSwitchManager::GetInstance().Draw();
 
 #ifdef _DEBUG
 	vivid::DrawText(m_font_size, "GamemainScene", m_Position);
@@ -120,7 +120,7 @@ void CGamemain::Finalize(void)
 	CStageManager::GetInstance().Finalize();
 	CEnemyManager::GetInstance().Finalize();
 	CItemManager::GetInstance().Finalize();
-	CGimmickManager::GetInstance().Finalize();
+	CSwitchManager::GetInstance().Finalize();
 	m_goal.Finalize();
 	m_background.Finalize();
 }

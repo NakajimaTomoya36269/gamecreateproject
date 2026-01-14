@@ -50,8 +50,9 @@ void IStage::Finalize(void)
 {
 }
 
-void IStage::MoveChange(IGimmick* gimmick)
+void IStage::MoveChange(ISwitch* sw)
 {
+	if (!sw) return;
 }
 
 int IStage::GetWidth(void)

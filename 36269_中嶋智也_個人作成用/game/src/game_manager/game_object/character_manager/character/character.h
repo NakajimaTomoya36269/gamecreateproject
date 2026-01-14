@@ -7,7 +7,7 @@
 class IStage;
 class IEnemy;
 class IItem;
-class IGimmick;
+class ISwitch;
 
 enum class CHARACTER_STATE
 {
@@ -61,7 +61,7 @@ public:
 	// アイテムのアタリ判定
 	virtual bool CheckHitItem(IItem* item);
 
-	virtual bool CheckHitGimmick(IGimmick* gimmick);
+	virtual bool CheckHitSwitch(ISwitch* sw);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);

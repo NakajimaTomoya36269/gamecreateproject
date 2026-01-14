@@ -3,7 +3,7 @@
 #include "../../stage_manager/stage/stage.h"
 #include "../../enemy_manager/enemy/enemy.h"
 #include "../../item_manager/item/item.h"
-#include "../../gimmick_manager/gimmick/gimmick.h"
+#include "../../switch_manager/switch/switch.h"
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
@@ -255,22 +255,22 @@ bool ICharacter::CheckHitItem(IItem* item)
 	return false;
 }
 
-bool ICharacter::CheckHitGimmick(IGimmick* gimmick)
+bool ICharacter::CheckHitSwitch(ISwitch* sw)
 {
 	namespace keyboard = vivid::keyboard;
 
 	bool switch_on_flag = keyboard::Trigger(keyboard::KEY_ID::DOWN);
 
-	if (!gimmick) return false;
+	if (!sw) return false;
 
-	if (m_Position.x + (float)m_Width > gimmick->GetPosition().x &&
-		m_Position.x < gimmick->GetPosition().x + (float)gimmick->GetWidth() &&
-		m_Position.y + (float)m_Height > gimmick->GetPosition().y &&
-		m_Position.y < gimmick->GetPosition().y + (float)gimmick->GetHeight())
+	if (m_Position.x + (float)m_Width > sw->GetPosition().x &&
+		m_Position.x < sw->GetPosition().x + (float)sw->GetWidth() &&
+		m_Position.y + (float)m_Height > sw->GetPosition().y &&
+		m_Position.y < sw->GetPosition().y + (float)sw->GetHeight())
 	{
-		if (gimmick->GetGimmickID() == GIMMICK_ID::SWITCH && switch_on_flag)
+		if (sw->GetSwitchID() == SWITCH_ID::FLOOR_SWITCH && switch_on_flag)
 		{
-			gimmick->GimmickOn();
+			sw->GimmickOn();
 		}
 
 		return true;

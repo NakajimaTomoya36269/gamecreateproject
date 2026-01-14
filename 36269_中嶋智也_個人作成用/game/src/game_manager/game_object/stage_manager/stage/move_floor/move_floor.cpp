@@ -1,5 +1,5 @@
 #include "move_floor.h"
-#include "../../../gimmick_manager/gimmick/gimmick.h"
+#include "../../../switch_manager/switch/switch.h"
 
 const int	CMoveFloor::m_width = 300;
 const int	CMoveFloor::m_height = 64;
@@ -53,11 +53,11 @@ void CMoveFloor::Finalize(void)
 	IStage::Finalize();
 }
 
-void CMoveFloor::MoveChange(IGimmick* gimmick)
+void CMoveFloor::MoveChange(ISwitch* sw)
 {
-	if (!gimmick) return;
+	if (!sw) return;
 
-	if (gimmick->GetOnFlag())
+	if (sw->GetOnFlag())
 	{
 		if (m_Position.x > m_StartPosition.x + (float)m_Width)
 		{

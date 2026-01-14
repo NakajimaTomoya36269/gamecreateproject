@@ -1,26 +1,26 @@
-#include "gimmick.h"
+#include "switch.h"
 
-const float IGimmick::m_scroll_speed = 60.0f;
-const float IGimmick::m_friction = 0.9f;
+const float ISwitch::m_scroll_speed = 60.0f;
+const float ISwitch::m_friction = 0.9f;
 
-IGimmick::IGimmick(int width, int height, GIMMICK_ID id)
+ISwitch::ISwitch(int width, int height, SWITCH_ID id)
 	: m_Width(width)
 	, m_Height(height)
-	, m_GimmickID(id)
+	, m_SwitchID(id)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
 	, m_OnFlag(false)
 {
 }
 
-void IGimmick::Initialize(const vivid::Vector2& position)
+void ISwitch::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
 	m_OnFlag = false;
 }
 
-void IGimmick::Update(void)
+void ISwitch::Update(void)
 {
 	namespace keyboard = vivid::keyboard;
 
@@ -41,40 +41,40 @@ void IGimmick::Update(void)
 	m_Velocity.x *= m_friction;
 }
 
-void IGimmick::Draw(void)
+void ISwitch::Draw(void)
 {
 }
 
-void IGimmick::Finalize(void)
+void ISwitch::Finalize(void)
 {
 }
 
-void IGimmick::GimmickOn(void)
+void ISwitch::GimmickOn(void)
 {
 	m_OnFlag = !m_OnFlag;
 }
 
-int IGimmick::GetWidth(void)
+int ISwitch::GetWidth(void)
 {
 	return m_Width;
 }
 
-int IGimmick::GetHeight(void)
+int ISwitch::GetHeight(void)
 {
 	return m_Height;
 }
 
-vivid::Vector2 IGimmick::GetPosition(void)
+vivid::Vector2 ISwitch::GetPosition(void)
 {
 	return m_Position;
 }
 
-GIMMICK_ID IGimmick::GetGimmickID(void)
+SWITCH_ID ISwitch::GetSwitchID(void)
 {
-	return m_GimmickID;
+	return m_SwitchID;
 }
 
-bool IGimmick::GetOnFlag(void)
+bool ISwitch::GetOnFlag(void)
 {
 	return m_OnFlag;
 }

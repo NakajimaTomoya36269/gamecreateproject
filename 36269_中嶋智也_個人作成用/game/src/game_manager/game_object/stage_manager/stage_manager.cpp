@@ -1,7 +1,7 @@
 #include "stage_manager.h"
 #include "../character_manager/character_manager.h"
 #include "../enemy_manager/enemy_manager.h"
-#include "../gimmick_manager/gimmick_manager.h"
+#include "../switch_manager/switch_manager.h"
 #include "stage/short_floor/short_floor.h"
 #include "stage/long_floor/long_floor.h"
 #include "stage/repulsion_floor/repulsion_floor.h"
@@ -139,16 +139,16 @@ bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 	return false;
 }
 
-void CStageManager::MoveChange(IGimmick* gimmick)
+void CStageManager::MoveChange(ISwitch* sw)
 {
-	if (!gimmick) return;
+	if (!sw) return;
 
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();
 
 	while (it != end)
 	{
-		(*it)->MoveChange(gimmick);
+		(*it)->MoveChange(sw);
 		++it;
 	}
 }

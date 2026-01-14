@@ -1,16 +1,16 @@
 #pragma once
 
 #include "vivid.h"
-#include "gimmick_id.h"
+#include "switch_id.h"
 
-class IGimmick
+class ISwitch
 {
 public:
 	// コンストラクタ
-	IGimmick(int width, int height, GIMMICK_ID id);
+	ISwitch(int width, int height, SWITCH_ID id);
 
 	// デストラクタ
-	virtual ~IGimmick(void) = default;
+	virtual ~ISwitch(void) = default;
 
 	// 初期化
 	virtual void Initialize(const vivid::Vector2& position);
@@ -36,7 +36,7 @@ public:
 	vivid::Vector2 GetPosition(void);
 
 	// ギミックIDの取得
-	GIMMICK_ID GetGimmickID(void);
+	SWITCH_ID GetSwitchID(void);
 
 	// ギミック発動フラグの取得
 	bool GetOnFlag(void);
@@ -47,7 +47,7 @@ protected:
 	bool				m_OnFlag;		// ギミックが発動しているかのフラグ
 	vivid::Vector2		m_Position;		// 位置
 	vivid::Vector2		m_Velocity;		// 速さ
-	GIMMICK_ID			m_GimmickID;	// ギミックID
+	SWITCH_ID			m_SwitchID;		// ギミックID
 
 	static const float	m_scroll_speed;	// スクロールスピード
 	static const float	m_friction;		// 摩擦

@@ -3,8 +3,6 @@
 #include "vivid.h"
 #include "../stage.h"
 
-class CSwitch;
-
 class CMoveFloor
 	: public IStage
 {
@@ -28,7 +26,7 @@ public:
 	void Finalize(void) override;
 
 	// ˆÚ“®•ûŒü•ÏX
-	void MoveChange(IGimmick* gimmick) override;
+	void MoveChange(ISwitch* sw) override;
 
 private:
 	vivid::Vector2			m_StartPosition;// ‰‚ß‚ÌˆÊ’u
