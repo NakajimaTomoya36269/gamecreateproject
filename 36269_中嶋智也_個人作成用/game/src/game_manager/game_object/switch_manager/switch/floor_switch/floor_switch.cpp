@@ -10,5 +10,5 @@ CFloorSwitch::CFloorSwitch(void)
 
 void CFloorSwitch::Draw(void)
 {
-	vivid::DrawTexture("data\\enemy_a.png", m_Position, 0xff8eff8e);
+	vivid::DrawTexture("data\\floor_switch.png", m_Position, 0xff8eff8e);
 }

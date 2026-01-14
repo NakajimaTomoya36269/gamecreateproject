@@ -10,5 +10,5 @@ CInvincibleItem::CInvincibleItem(void)
 
 void CInvincibleItem::Draw(void)
 {
-	vivid::DrawTexture("data\\enemy_a.png", m_Position);
+	vivid::DrawTexture("data\\invincible_item.png", m_Position);
 }

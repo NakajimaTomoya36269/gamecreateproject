@@ -8,9 +8,9 @@
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
-const float ICharacter::m_jump_up_max_time = 300.0f;
+const float ICharacter::m_jump_up_max_time = 1200.0f;
 const float ICharacter::m_jump_up_power = 60.0f;
-const float ICharacter::m_invincible_max_time = 300.0f;
+const float ICharacter::m_invincible_max_time = 600.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
