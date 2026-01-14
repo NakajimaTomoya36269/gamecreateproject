@@ -90,16 +90,18 @@ bool CEnemyManager::OnGround(IStage* stage)
 {
 	if (!stage) return false;
 
+	bool any_grounded = false;
+
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
 	while (it != end)
 	{
 		if ((*it)->OnGround(stage))
-			return true;
+			any_grounded = true;
 		++it;
 	}
-	return false;
+	return any_grounded;
 }
 
 CEnemyManager::CEnemyManager(void)

@@ -93,13 +93,15 @@ bool CCharacterManager::OnGround(IStage* stage)
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
+	bool anyGrounded = false;
+
 	while (it != end)
 	{
 		if ((*it)->OnGround(stage))
-			return true;
+			anyGrounded = true;
 		++it;
 	}
-	return false;
+	return anyGrounded;
 }
 
 bool CCharacterManager::CheckHitCeiling(IStage* stage)

@@ -29,9 +29,6 @@ public:
 	// ステージの作成
 	void Create(STAGE_ID id, const vivid::Vector2& position);
 
-	// 地面の上にいるかの判定
-	void OnGround(void);
-
 	// 敵が地面の上にいるかの判定
 	void EnemyOnGround(void);
 

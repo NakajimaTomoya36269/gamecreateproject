@@ -49,6 +49,8 @@ void CPlayer::Finalize(void)
 
 void CPlayer::Alive(void)
 {
+	ICharacter::Alive();
+
 	if (m_GravityChange)
 	{
 		m_Position.y -= m_Velocity.y;

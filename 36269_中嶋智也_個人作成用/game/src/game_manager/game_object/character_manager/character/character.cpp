@@ -81,7 +81,7 @@ bool ICharacter::OnGround(IStage* stage)
 		m_Position.y + (float)m_Height > stage->GetPosition().y &&
 		m_Position.y < stage->GetPosition().y + stage->GetHeight())
 	{
-		if (m_Velocity.y > 0.0f && m_Position.y + (float)m_Height > stage->GetPosition().y
+		if (m_Position.y + (float)m_Height > stage->GetPosition().y
 			&& !m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y - (float)m_Height;
@@ -95,7 +95,7 @@ bool ICharacter::OnGround(IStage* stage)
 
 			return true;
 		}
-		else if (m_Velocity.y > 0.0f && m_Position.y < stage->GetPosition().y + (float)stage->GetHeight()
+		else if (m_Position.y < stage->GetPosition().y + (float)stage->GetHeight()
 			&& m_GravityChange)
 		{
 			m_Position.y = stage->GetPosition().y + (float)stage->GetHeight();
@@ -105,11 +105,8 @@ bool ICharacter::OnGround(IStage* stage)
 			return true;
 		}
 	}
-	else
-	{
-		if (m_Velocity.y < m_max_gravity)
-			m_Velocity.y += m_Gravity;
-	}
+	if (m_Velocity.y < m_max_gravity)
+		m_Velocity.y += m_Gravity;
 
 	return false;
 }

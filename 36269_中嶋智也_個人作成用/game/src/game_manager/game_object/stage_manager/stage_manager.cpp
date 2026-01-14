@@ -33,6 +33,7 @@ void CStageManager::Update(void)
 		CCharacterManager::GetInstance().CheckHitCeiling(stage);
 		CCharacterManager::GetInstance().Jump(stage);
 		CCharacterManager::GetInstance().ChangeGravity(stage);
+		CCharacterManager::GetInstance().OnGround(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
 
 		++it;
@@ -85,23 +86,6 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	stage->Initialize(position);
 
 	m_StageList.push_back(stage);
-}
-
-void CStageManager::OnGround(void)
-{
-	STAGE_LIST::iterator it = m_StageList.begin();
-	STAGE_LIST::iterator end = m_StageList.end();
-
-	while (it != end)
-	{
-		if (CCharacterManager::GetInstance().OnGround((*it)))
-		{
-			return;
-		}
-		++it;
-	}
-
-	return;
 }
 
 void CStageManager::EnemyOnGround(void)
