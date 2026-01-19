@@ -10,7 +10,9 @@ IStage::IStage(int width, int height, STAGE_ID id)
 	, m_Height(height)
 	, m_StageID(id)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
+	, m_StartPosition(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
+	, m_IsFalled(false)
 {
 }
 
@@ -18,7 +20,11 @@ void IStage::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 
+	m_StartPosition = m_Position;
+
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
+
+	m_IsFalled = false;
 }
 
 void IStage::Update(void)
@@ -44,6 +50,7 @@ void IStage::Update(void)
 
 void IStage::Draw(void)
 {
+
 }
 
 void IStage::Finalize(void)
@@ -73,6 +80,16 @@ vivid::Vector2 IStage::GetPosition(void)
 STAGE_ID IStage::GetStageID(void)
 {
 	return m_StageID;
+}
+
+bool IStage::GetIsFalled(void)
+{
+	return m_IsFalled;
+}
+
+void IStage::SetIsFalled(bool fall_flag)
+{
+	m_IsFalled = fall_flag;
 }
 
 bool IStage::CheckHitCharacter(ICharacter* character, float& position_x)

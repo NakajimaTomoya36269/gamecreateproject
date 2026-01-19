@@ -11,6 +11,7 @@ const float ICharacter::m_jump_power = 30.0f;
 const float ICharacter::m_jump_up_max_time = 1200.0f;
 const float ICharacter::m_jump_up_power = 60.0f;
 const float ICharacter::m_invincible_max_time = 600.0f;
+const float ICharacter::m_fall_time = 600.0f;
 
 ICharacter::ICharacter(int width, int height, float radius, int life,
 	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
@@ -33,6 +34,7 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 	, m_JumpUpTimer(0.0f)
 	, m_InvincibleTimer(0.0f)
+	, m_FallTimer(0.0f)
 {
 }
 
@@ -53,6 +55,7 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	m_Jump = vivid::Vector2(0.0f, 0.0f);
 	m_JumpUpTimer = 0.0f;
 	m_InvincibleTimer = 0.0f;
+	m_FallTimer = 0.0f;
 }
 
 void ICharacter::Update(void)
@@ -388,6 +391,26 @@ void ICharacter::Invincible(IItem* item)
 		}
 	}
 
+}
+
+void ICharacter::FallStage(IStage* stage)
+{
+	if (!stage) return;
+
+	if (OnGround(stage))
+	{
+		if (stage->GetStageID() == STAGE_ID::FALL_FLOOR)
+		{
+			if (++m_FallTimer > m_fall_time)
+			{
+				stage->SetIsFalled(true);
+			}
+		}
+		else
+		{
+			m_FallTimer = 0.0f;
+		}
+	}
 }
 
 bool ICharacter::GetActive(void)

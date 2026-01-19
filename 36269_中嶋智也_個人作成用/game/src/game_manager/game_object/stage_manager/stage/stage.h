@@ -40,16 +40,24 @@ public:
 	// ステージIDの取得
 	STAGE_ID GetStageID(void);
 
+	// 落下フラグの取得
+	bool GetIsFalled(void);
+
+	// 落下フラグの設定
+	void SetIsFalled(bool fall_flag);
+
 	// キャラクターのアタリ判定
 	virtual bool CheckHitCharacter(ICharacter* character, float& position_x);
 
 protected:
-	static const float	m_scroll_speed;
-	static const float	m_friction;
+	static const float	m_scroll_speed;			// スクロールスピード
+	static const float	m_friction;				// 摩擦力
 
-	int					m_Width;
-	int					m_Height;
-	STAGE_ID			m_StageID;
-	vivid::Vector2		m_Position;
-	vivid::Vector2		m_Velocity;
+	int					m_Width;				// 幅
+	int					m_Height;				// 高さ
+	STAGE_ID			m_StageID;				// ステージID
+	vivid::Vector2		m_Position;				// 位置
+	vivid::Vector2		m_StartPosition;		// 開始位置
+	vivid::Vector2		m_Velocity;				// 速さ
+	bool				m_IsFalled;				// 落下フラグ
 };

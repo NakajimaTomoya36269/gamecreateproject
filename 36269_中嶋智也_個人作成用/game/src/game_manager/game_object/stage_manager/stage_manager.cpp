@@ -6,6 +6,7 @@
 #include "stage/long_floor/long_floor.h"
 #include "stage/repulsion_floor/repulsion_floor.h"
 #include "stage/move_floor/move_floor.h"
+#include "stage/fall_floor/fall_floor.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -79,6 +80,7 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	case STAGE_ID::LONG_FLOOR: stage = new CLongFloor(); break;
 	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor(); break;
 	case STAGE_ID::MOVE_FLOOR: stage = new CMoveFloor(); break;
+	case STAGE_ID::FALL_FLOOR: stage = new CFallFloor(); break;
 	}
 
 	if (!stage)	return;

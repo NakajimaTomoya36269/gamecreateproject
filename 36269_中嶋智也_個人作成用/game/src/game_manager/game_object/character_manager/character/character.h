@@ -117,6 +117,9 @@ public:
 	// 無敵
 	void Invincible(IItem* item);
 
+	// ステージ落下
+	void FallStage(IStage* stage);
+
 protected:
 	// 生存
 	virtual void Alive(void);
@@ -138,6 +141,7 @@ protected:
 	float				m_Gravity;			// 重力
 	float				m_JumpUpTimer;		// ジャンプ力が上がる時間
 	float				m_InvincibleTimer;	// 無敵時間
+	float				m_FallTimer;		// 落下を始めるまでの時間
 	bool				m_Active;			// アクティブフラグ
 	bool				m_GravityChange;	// 重力変更フラグ
 	bool				m_JumpUp;			// ジャンプ力が上がるフラグ
@@ -152,4 +156,5 @@ protected:
 	static const float	m_jump_up_max_time;		// ジャンプ力が上がる最大時間
 	static const float	m_jump_up_power;		// ジャンプ力上昇
 	static const float	m_invincible_max_time;	// 無敵最大時間
+	static const float	m_fall_time;			// 落下時間
 };

@@ -1,5 +1,6 @@
 #include "title.h"
 #include "../../scene_manager.h"
+#include "../../../../../utility/utility.h"
 
 const int CTitle::m_font_size = 40;
 const int CTitle::m_title_font_size = 100;
@@ -9,6 +10,8 @@ CTitle::CTitle(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_TitlePosition(vivid::Vector2(710.0f, 440.0f))
 	, m_EnterPosition(vivid::Vector2(604.0f, 790.0f))
+	, m_Color(0xffffffff)
+	, m_Angle(0.0f)
 {
 }
 
@@ -16,10 +19,18 @@ void CTitle::Initialize(void)
 {
 	vivid::CreateFont(m_title_font_size, 5);
 	vivid::CreateFont(m_enter_font_size, 3);
+	m_Color = 0xffffffff;
+	m_Angle = 0.0f;
 }
 
 void CTitle::Update(void)
 {
+	m_Angle += 2.0f;
+
+	int alpha = (int)(sin DEG_TO_RAD(m_Angle) * 127) + 128;
+
+	m_Color = ((unsigned int)alpha & 0xff) << 24 | 0x00fffffff;
+
 	namespace keyboard = vivid::keyboard;
 	bool change_scene_key = keyboard::Trigger(keyboard::KEY_ID::NUMPADENTER);
 
@@ -62,7 +73,7 @@ void CTitle::Draw(void)
 
 	vivid::DrawTexture("data\\title.png", vivid::Vector2(220.0f, 0.0f));
 
-	vivid::DrawText(m_enter_font_size, "Push Enter to Start", m_EnterPosition);
+	vivid::DrawText(m_enter_font_size, "Push Enter to Start", m_EnterPosition, m_Color);
 
 #ifdef _DEBUG
 	vivid::DrawText(m_font_size, "TitleScene", m_Position);
