@@ -43,8 +43,37 @@ private:
 	// 代入演算子
 	CEnemyManager operator=(const CEnemyManager& rhs) = delete;
 
+	// 敵の配置
+	void DeployEnemy(void);
+
+	// 敵テーブルの更新
+	void UpdateEnemyTable(void);
+
+	// 敵更新
+	void UpdateEnemy(void);
+
+	// 敵テーブル構造体ID
+	enum class ENEMY_TABLE_DATA_PARAM
+	{
+		ID,
+		X,
+		Y,
+	};
+
+	// 敵テーブル用構造体
+	struct ENEMY_TABLE_DATA
+	{
+		ENEMY_ID id;
+		int x;
+		int y;
+	};
+
+	// 敵テーブルリスト型
+	using ENEMY_TABLE_LIST = std::list<ENEMY_TABLE_DATA>;
+
 	// 敵リスト型
 	using ENEMY_LIST = std::list<IEnemy*>;
 
-	ENEMY_LIST m_EnemyList;			// 敵リスト
+	ENEMY_LIST			m_EnemyList;			// 敵リスト
+	ENEMY_TABLE_LIST	m_EnemyTable;			// 敵テーブルリスト
 };

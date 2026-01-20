@@ -99,11 +99,80 @@ std::string CCSVLoader::GetString(int rows, int cols)
 // 指定されたデータ
 int CCSVLoader::GetInteger(int rows, int cols)
 {
-	return stoi(m_Data[(rows * m_Cols) + cols]);
+    // 列数ゼロ防止
+    if (m_Cols <= 0)
+        return 0;
+
+    int index = rows * m_Cols + cols;
+
+    // 範囲チェック
+    if (index < 0 || index >= (int)m_Data.size())
+        return 0;
+
+    const std::string& s = m_Data[index];
+
+    // 空文字チェック
+    if (s.empty())
+        return 0;
+
+    // 改行コード除去（念のため）
+    if (!s.empty() && s.back() == '\r')
+    {
+        std::string temp = s;
+        temp.pop_back();
+        return std::stoi(temp);
+    }
+
+    // 数値変換（例外ガード）
+    try
+    {
+        return std::stoi(s);
+    }
+    catch (const std::exception&)
+    {
+        return 0;
+    }
 }
 
 // 指定されたデータを実数に変換して取得
 float CCSVLoader::GetFloat(int rows, int cols)
 {
-	return stof(m_Data[(rows * m_Cols) + cols]);
+    if (m_Cols <= 0)
+        return 0.0f;
+
+    int index = rows * m_Cols + cols;
+
+    // 範囲チェック
+    if (index < 0 || index >= (int)m_Data.size())
+        return 0.0f;
+
+    const std::string& s = m_Data[index];
+
+    // 空文字
+    if (s.empty())
+        return 0.0f;
+
+    // 改行コード対策
+    if (!s.empty() && s.back() == '\r')
+    {
+        std::string temp = s;
+        temp.pop_back();
+        try
+        {
+            return std::stof(temp);
+        }
+        catch (...)
+        {
+            return 0.0f;
+        }
+    }
+
+    try
+    {
+        return std::stof(s);
+    }
+    catch (const std::exception&)
+    {
+        return 0.0f;
+    }
 }

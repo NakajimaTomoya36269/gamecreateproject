@@ -37,10 +37,6 @@ void CGamemain::Initialize(void)
 	stage_manager.Create(STAGE_ID::FALL_FLOOR, vivid::Vector2(4000.0f, 300.0f));
 
 	enemy_manager.Initialize();
-	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 976.0f));
-	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(400.0f, 976.0f));
-	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(600.0f, 976.0f));
-	enemy_manager.Create(ENEMY_ID::ENEMYB, vivid::Vector2(0.0f, 40.0f));
 
 	m_goal.Initialize(vivid::Vector2(4100.0f, 472.0f));
 

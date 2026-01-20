@@ -2,6 +2,7 @@
 #include "enemy/enemy_a/enemy_a.h"
 #include "enemy/enemy_b/enemy_b.h"
 #include "../character_manager/character_manager.h"
+#include "../../../utility/csv_loader/csv_loader.h"
 
 CEnemyManager& CEnemyManager::GetInstance(void)
 {
@@ -13,36 +14,22 @@ CEnemyManager& CEnemyManager::GetInstance(void)
 void CEnemyManager::Initialize(void)
 {
 	m_EnemyList.clear();
+	m_EnemyTable.clear();
+	
+	DeployEnemy();
 }
 
 void CEnemyManager::Update(void)
 {
-	ENEMY_LIST::iterator it = m_EnemyList.begin();
-	ENEMY_LIST::iterator end = m_EnemyList.end();
+	UpdateEnemyTable();
 
-	while (it != end)
-	{
-		IEnemy* enemy = (IEnemy*)(*it);
-
-		CCharacterManager::GetInstance().CheckHitEnemy(enemy);
-
-		enemy->Update();
-
-		if (!enemy->GetActive())
-		{
-			enemy->Finalize();
-
-			delete enemy;
-
-			it = m_EnemyList.erase(it);
-			continue;
-		}
-		++it;
-	}
+	UpdateEnemy();
 }
 
 void CEnemyManager::Draw(void)
 {
+	if (m_EnemyList.empty()) return;
+
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
@@ -56,6 +43,8 @@ void CEnemyManager::Draw(void)
 
 void CEnemyManager::Finalize(void)
 {
+	if (m_EnemyList.empty()) return;
+
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
@@ -92,6 +81,8 @@ bool CEnemyManager::OnGround(IStage* stage)
 
 	bool any_grounded = false;
 
+	if (m_EnemyList.empty()) return false;
+
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
@@ -106,4 +97,62 @@ bool CEnemyManager::OnGround(IStage* stage)
 
 CEnemyManager::CEnemyManager(void)
 {
+}
+
+void CEnemyManager::DeployEnemy(void)
+{
+	CCSVLoader csv_loader;
+	csv_loader.Load("data\\enemy_table.csv");
+
+	for (int i = 0; i < csv_loader.GetRows(); i++)
+	{
+		ENEMY_TABLE_DATA t;
+		t.id = (ENEMY_ID)csv_loader.GetInteger(i, (int)ENEMY_TABLE_DATA_PARAM::ID);
+		t.x = csv_loader.GetInteger(i, (int)ENEMY_TABLE_DATA_PARAM::X);
+		t.y = csv_loader.GetInteger(i, (int)ENEMY_TABLE_DATA_PARAM::Y);
+		m_EnemyTable.push_back(t);
+	}
+
+	// ‰ð•ú
+	csv_loader.Unload();
+}
+
+void CEnemyManager::UpdateEnemyTable(void)
+{
+	if (m_EnemyTable.empty()) return;
+
+	ENEMY_TABLE_LIST::iterator it = m_EnemyTable.begin();
+	ENEMY_TABLE_DATA t = *it;
+
+	vivid::Vector2 position((float)(t.x), (float)(t.y));
+	Create(t.id, position);
+	m_EnemyTable.erase(it);
+}
+
+void CEnemyManager::UpdateEnemy(void)
+{
+	if (m_EnemyList.empty()) return;
+
+	ENEMY_LIST::iterator it = m_EnemyList.begin();
+	ENEMY_LIST::iterator end = m_EnemyList.end();
+
+	while (it != end)
+	{
+		IEnemy* enemy = (IEnemy*)(*it);
+
+		CCharacterManager::GetInstance().CheckHitEnemy(enemy);
+
+		enemy->Update();
+
+		if (!enemy->GetActive())
+		{
+			enemy->Finalize();
+
+			delete enemy;
+
+			it = m_EnemyList.erase(it);
+			continue;
+		}
+		++it;
+	}
 }
