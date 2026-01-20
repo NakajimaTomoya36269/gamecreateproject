@@ -196,6 +196,7 @@
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\stage.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utility\csv_loader\csv_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vivid2d\vivid2d.vcxproj">
@@ -241,6 +242,7 @@
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\stage.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\stage_id.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage_manager.h" />
+    <ClInclude Include="src\utility\csv_loader\csv_loader.h" />
     <ClInclude Include="src\utility\utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
