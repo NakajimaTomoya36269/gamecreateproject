@@ -34,6 +34,7 @@ void CGamemain::Initialize(void)
 	stage_manager.Create(STAGE_ID::REPULSION_FLOOR, vivid::Vector2(0.0f, 500.0f));
 	stage_manager.Create(STAGE_ID::MOVE_FLOOR, vivid::Vector2(3200.0f, 1016.0f));
 	stage_manager.Create(STAGE_ID::MOVE_FLOOR, vivid::Vector2(3500.0f, 1016.0f));
+	stage_manager.Create(STAGE_ID::FALL_FLOOR, vivid::Vector2(4000.0f, 300.0f));
 
 	enemy_manager.Initialize();
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(0.0f, 976.0f));
@@ -41,9 +42,9 @@ void CGamemain::Initialize(void)
 	enemy_manager.Create(ENEMY_ID::ENEMYA, vivid::Vector2(600.0f, 976.0f));
 	enemy_manager.Create(ENEMY_ID::ENEMYB, vivid::Vector2(0.0f, 40.0f));
 
-	m_goal.Initialize(vivid::Vector2(1820.0f, 472.0f));
+	m_goal.Initialize(vivid::Vector2(4100.0f, 472.0f));
 
-	item_manager.Initilaize();
+	item_manager.Initialize();
 	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(600.0f, 600.0f));
 	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(800.0f, 600.0f));
 	item_manager.Create(ITEM_ID::INVINCIBLE_ITEM, vivid::Vector2(400.0f, 400.0f));

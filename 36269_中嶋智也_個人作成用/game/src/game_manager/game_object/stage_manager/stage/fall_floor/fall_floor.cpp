@@ -28,6 +28,8 @@ void CFallFloor::Update(void)
 {
 	IStage::Update();
 
+	m_IsFalled = true;
+
 	if (m_IsFalled)
 	{
 		m_FallVelocity.y = m_fall_speed;
@@ -35,6 +37,11 @@ void CFallFloor::Update(void)
 	else
 	{
 		m_FallVelocity.y = 0.0f;
+	}
+
+	if (m_Position.y > (float)vivid::WINDOW_HEIGHT)
+	{
+		m_IsFalled = false;
 		if (++m_ReturnTimer > m_return_time)
 		{
 			m_Position.y = m_StartPosition.y;
@@ -47,7 +54,8 @@ void CFallFloor::Update(void)
 
 void CFallFloor::Draw(void)
 {
-	vivid::DrawTexture("data\\move_floor.png", m_Position);
+	if (m_Position.y < (float)vivid::WINDOW_HEIGHT && m_Position.y > 0.0f)
+		vivid::DrawTexture("data\\fall_floor.png", m_Position);
 }
 
 void CFallFloor::Finalize(void)

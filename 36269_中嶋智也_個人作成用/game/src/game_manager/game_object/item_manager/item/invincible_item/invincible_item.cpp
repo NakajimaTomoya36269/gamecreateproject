@@ -1,7 +1,7 @@
 #include "invincible_item.h"
 
-const int CInvincibleItem::m_width = 30;
-const int CInvincibleItem::m_height = 30;
+const int CInvincibleItem::m_width = 80;
+const int CInvincibleItem::m_height = 80;
 
 CInvincibleItem::CInvincibleItem(void)
 	: IItem(m_width, m_height, ITEM_ID::INVINCIBLE_ITEM)

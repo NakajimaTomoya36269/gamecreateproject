@@ -270,6 +270,21 @@ void CCharacterManager::CheckHitSwitch(ISwitch* sw)
 	}
 }
 
+void CCharacterManager::FallStage(IStage* stage)
+{
+	if (!stage) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		(*it)->FallStage(stage);
+
+		it++;
+	}
+}
+
 void CCharacterManager::CheckHitCharacter(void)
 {
 	if (m_CharacterList.empty())return;

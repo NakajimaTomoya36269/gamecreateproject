@@ -92,6 +92,11 @@ void IStage::SetIsFalled(bool fall_flag)
 	m_IsFalled = fall_flag;
 }
 
+void IStage::Falled(void)
+{
+	m_IsFalled = true;
+}
+
 bool IStage::CheckHitCharacter(ICharacter* character, float& position_x)
 {
 	if (!character) return false;

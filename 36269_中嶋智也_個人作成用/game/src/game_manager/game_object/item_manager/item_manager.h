@@ -13,7 +13,7 @@ public:
 	static CItemManager& GetInstance(void);
 
 	// ‰Šú‰»
-	void Initilaize(void);
+	void Initialize(void);
 
 	// XV
 	void Update(void);

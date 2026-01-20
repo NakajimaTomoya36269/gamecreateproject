@@ -9,7 +9,7 @@ const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
 const float ICharacter::m_jump_power = 30.0f;
 const float ICharacter::m_jump_up_max_time = 1200.0f;
-const float ICharacter::m_jump_up_power = 60.0f;
+const float ICharacter::m_jump_up_power = 100.0f;
 const float ICharacter::m_invincible_max_time = 600.0f;
 const float ICharacter::m_fall_time = 600.0f;
 
@@ -403,7 +403,7 @@ void ICharacter::FallStage(IStage* stage)
 		{
 			if (++m_FallTimer > m_fall_time)
 			{
-				stage->SetIsFalled(true);
+				stage->Falled();
 			}
 		}
 		else

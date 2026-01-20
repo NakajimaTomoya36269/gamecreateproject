@@ -11,7 +11,7 @@ CItemManager& CItemManager::GetInstance(void)
 	return instance;
 }
 
-void CItemManager::Initilaize(void)
+void CItemManager::Initialize(void)
 {
 	m_ItemList.clear();
 }

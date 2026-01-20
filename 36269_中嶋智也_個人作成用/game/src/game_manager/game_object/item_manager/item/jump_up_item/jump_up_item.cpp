@@ -1,7 +1,7 @@
 #include "jump_up_item.h"
 
-const int	CJumpUpItem::m_width = 30;
-const int	CJumpUpItem::m_height = 30;
+const int	CJumpUpItem::m_width = 80;
+const int	CJumpUpItem::m_height = 80;
 
 CJumpUpItem::CJumpUpItem(void)
 	: IItem(m_width, m_height, ITEM_ID::JUMP_UP_ITEM)

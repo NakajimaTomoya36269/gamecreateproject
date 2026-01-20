@@ -35,6 +35,7 @@ void CStageManager::Update(void)
 		CCharacterManager::GetInstance().Jump(stage);
 		CCharacterManager::GetInstance().ChangeGravity(stage);
 		CCharacterManager::GetInstance().OnGround(stage);
+		CCharacterManager::GetInstance().FallStage(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
 
 		++it;

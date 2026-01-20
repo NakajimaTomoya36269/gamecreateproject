@@ -66,6 +66,9 @@ public:
 	// ギミックのアタリ判定
 	void CheckHitSwitch(ISwitch* sw);
 
+	// ステージ落下
+	void FallStage(IStage* stage);
+
 	// キャラクターのアタリ判定
 	void CheckHitCharacter(void);
 

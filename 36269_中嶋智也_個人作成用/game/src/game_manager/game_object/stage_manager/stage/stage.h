@@ -46,6 +46,9 @@ public:
 	// 落下フラグの設定
 	void SetIsFalled(bool fall_flag);
 
+	// 落下
+	void Falled(void);
+
 	// キャラクターのアタリ判定
 	virtual bool CheckHitCharacter(ICharacter* character, float& position_x);
 
