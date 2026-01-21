@@ -16,7 +16,6 @@ CGamemain::CGamemain(void)
 void CGamemain::Initialize(void)
 {
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
-	CItemManager& item_manager = CItemManager::GetInstance();
 	CSwitchManager& switch_manager = CSwitchManager::GetInstance();
 
 	character_manager.Initialize();
@@ -27,10 +26,7 @@ void CGamemain::Initialize(void)
 
 	m_goal.Initialize(vivid::Vector2(4100.0f, 472.0f));
 
-	item_manager.Initialize();
-	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(600.0f, 600.0f));
-	item_manager.Create(ITEM_ID::JUMP_UP_ITEM, vivid::Vector2(800.0f, 600.0f));
-	item_manager.Create(ITEM_ID::INVINCIBLE_ITEM, vivid::Vector2(400.0f, 400.0f));
+	CItemManager::GetInstance().Initialize();
 
 	switch_manager.Initialize();
 	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH, vivid::Vector2(3400.0f, 900.0f));
