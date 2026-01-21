@@ -16,7 +16,6 @@ CGamemain::CGamemain(void)
 void CGamemain::Initialize(void)
 {
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
-	CSwitchManager& switch_manager = CSwitchManager::GetInstance();
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
@@ -28,9 +27,7 @@ void CGamemain::Initialize(void)
 
 	CItemManager::GetInstance().Initialize();
 
-	switch_manager.Initialize();
-	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH, vivid::Vector2(3400.0f, 900.0f));
-	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH , vivid::Vector2(3000.0f, 900.0f));
+	CSwitchManager::GetInstance().Initialize();
 
 	m_background.Initialize();
 }
@@ -38,10 +35,7 @@ void CGamemain::Initialize(void)
 void CGamemain::Update(void)
 {
 	CStageManager::GetInstance().Update();
-	//CStageManager::GetInstance().OnGround();
-	//CStageManager::GetInstance().EnemyOnGround();
 	CCharacterManager::GetInstance().Update();
-	//CCharacterManager::GetInstance().CheckHitCharacter();
 	CEnemyManager::GetInstance().Update();
 	CSwitchManager::GetInstance().Update();
 

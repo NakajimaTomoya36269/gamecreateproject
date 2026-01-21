@@ -40,6 +40,31 @@ private:
 	// 代入演算子
 	CSwitchManager operator=(const CSwitchManager& rhs) = delete;
 
-	using SWITCH_LIST = std::list<ISwitch*>;		// スイッチリスト型
-	SWITCH_LIST		m_SwitchList;					// スイッチリスト
+	// スイッチ配置
+	void DeploySwitch(void);
+
+	// スイッチテーブルの更新
+	void UpdateSwitchTable(void);
+
+	// スイッチの更新
+	void UpdateSwitch(void);
+
+	enum class SWITCH_TABLE_DATA_PARAM
+	{
+		ID,
+		X,
+		Y,
+	};
+
+	struct SWITCH_TABLE_DATA
+	{
+		SWITCH_ID id;
+		int x;
+		int y;
+	};
+
+	using SWITCH_TABLE_LIST = std::list<SWITCH_TABLE_DATA>;	// スイッチテーブルリスト型
+	using SWITCH_LIST = std::list<ISwitch*>;				// スイッチリスト型
+	SWITCH_TABLE_LIST	m_SwitchTable;						// スイッチテーブルリスト
+	SWITCH_LIST			m_SwitchList;						// スイッチリスト
 };
