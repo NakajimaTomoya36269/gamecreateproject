@@ -10,6 +10,7 @@ CMoveFloor::CMoveFloor(void)
 	, m_StartPosition(vivid::Vector2(0.0f, 0.0f))
 	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))
 	, m_ChangeMove(false)
+	, m_ActiveFlag(false)
 {
 }
 
@@ -19,6 +20,7 @@ void CMoveFloor::Initialize(const vivid::Vector2& position)
 	m_StartPosition = m_Position;
 	m_MoveVelocity = vivid::Vector2(0.0f, 0.0f);
 	m_ChangeMove = false;
+	m_ActiveFlag = false;
 }
 
 void CMoveFloor::Update(void)
@@ -37,27 +39,7 @@ void CMoveFloor::Update(void)
 		m_Velocity.x += m_scroll_speed;
 	}
 
-	m_Position += m_Velocity * vivid::GetDeltaTime();
-	m_StartPosition += m_Velocity * vivid::GetDeltaTime();
-
-	m_Velocity.x *= m_friction;
-}
-
-void CMoveFloor::Draw(void)
-{
-	vivid::DrawTexture("data\\move_floor.png", m_Position);
-}
-
-void CMoveFloor::Finalize(void)
-{
-	IStage::Finalize();
-}
-
-void CMoveFloor::MoveChange(ISwitch* sw)
-{
-	if (!sw) return;
-
-	if (sw->GetOnFlag())
+	if (m_ActiveFlag)
 	{
 		if (m_Position.x > m_StartPosition.x + (float)m_Width)
 		{
@@ -82,7 +64,29 @@ void CMoveFloor::MoveChange(ISwitch* sw)
 		m_MoveVelocity.x = 0.0f;
 	}
 
+	m_Position += m_Velocity * vivid::GetDeltaTime();
+	m_StartPosition += m_Velocity * vivid::GetDeltaTime();
+
+	m_Velocity.x *= m_friction;
+
 	m_Position.x += m_MoveVelocity.x * vivid::GetDeltaTime();
 	m_MoveVelocity.x *= m_friction;
 
+}
+
+void CMoveFloor::Draw(void)
+{
+	vivid::DrawTexture("data\\move_floor.png", m_Position);
+}
+
+void CMoveFloor::Finalize(void)
+{
+	IStage::Finalize();
+}
+
+void CMoveFloor::MoveChange(ISwitch* sw)
+{
+	if (!sw) return;
+
+	m_ActiveFlag = sw->GetOnFlag();
 }

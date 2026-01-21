@@ -32,6 +32,7 @@ private:
 	vivid::Vector2			m_StartPosition;// 初めの位置
 	vivid::Vector2			m_MoveVelocity;	// 動く速さ
 	bool					m_ChangeMove;	// 動く向き変更フラグ
+	bool					m_ActiveFlag;	// 動いているかのフラグ
 
 	static const int		m_width;		// 幅
 	static const int		m_height;		// 高さ

@@ -1,4 +1,5 @@
 #include "switch.h"
+#include "../../stage_manager/stage_manager.h"
 
 const float ISwitch::m_scroll_speed = 60.0f;
 const float ISwitch::m_friction = 0.9f;
@@ -9,7 +10,6 @@ ISwitch::ISwitch(int width, int height, SWITCH_ID id)
 	, m_SwitchID(id)
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
-	, m_OnFlag(false)
 {
 }
 
@@ -17,7 +17,6 @@ void ISwitch::Initialize(const vivid::Vector2& position)
 {
 	m_Position = position;
 	m_Velocity = vivid::Vector2(0.0f, 0.0f);
-	m_OnFlag = false;
 }
 
 void ISwitch::Update(void)
@@ -49,9 +48,11 @@ void ISwitch::Finalize(void)
 {
 }
 
-void ISwitch::GimmickOn(void)
+void ISwitch::OnPress(void)
 {
-	m_OnFlag = !m_OnFlag;
+	CStageManager::GetInstance().ToggleAllSwitch();
+
+	CStageManager::GetInstance().MoveChange(this);
 }
 
 int ISwitch::GetWidth(void)
@@ -76,5 +77,5 @@ SWITCH_ID ISwitch::GetSwitchID(void)
 
 bool ISwitch::GetOnFlag(void)
 {
-	return m_OnFlag;
+	return CStageManager::GetInstance().IsAllSwitchOn();
 }

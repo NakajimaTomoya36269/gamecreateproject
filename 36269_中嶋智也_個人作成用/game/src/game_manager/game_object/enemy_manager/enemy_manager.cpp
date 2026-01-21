@@ -112,7 +112,7 @@ void CEnemyManager::DeployEnemy(void)
 		t.y = csv_loader.GetInteger(i, (int)ENEMY_TABLE_DATA_PARAM::Y);
 		m_EnemyTable.push_back(t);
 	}
-
+	
 	// ‰ð•ú
 	csv_loader.Unload();
 }

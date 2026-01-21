@@ -7,6 +7,7 @@
 #include "stage/repulsion_floor/repulsion_floor.h"
 #include "stage/move_floor/move_floor.h"
 #include "stage/fall_floor/fall_floor.h"
+#include "../../../utility/csv_loader/csv_loader.h"
 
 CStageManager& CStageManager::GetInstance(void)
 {
@@ -18,28 +19,16 @@ CStageManager& CStageManager::GetInstance(void)
 void CStageManager::Initialize(void)
 {
 	m_StageList.clear();
+	m_StageTable.clear();
+
+	DeployStage();
 }
 
 void CStageManager::Update(void)
 {
-	STAGE_LIST::iterator it = m_StageList.begin();
-	STAGE_LIST::iterator end = m_StageList.end();
+	UpdateStageTable();
 
-	while (it != end)
-	{
-		IStage* stage = (IStage*)(*it);
-		stage->Update();
-		CCharacterManager::GetInstance().CheckHitRightWall(stage);
-		CCharacterManager::GetInstance().CheckHitLeftWall(stage);
-		CCharacterManager::GetInstance().CheckHitCeiling(stage);
-		CCharacterManager::GetInstance().Jump(stage);
-		CCharacterManager::GetInstance().ChangeGravity(stage);
-		CCharacterManager::GetInstance().OnGround(stage);
-		CCharacterManager::GetInstance().FallStage(stage);
-		CEnemyManager::GetInstance().OnGround(stage);
-
-		++it;
-	}
+	UpdateStage();
 }
 
 void CStageManager::Draw(void)
@@ -126,6 +115,16 @@ bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 	return false;
 }
 
+void CStageManager::ToggleAllSwitch(void)
+{
+	m_AllSwitchOn = !m_AllSwitchOn;
+}
+
+bool CStageManager::IsAllSwitchOn(void) const
+{
+	return m_AllSwitchOn;
+}
+
 void CStageManager::MoveChange(ISwitch* sw)
 {
 	if (!sw) return;
@@ -141,5 +140,58 @@ void CStageManager::MoveChange(ISwitch* sw)
 }
 
 CStageManager::CStageManager(void)
+	: m_AllSwitchOn(false)
 {
+}
+
+void CStageManager::DeployStage(void)
+{
+	CCSVLoader csv_loader;
+	csv_loader.Load("data\\stage_table.csv");
+
+	for (int i = 0; i < csv_loader.GetRows(); i++)
+	{
+		STAGE_TABLE_DATA t;
+		t.id = (STAGE_ID)csv_loader.GetInteger(i, (int)STAGE_TABLE_DATA_PARAM::ID);
+		t.x = csv_loader.GetInteger(i, (int)STAGE_TABLE_DATA_PARAM::X);
+		t.y = csv_loader.GetInteger(i, (int)STAGE_TABLE_DATA_PARAM::Y);
+		m_StageTable.push_back(t);
+	}
+
+	csv_loader.Unload();
+}
+
+void CStageManager::UpdateStageTable(void)
+{
+	if (m_StageTable.empty())return;
+
+	STAGE_TABLE_LIST::iterator it = m_StageTable.begin();
+	STAGE_TABLE_DATA t = *it;
+
+	vivid::Vector2 position((float)t.x, (float)t.y);
+	Create(t.id, position);
+
+	m_StageTable.erase(it);
+}
+
+void CStageManager::UpdateStage(void)
+{
+	STAGE_LIST::iterator it = m_StageList.begin();
+	STAGE_LIST::iterator end = m_StageList.end();
+
+	while (it != end)
+	{
+		IStage* stage = (IStage*)(*it);
+		stage->Update();
+		CCharacterManager::GetInstance().CheckHitRightWall(stage);
+		CCharacterManager::GetInstance().CheckHitLeftWall(stage);
+		CCharacterManager::GetInstance().CheckHitCeiling(stage);
+		CCharacterManager::GetInstance().Jump(stage);
+		CCharacterManager::GetInstance().ChangeGravity(stage);
+		CCharacterManager::GetInstance().OnGround(stage);
+		CCharacterManager::GetInstance().FallStage(stage);
+		CEnemyManager::GetInstance().OnGround(stage);
+
+		++it;
+	}
 }

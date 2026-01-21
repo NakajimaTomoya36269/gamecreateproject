@@ -270,7 +270,7 @@ bool ICharacter::CheckHitSwitch(ISwitch* sw)
 	{
 		if (sw->GetSwitchID() == SWITCH_ID::FLOOR_SWITCH && switch_on_flag)
 		{
-			sw->GimmickOn();
+			sw->OnPress();
 		}
 
 		return true;

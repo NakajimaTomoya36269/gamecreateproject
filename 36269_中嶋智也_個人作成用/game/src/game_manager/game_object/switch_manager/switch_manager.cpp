@@ -26,7 +26,6 @@ void CSwitchManager::Update(void)
 
 		sw->Update();
 		CCharacterManager::GetInstance().CheckHitSwitch(sw);
-		CStageManager::GetInstance().MoveChange(sw);
 
 		it++;
 	}

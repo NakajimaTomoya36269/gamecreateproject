@@ -16,27 +16,14 @@ CGamemain::CGamemain(void)
 void CGamemain::Initialize(void)
 {
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
-	CStageManager& stage_manager = CStageManager::GetInstance();
-	CEnemyManager& enemy_manager = CEnemyManager::GetInstance();
 	CItemManager& item_manager = CItemManager::GetInstance();
 	CSwitchManager& switch_manager = CSwitchManager::GetInstance();
 
 	character_manager.Initialize();
 	character_manager.Create(CHARACTER_ID::PLAYER, vivid::Vector2(0.0f, 0.0f));
-	stage_manager.Initialize();
-	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(1620.0f, 600.0f));
-	stage_manager.Create(STAGE_ID::SHORT_FLOOR, vivid::Vector2(0.0f, 600.0f));
-	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 1016.0f));
-	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1700.0f, 1016.0f));
-	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(0.0f, 0.0f));
-	stage_manager.Create(STAGE_ID::LONG_FLOOR, vivid::Vector2(1700.0f, 0.0f));
-	stage_manager.Create(STAGE_ID::REPULSION_FLOOR, vivid::Vector2(500.0f, 916.0f));
-	stage_manager.Create(STAGE_ID::REPULSION_FLOOR, vivid::Vector2(0.0f, 500.0f));
-	stage_manager.Create(STAGE_ID::MOVE_FLOOR, vivid::Vector2(3200.0f, 1016.0f));
-	stage_manager.Create(STAGE_ID::MOVE_FLOOR, vivid::Vector2(3500.0f, 1016.0f));
-	stage_manager.Create(STAGE_ID::FALL_FLOOR, vivid::Vector2(4000.0f, 300.0f));
+	CStageManager::GetInstance().Initialize();
 
-	enemy_manager.Initialize();
+	CEnemyManager::GetInstance().Initialize();
 
 	m_goal.Initialize(vivid::Vector2(4100.0f, 472.0f));
 
@@ -46,7 +33,7 @@ void CGamemain::Initialize(void)
 	item_manager.Create(ITEM_ID::INVINCIBLE_ITEM, vivid::Vector2(400.0f, 400.0f));
 
 	switch_manager.Initialize();
-	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH, vivid::Vector2(3100.0f, 900.0f));
+	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH, vivid::Vector2(3400.0f, 900.0f));
 	switch_manager.Create(SWITCH_ID::FLOOR_SWITCH , vivid::Vector2(3000.0f, 900.0f));
 
 	m_background.Initialize();
