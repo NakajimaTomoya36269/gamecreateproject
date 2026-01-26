@@ -1,20 +1,21 @@
-#include "move_floor.h"
+#include "reverse_move_floor.h"
 #include "../../../switch_manager/switch/switch.h"
 
-const int	CMoveFloor::m_width = 300;
-const int	CMoveFloor::m_height = 64;
-const float	CMoveFloor::m_move_speed = 60.0f;
+const int	CReveseMoveFloor::m_width = 300;
+const int	CReveseMoveFloor::m_height = 64;
+const float CReveseMoveFloor::m_move_speed = 60.0f;
 
-CMoveFloor::CMoveFloor(void)
-	: IStage(m_width, m_height, STAGE_ID::MOVE_FLOOR)
+CReveseMoveFloor::CReveseMoveFloor(void)
+	: IStage(m_width, m_height, STAGE_ID::REVERSE_MOVE_FLOOR)
 	, m_StartPosition(vivid::Vector2(0.0f, 0.0f))
 	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))
 	, m_ChangeMove(false)
 	, m_ActiveFlag(false)
+
 {
 }
 
-void CMoveFloor::Initialize(const vivid::Vector2& position)
+void CReveseMoveFloor::Initialize(const vivid::Vector2& position)
 {
 	IStage::Initialize(position);
 	m_StartPosition = m_Position;
@@ -23,7 +24,7 @@ void CMoveFloor::Initialize(const vivid::Vector2& position)
 	m_ActiveFlag = false;
 }
 
-void CMoveFloor::Update(void)
+void CReveseMoveFloor::Update(void)
 {
 	namespace keyboard = vivid::keyboard;
 
@@ -39,7 +40,7 @@ void CMoveFloor::Update(void)
 		m_Velocity.x += m_scroll_speed;
 	}
 
-	if (m_ActiveFlag)
+	if (!m_ActiveFlag)
 	{
 		if (m_Position.x > m_StartPosition.x + (float)m_Width)
 		{
@@ -71,20 +72,19 @@ void CMoveFloor::Update(void)
 
 	m_Position.x += m_MoveVelocity.x * vivid::GetDeltaTime();
 	m_MoveVelocity.x *= m_friction;
-
 }
 
-void CMoveFloor::Draw(void)
+void CReveseMoveFloor::Draw(void)
 {
 	vivid::DrawTexture("data\\move_floor.png", m_Position);
 }
 
-void CMoveFloor::Finalize(void)
+void CReveseMoveFloor::Finalize(void)
 {
 	IStage::Finalize();
 }
 
-void CMoveFloor::MoveChange(ISwitch* sw)
+void CReveseMoveFloor::MoveChange(ISwitch* sw)
 {
 	if (!sw) return;
 

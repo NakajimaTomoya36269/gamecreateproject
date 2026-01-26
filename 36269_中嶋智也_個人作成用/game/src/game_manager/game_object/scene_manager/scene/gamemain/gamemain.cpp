@@ -10,11 +10,14 @@ const int CGamemain::m_font_size = 40;
 
 CGamemain::CGamemain(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))
+	, m_CurrentStateID(GAMEMAIN_STATE_ID::PLAY)
 {
 }
 
 void CGamemain::Initialize(void)
 {
+	m_CurrentStateID = GAMEMAIN_STATE_ID::PLAY;
+
 	CCharacterManager& character_manager = CCharacterManager::GetInstance();
 
 	character_manager.Initialize();
@@ -33,6 +36,53 @@ void CGamemain::Initialize(void)
 }
 
 void CGamemain::Update(void)
+{
+	ChangeState();
+
+	switch (m_CurrentStateID)
+	{
+	case GAMEMAIN_STATE_ID::PLAY:
+		UpdatePlay();
+		break;
+	case GAMEMAIN_STATE_ID::PAUSE:
+		UpdatePause();
+		break;
+	}
+}
+
+void CGamemain::Draw(void)
+{
+	m_background.Draw();
+	CStageManager::GetInstance().Draw();
+	m_goal.Draw();
+	CItemManager::GetInstance().Draw();
+	CEnemyManager::GetInstance().Draw();
+	CCharacterManager::GetInstance().Draw();
+	CSwitchManager::GetInstance().Draw();
+
+	if (m_CurrentStateID == GAMEMAIN_STATE_ID::PAUSE)
+	{
+
+	}
+
+#ifdef _DEBUG
+	vivid::DrawText(m_font_size, "GamemainScene", vivid::Vector2(0.0f, 0.0f));
+#endif 
+
+}
+
+void CGamemain::Finalize(void)
+{
+	CCharacterManager::GetInstance().Finalize();
+	CStageManager::GetInstance().Finalize();
+	CEnemyManager::GetInstance().Finalize();
+	CItemManager::GetInstance().Finalize();
+	CSwitchManager::GetInstance().Finalize();
+	m_goal.Finalize();
+	m_background.Finalize();
+}
+
+void CGamemain::UpdatePlay(void)
 {
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();
@@ -72,29 +122,31 @@ void CGamemain::Update(void)
 #endif
 }
 
-void CGamemain::Draw(void)
+void CGamemain::UpdatePause(void)
 {
-	m_background.Draw();
-	CStageManager::GetInstance().Draw();
-	m_goal.Draw();
-	CItemManager::GetInstance().Draw();
-	CEnemyManager::GetInstance().Draw();
-	CCharacterManager::GetInstance().Draw();
-	CSwitchManager::GetInstance().Draw();
-
-#ifdef _DEBUG
-	vivid::DrawText(m_font_size, "GamemainScene", m_Position);
-#endif 
-
 }
 
-void CGamemain::Finalize(void)
+void CGamemain::ChangeState(void)
 {
-	CCharacterManager::GetInstance().Finalize();
-	CStageManager::GetInstance().Finalize();
-	CEnemyManager::GetInstance().Finalize();
-	CItemManager::GetInstance().Finalize();
-	CSwitchManager::GetInstance().Finalize();
-	m_goal.Finalize();
-	m_background.Finalize();
+	namespace keyboard = vivid::keyboard;
+	bool change_pause_state_key = keyboard::Trigger(keyboard::KEY_ID::P);
+	bool change_title_scene_key = keyboard::Trigger(keyboard::KEY_ID::T);
+	bool change_play_state_key = keyboard::Trigger(keyboard::KEY_ID::S);
+
+	if (m_CurrentStateID == GAMEMAIN_STATE_ID::PLAY && change_pause_state_key)
+	{
+		m_CurrentStateID = GAMEMAIN_STATE_ID::PAUSE;
+	}
+
+	if (m_CurrentStateID == GAMEMAIN_STATE_ID::PAUSE)
+	{
+		if (change_play_state_key)
+		{
+			m_CurrentStateID = GAMEMAIN_STATE_ID::PLAY;
+		}
+		if (change_title_scene_key)
+		{
+			CSceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		}
+	}
 }

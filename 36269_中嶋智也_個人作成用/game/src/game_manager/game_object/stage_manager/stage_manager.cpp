@@ -7,6 +7,7 @@
 #include "stage/repulsion_floor/repulsion_floor.h"
 #include "stage/move_floor/move_floor.h"
 #include "stage/fall_floor/fall_floor.h"
+#include "stage/reverse_move_floor/reverse_move_floor.h"
 #include "../../../utility/csv_loader/csv_loader.h"
 
 CStageManager& CStageManager::GetInstance(void)
@@ -71,6 +72,7 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor(); break;
 	case STAGE_ID::MOVE_FLOOR: stage = new CMoveFloor(); break;
 	case STAGE_ID::FALL_FLOOR: stage = new CFallFloor(); break;
+	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = new CReveseMoveFloor(); break;
 	}
 
 	if (!stage)	return;

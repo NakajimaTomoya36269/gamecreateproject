@@ -173,8 +173,10 @@
     <ClCompile Include="src\game_manager\game_object\enemy_manager\enemy\enemy.cpp" />
     <ClCompile Include="src\game_manager\game_object\enemy_manager\enemy\enemy_a\enemy_a.cpp" />
     <ClCompile Include="src\game_manager\game_object\enemy_manager\enemy\enemy_b\enemy_b.cpp" />
+    <ClCompile Include="src\game_manager\game_object\enemy_manager\enemy\enemy_c\enemy_c.cpp" />
     <ClCompile Include="src\game_manager\game_object\enemy_manager\enemy_manager.cpp" />
     <ClCompile Include="src\game_manager\game_object\stage_manager\stage\fall_floor\fall_floor.cpp" />
+    <ClCompile Include="src\game_manager\game_object\stage_manager\stage\reverse_move_floor\reverse_move_floor.cpp" />
     <ClCompile Include="src\game_manager\game_object\switch_manager\switch\switch.cpp" />
     <ClCompile Include="src\game_manager\game_object\switch_manager\switch\floor_switch\floor_switch.cpp" />
     <ClCompile Include="src\game_manager\game_object\switch_manager\switch_manager.cpp" />
@@ -214,10 +216,13 @@
     <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy\enemy.h" />
     <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy\enemy_a\enemy_a.h" />
     <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy\enemy_b\enemy_b.h" />
+    <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy\enemy_c\enemy_c.h" />
     <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy\enemy_id.h" />
     <ClInclude Include="src\game_manager\game_object\enemy_manager\enemy_manager.h" />
     <ClInclude Include="src\game_manager\game_object\game_object.h" />
+    <ClInclude Include="src\game_manager\game_object\scene_manager\scene\gamemain\gamemain_state.h" />
     <ClInclude Include="src\game_manager\game_object\stage_manager\stage\fall_floor\fall_floor.h" />
+    <ClInclude Include="src\game_manager\game_object\stage_manager\stage\reverse_move_floor\reverse_move_floor.h" />
     <ClInclude Include="src\game_manager\game_object\switch_manager\switch\switch.h" />
     <ClInclude Include="src\game_manager\game_object\switch_manager\switch\switch_id.h" />
     <ClInclude Include="src\game_manager\game_object\switch_manager\switch\floor_switch\floor_switch.h" />
