@@ -2,6 +2,7 @@
 #include "enemy/enemy_a/enemy_a.h"
 #include "enemy/enemy_b/enemy_b.h"
 #include "enemy/enemy_c/enemy_c.h"
+#include "enemy/enemy_d/enemy_d.h"
 #include "../character_manager/character_manager.h"
 #include "../../../utility/csv_loader/csv_loader.h"
 
@@ -69,6 +70,7 @@ void CEnemyManager::Create(ENEMY_ID id, const vivid::Vector2& position)
 	case ENEMY_ID::ENEMYA: enemy = new CEnemyA(); break;
 	case ENEMY_ID::ENEMYB: enemy = new CEnemyB(); break;
 	case ENEMY_ID::ENEMYC: enemy = new CEnemyC(); break;
+	case ENEMY_ID::ENEMYD: enemy = new CEnemyD(); break;
 	}
 
 	if (!enemy) return;
