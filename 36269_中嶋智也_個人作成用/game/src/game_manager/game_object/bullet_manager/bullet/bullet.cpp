@@ -1,4 +1,6 @@
 #include "bullet.h"
+#include "../../stage_manager/stage/stage.h"
+#include "../../box_collider/box_collider.h"
 
 const float IBullet::m_scroll_speed = 60.0f;
 const float IBullet::m_friction = 0.9f;
@@ -61,6 +63,21 @@ void IBullet::Draw(void)
 
 void IBullet::Finalize(void)
 {
+}
+
+bool IBullet::CheckHitStage(IStage* stage)
+{
+	if (!stage) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+			stage->GetPosition(), stage->GetWidth(), stage->GetHeight()))
+	{
+		m_ActiveFlag = false;
+
+		return true;
+	}
+
+	return false;
 }
 
 vivid::Vector2 IBullet::GetPosition(void)

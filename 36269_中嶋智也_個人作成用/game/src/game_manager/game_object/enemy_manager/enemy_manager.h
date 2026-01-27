@@ -6,6 +6,8 @@
 #include "enemy/enemy_id.h"
 #include "../stage_manager/stage_manager.h"
 
+class ICharacter;
+
 class CEnemyManager
 {
 public:
@@ -29,6 +31,9 @@ public:
 
 	// 地面の上にいる判定
 	bool OnGround(IStage* stage);
+
+	// 攻撃
+	void Attack(ICharacter* character);
 
 private:
 	// コンストラクタ

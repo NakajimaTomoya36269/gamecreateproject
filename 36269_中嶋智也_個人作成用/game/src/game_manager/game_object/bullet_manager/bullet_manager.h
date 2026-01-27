@@ -5,6 +5,7 @@
 #include <list>
 
 class IBullet;
+class IStage;
 
 class CBulletManager
 {
@@ -26,6 +27,9 @@ public:
 
 	// 作成
 	void Create(BULLET_ID id, const vivid::Vector2& position, float direction, float speed);
+
+	// ステージのアタリ判定
+	void CheckHitStage(IStage* stage);
 
 private:
 	// コンストラクタ

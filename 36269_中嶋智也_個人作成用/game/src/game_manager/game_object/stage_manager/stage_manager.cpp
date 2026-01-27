@@ -2,6 +2,7 @@
 #include "../character_manager/character_manager.h"
 #include "../enemy_manager/enemy_manager.h"
 #include "../switch_manager/switch_manager.h"
+#include "../bullet_manager/bullet_manager.h"
 #include "stage/short_floor/short_floor.h"
 #include "stage/long_floor/long_floor.h"
 #include "stage/repulsion_floor/repulsion_floor.h"
@@ -185,14 +186,17 @@ void CStageManager::UpdateStage(void)
 	{
 		IStage* stage = (IStage*)(*it);
 		stage->Update();
-		CCharacterManager::GetInstance().CheckHitRightWall(stage);
-		CCharacterManager::GetInstance().CheckHitLeftWall(stage);
-		CCharacterManager::GetInstance().CheckHitCeiling(stage);
-		CCharacterManager::GetInstance().Jump(stage);
-		CCharacterManager::GetInstance().ChangeGravity(stage);
-		CCharacterManager::GetInstance().OnGround(stage);
-		CCharacterManager::GetInstance().FallStage(stage);
+		CCharacterManager& character_manager = CCharacterManager::GetInstance();
+
+		character_manager.CheckHitRightWall(stage);
+		character_manager.CheckHitLeftWall(stage);
+		character_manager.CheckHitCeiling(stage);
+		character_manager.Jump(stage);
+		character_manager.ChangeGravity(stage);
+		character_manager.OnGround(stage);
+		character_manager.FallStage(stage);
 		CEnemyManager::GetInstance().OnGround(stage);
+		CBulletManager::GetInstance().CheckHitStage(stage);
 
 		++it;
 	}

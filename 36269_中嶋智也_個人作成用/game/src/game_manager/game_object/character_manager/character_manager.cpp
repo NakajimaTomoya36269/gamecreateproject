@@ -1,5 +1,6 @@
 #include "character_manager.h"
 #include "character/player/player.h"
+#include "../enemy_manager/enemy_manager.h"
 
 CCharacterManager& CCharacterManager::GetInstance(void)
 {
@@ -25,6 +26,7 @@ void CCharacterManager::Update(void)
 		ICharacter* character = (ICharacter*)(*it);
 
 		character->Update();
+		CEnemyManager::GetInstance().Attack(character);
 
 		if (!character->GetActive())
 		{
@@ -222,6 +224,21 @@ void CCharacterManager::CheckHitItem(IItem* item)
 		if ((*it)->CheckHitItem(item))
 			return;
 		++it;
+	}
+}
+
+void CCharacterManager::CheckHitBullet(IBullet* bullet)
+{
+	if (!bullet) return;
+
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
+	{
+		if ((*it)->CheckHitBullet(bullet))
+			return;
+		it++;
 	}
 }
 

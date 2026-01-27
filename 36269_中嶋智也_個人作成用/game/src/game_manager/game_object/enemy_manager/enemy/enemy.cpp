@@ -112,6 +112,11 @@ void IEnemy::SetPosition(const vivid::Vector2& position)
 	m_Position = position;
 }
 
+vivid::Vector2 IEnemy::GetCenterPosition(void)
+{
+	return m_Position + vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f);
+}
+
 int IEnemy::GetWidth(void)
 {
 	return m_Width;

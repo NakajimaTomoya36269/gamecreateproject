@@ -44,6 +44,9 @@ public:
 	// ˆÊ’u‚Ìİ’è
 	void SetPosition(const vivid::Vector2& position);
 
+	// ’†SˆÊ’u‚Ìæ“¾
+	vivid::Vector2 GetCenterPosition(void);
+
 	// •‚Ìæ“¾
 	int GetWidth(void);
 

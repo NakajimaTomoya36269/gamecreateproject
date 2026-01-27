@@ -8,6 +8,7 @@ class IStage;
 class IEnemy;
 class IItem;
 class ISwitch;
+class IBullet;
 
 enum class CHARACTER_STATE
 {
@@ -61,7 +62,11 @@ public:
 	// アイテムのアタリ判定
 	virtual bool CheckHitItem(IItem* item);
 
+	// スイッチのアタリ判定
 	virtual bool CheckHitSwitch(ISwitch* sw);
+
+	// 弾のアタリ判定
+	virtual bool CheckHitBullet(IBullet* bullet);
 
 	// キャラクターIDの取得
 	CHARACTER_ID GetCharacterID(void);

@@ -97,6 +97,21 @@ bool CEnemyManager::OnGround(IStage* stage)
 	return any_grounded;
 }
 
+void CEnemyManager::Attack(ICharacter* character)
+{
+	if (!character) return;
+
+	ENEMY_LIST::iterator it = m_EnemyList.begin();
+	ENEMY_LIST::iterator end = m_EnemyList.end();
+	
+	while (it != end)
+	{
+		(*it)->Attack(character);
+
+		it++;
+	}
+}
+
 CEnemyManager::CEnemyManager(void)
 {
 }

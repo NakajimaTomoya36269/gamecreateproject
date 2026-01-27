@@ -4,6 +4,7 @@
 #include "../../enemy_manager/enemy/enemy.h"
 #include "../../item_manager/item/item.h"
 #include "../../switch_manager/switch/switch.h"
+#include "../../bullet_manager/bullet/bullet.h"
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
@@ -272,6 +273,23 @@ bool ICharacter::CheckHitSwitch(ISwitch* sw)
 		{
 			sw->OnPress();
 		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool ICharacter::CheckHitBullet(IBullet* bullet)
+{
+	if (!bullet) return false;
+
+	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
+		bullet->GetPosition(), bullet->GetWidth(), bullet->GetHeight()))
+	{
+		m_Life--;
+
+		bullet->SetActiveFlag(false);
 
 		return true;
 	}

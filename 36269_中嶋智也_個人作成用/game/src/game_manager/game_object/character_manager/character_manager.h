@@ -8,6 +8,7 @@
 #include "../enemy_manager/enemy_manager.h"
 #include "../item_manager/item_manager.h"
 #include "../switch_manager/switch_manager.h"
+#include "../bullet_manager/bullet_manager.h"
 
 class CCharacterManager
 {
@@ -56,6 +57,9 @@ public:
 
 	// アイテムのアタリ判定
 	void CheckHitItem(IItem* item);
+
+	// 弾のアタリ判定
+	void CheckHitBullet(IBullet* bullet);
 
 	// ジャンプ力が上がる
 	void JumpUp(IItem* item);

@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include "bullet_id.h"
 
+class IStage;
+
 class IBullet
 {
 public:
@@ -23,6 +25,9 @@ public:
 
 	// 解放
 	virtual void Finalize(void);
+
+	// ステージのアタリ判定
+	virtual bool CheckHitStage(IStage* stage);
 
 	// 位置の取得
 	vivid::Vector2 GetPosition(void);

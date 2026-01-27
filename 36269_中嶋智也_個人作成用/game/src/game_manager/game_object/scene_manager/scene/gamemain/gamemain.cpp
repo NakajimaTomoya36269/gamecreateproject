@@ -4,6 +4,7 @@
 #include "../../../enemy_manager/enemy_manager.h"
 #include "../../../item_manager/item_manager.h"
 #include "../../../switch_manager/switch_manager.h"
+#include "../../../bullet_manager/bullet_manager.h"
 #include "../../scene_manager.h"
 
 const int CGamemain::m_font_size = 40;
@@ -33,6 +34,8 @@ void CGamemain::Initialize(void)
 	CSwitchManager::GetInstance().Initialize();
 
 	m_background.Initialize();
+
+	CBulletManager::GetInstance().Initialize();
 }
 
 void CGamemain::Update(void)
@@ -57,6 +60,7 @@ void CGamemain::Draw(void)
 	m_goal.Draw();
 	CItemManager::GetInstance().Draw();
 	CEnemyManager::GetInstance().Draw();
+	CBulletManager::GetInstance().Draw();
 	CCharacterManager::GetInstance().Draw();
 	CSwitchManager::GetInstance().Draw();
 
@@ -78,6 +82,7 @@ void CGamemain::Finalize(void)
 	CEnemyManager::GetInstance().Finalize();
 	CItemManager::GetInstance().Finalize();
 	CSwitchManager::GetInstance().Finalize();
+	CBulletManager::GetInstance().Finalize();
 	m_goal.Finalize();
 	m_background.Finalize();
 }
@@ -88,6 +93,7 @@ void CGamemain::UpdatePlay(void)
 	CCharacterManager::GetInstance().Update();
 	CEnemyManager::GetInstance().Update();
 	CSwitchManager::GetInstance().Update();
+	CBulletManager::GetInstance().Update();
 
 	if (CCharacterManager::GetInstance().CheckHitGoal(m_goal))
 	{
