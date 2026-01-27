@@ -4,6 +4,7 @@
 #include "vivid.h"
 
 class IStage;
+class ICharacter;
 
 enum class ENEMY_STATE
 {
@@ -34,6 +35,8 @@ public:
 
 	// °‚Ì“–‚½‚è”»’è
 	virtual bool OnGround(IStage* stage);
+
+	virtual void Attack(ICharacter* character);
 
 	// ˆÊ’u‚Ìæ“¾
 	vivid::Vector2 GetPosition(void);

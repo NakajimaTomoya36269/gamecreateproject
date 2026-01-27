@@ -102,6 +102,9 @@ public:
 	// 重力の設定
 	void SetGravity(float gravity);
 
+	// 中心座標の取得
+	vivid::Vector2 GetCenterPosition(void);
+
 	// 重力変更フラグの取得
 	bool GetGravityChange(void);
 

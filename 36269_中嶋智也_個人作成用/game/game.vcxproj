@@ -167,6 +167,9 @@
     <ClCompile Include="src\game_manager\game_manager.cpp" />
     <ClCompile Include="src\game_manager\game_object\background\background.cpp" />
     <ClCompile Include="src\game_manager\game_object\box_collider\box_collider.cpp" />
+    <ClCompile Include="src\game_manager\game_object\bullet_manager\bullet\bullet.cpp" />
+    <ClCompile Include="src\game_manager\game_object\bullet_manager\bullet\normal_bullet\normal_bullet.cpp" />
+    <ClCompile Include="src\game_manager\game_object\bullet_manager\bullet_manager.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character\character.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character\player\player.cpp" />
     <ClCompile Include="src\game_manager\game_object\character_manager\character_manager.cpp" />
@@ -209,6 +212,10 @@
     <ClInclude Include="src\game_manager\game_manager.h" />
     <ClInclude Include="src\game_manager\game_object\background\background.h" />
     <ClInclude Include="src\game_manager\game_object\box_collider\box_collider.h" />
+    <ClInclude Include="src\game_manager\game_object\bullet_manager\bullet\bullet.h" />
+    <ClInclude Include="src\game_manager\game_object\bullet_manager\bullet\bullet_id.h" />
+    <ClInclude Include="src\game_manager\game_object\bullet_manager\bullet\normal_bullet\normal_bullet.h" />
+    <ClInclude Include="src\game_manager\game_object\bullet_manager\bullet_manager.h" />
     <ClInclude Include="src\game_manager\game_object\character_manager\character\character.h" />
     <ClInclude Include="src\game_manager\game_object\character_manager\character\character_id.h" />
     <ClInclude Include="src\game_manager\game_object\character_manager\character\player\player.h" />

@@ -97,6 +97,11 @@ bool IEnemy::OnGround(IStage* stage)
 	return false;
 }
 
+void IEnemy::Attack(ICharacter* character)
+{
+	if (!character) return;
+}
+
 vivid::Vector2 IEnemy::GetPosition(void)
 {
 	return m_Position;
