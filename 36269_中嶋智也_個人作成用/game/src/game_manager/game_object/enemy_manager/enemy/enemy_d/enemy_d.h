@@ -36,5 +36,8 @@ private:
 	static const int		m_height;	// 高さ
 	static const float		m_radius;	// 半径
 	static const int		m_max_life;	// 最大ライフ
+	static const float		m_attack_time;	// 攻撃時間
 
+	float						m_AttackTimer;	// 攻撃タイマー
+	bool						m_Attacked;		// 攻撃フラグ
 };

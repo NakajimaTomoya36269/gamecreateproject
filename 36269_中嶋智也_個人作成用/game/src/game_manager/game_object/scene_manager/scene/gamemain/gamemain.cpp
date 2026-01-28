@@ -67,6 +67,7 @@ void CGamemain::Draw(void)
 	if (m_CurrentStateID == GAMEMAIN_STATE_ID::PAUSE)
 	{
 		vivid::DrawTexture("data\\pause.png", vivid::Vector2(192.0f, 0.0f));
+		vivid::DrawTexture("data\\pause_select.png", vivid::Vector2(768.0f, 750.0f));
 	}
 
 #ifdef _DEBUG

@@ -21,6 +21,8 @@ void CGameManager::Update(void)
 void CGameManager::Draw(void)
 {
 	CSceneManager::GetInstance().Draw();
+
+	CSceneManager::GetInstance().DrawSceneEffect();
 }
 
 void CGameManager::Finalize(void)

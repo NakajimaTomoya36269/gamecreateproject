@@ -27,10 +27,12 @@ public:
 	// シーンの切り替え
 	void ChangeScene(SCENE_ID next_scene);
 
-private:
+	// シーンのエフェクト描画
+	void DrawSceneEffect(void);
 
+private:
 	// 切り替え
-	void Change(void);
+	void Change(SCENE_ID id);
 
 	// コンストラクタ
 	CSceneManager(void);
@@ -44,7 +46,36 @@ private:
 	// 代入演算子
 	CSceneManager operator=(const CSceneManager& rhs) = delete;
 
+	// フェードインの更新
+	void UpdateFadeIn(void);
+
+	// シーン更新
+	void SceneUpdate(void);
+
+	// フェードアウトの更新
+	void UpdateFadeOut(void);
+
+	// シーン変更
+	void SceneChange(void);
+
+	enum class SCENE_STATE
+	{
+		FADEIN,					// フェードイン
+		SCENE_UPDATE,			// シーン更新
+		FADE_OUT,				// フェードアウト
+		SCENE_CHANGE,			// シーン変更
+	};
+
+	static const int				m_fade_speed;		// フェード速度
+	static const vivid::Vector2		m_fade_position;	// フェード位置
+	static const unsigned int		m_fade_color;		// フェードカラー
+	static const int				m_min_fade_alpha;   // フェード用アルファの最小値
+	static const int				m_max_fade_alpha;   // フェード用アルファの最大値
+
 	IScene*	m_Scene;				// シーンクラス
 	SCENE_ID	m_NextSceneID;		// 次のシーンID
 	SCENE_ID	m_CurrentSceneID;	// 現在のシーンID
+	SCENE_STATE	m_SceneState;		// シーンの状態
+	bool		m_ChangeScene;		// シーン変更フラグ
+	int			m_FadeAlpha;		// フェード時のアルファ値
 };

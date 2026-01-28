@@ -4,6 +4,12 @@
 #include "scene/gameover/gameover.h"
 #include "scene/gameclear/gameclear.h"
 
+const int				CSceneManager::m_fade_speed = 10;
+const vivid::Vector2	CSceneManager::m_fade_position = vivid::Vector2(0.0f, 0.0f);
+const unsigned int		CSceneManager::m_fade_color = 0xff000000;
+const int				CSceneManager::m_max_fade_alpha = 255;
+const int				CSceneManager::m_min_fade_alpha = 0;
+
 CSceneManager& CSceneManager::GetInstance(void)
 {
 	static CSceneManager instance;
@@ -14,16 +20,21 @@ CSceneManager& CSceneManager::GetInstance(void)
 void CSceneManager::Initialize(void)
 {
 	ChangeScene(SCENE_ID::TITLE);
+
+	m_SceneState = SCENE_STATE::SCENE_CHANGE;
+
+	m_ChangeScene = false;
 }
 
 void CSceneManager::Update(void)
 {
-	// シーンの切り替わり確認
-	if (m_CurrentSceneID != m_NextSceneID)
-		Change(); // 切り替え関数
-
-	// シーンの更新
-	m_Scene->Update();
+	switch (m_SceneState)
+	{
+	case SCENE_STATE::FADEIN: UpdateFadeIn(); break;
+	case SCENE_STATE::SCENE_UPDATE: SceneUpdate(); break;
+	case SCENE_STATE::FADE_OUT: UpdateFadeOut(); break;
+	case SCENE_STATE::SCENE_CHANGE: SceneChange(); break;
+	}
 }
 
 void CSceneManager::Draw(void)
@@ -46,21 +57,22 @@ void CSceneManager::Finalize(void)
 void CSceneManager::ChangeScene(SCENE_ID next_scene)
 {
 	m_NextSceneID = next_scene;
+
+	m_ChangeScene = true;
 }
 
-void CSceneManager::Change(void)
+void CSceneManager::DrawSceneEffect(void)
 {
-	if (m_Scene != nullptr)
-	{
-		// 現在動いているシーンを終わらせる
-		m_Scene->Finalize();
+	// アルファ値とフェードカラーの合成
+	unsigned int color = (m_FadeAlpha << 24) | (m_fade_color & 0x00ffffff);
 
-		delete m_Scene;
+	// シーンエフェクトを描画
+	vivid::DrawTexture("data\\white.png", m_fade_position, color);
+}
 
-		m_Scene = nullptr;
-	}
-
-	switch (m_NextSceneID)
+void CSceneManager::Change(SCENE_ID id)
+{
+	switch (id)
 	{
 	case SCENE_ID::TITLE:
 		m_Scene = new CTitle();
@@ -75,20 +87,81 @@ void CSceneManager::Change(void)
 		m_Scene = new CGameClear();
 		break;
 	}
-
-	// ヌルチェックを行う、問題なければ初期化を呼ぶ
-	if (m_Scene)
-	{
-		m_Scene->Initialize();
-	}
-
-	// シーンIDを合わせる
-	m_CurrentSceneID = m_NextSceneID;
 }
 
 CSceneManager::CSceneManager(void)
 	: m_CurrentSceneID(SCENE_ID::DAMMY)
 	, m_NextSceneID(SCENE_ID::DAMMY)
 	, m_Scene(nullptr)
+	, m_ChangeScene(false)
+	, m_FadeAlpha(m_max_fade_alpha)
 {
+}
+
+void CSceneManager::UpdateFadeIn(void)
+{
+	m_FadeAlpha -= m_fade_speed;
+
+	if (m_FadeAlpha < m_min_fade_alpha)
+	{
+		m_FadeAlpha = m_min_fade_alpha;
+
+		// シーン更新
+		m_SceneState = SCENE_STATE::SCENE_UPDATE;
+	}
+}
+
+void CSceneManager::SceneUpdate(void)
+{
+	// シーンの更新
+	if (m_Scene) m_Scene->Update();
+
+	// シーン変更が発生
+	if (m_CurrentSceneID != m_NextSceneID || m_ChangeScene)
+	{
+		m_ChangeScene = false;
+
+		// フェードアウト
+		m_SceneState = SCENE_STATE::FADE_OUT;
+	}
+}
+
+void CSceneManager::UpdateFadeOut(void)
+{
+	m_FadeAlpha += m_fade_speed;
+
+	if (m_FadeAlpha > m_max_fade_alpha)
+	{
+		m_FadeAlpha = m_max_fade_alpha;
+
+		// シーン変更
+		m_SceneState = SCENE_STATE::SCENE_CHANGE;
+	}
+}
+
+void CSceneManager::SceneChange(void)
+{
+	m_FadeAlpha = m_max_fade_alpha;
+
+	if (m_Scene)
+	{
+		m_Scene->Finalize();
+
+		delete m_Scene;
+
+		m_Scene = nullptr;
+	}
+
+	Change(m_NextSceneID); // 切り替え関数
+
+	// 初期化
+	m_Scene->Initialize();
+
+	// 更新
+	m_Scene->Update();
+
+	m_CurrentSceneID = m_NextSceneID;
+
+	// フェードイン
+	m_SceneState = SCENE_STATE::FADEIN;
 }

@@ -8,7 +8,7 @@
 
 const float ICharacter::m_gravity_speed = 0.5f;
 const float ICharacter::m_max_gravity = 30.0f;
-const float ICharacter::m_jump_power = 30.0f;
+const float ICharacter::m_jump_power = 70.0f;
 const float ICharacter::m_jump_up_max_time = 1200.0f;
 const float ICharacter::m_jump_up_power = 100.0f;
 const float ICharacter::m_invincible_max_time = 600.0f;
@@ -285,7 +285,7 @@ bool ICharacter::CheckHitBullet(IBullet* bullet)
 	if (!bullet) return false;
 
 	if (CBoxCollider::GetInstance().CheckBoxCollision(m_Position, m_Width, m_Height,
-		bullet->GetPosition(), bullet->GetWidth(), bullet->GetHeight()))
+		bullet->GetPosition(), bullet->GetWidth(), bullet->GetHeight()) && !m_InvincibleFlag)
 	{
 		m_Life--;
 
