@@ -2,25 +2,65 @@
 
 #include "vivid.h"
 
+//------------------------------------------------------------
+// ボックス（矩形）を使った当たり判定クラス
+// ・矩形 × 矩形
+// ・矩形 × 円
+// シングルトンとして管理する
+//------------------------------------------------------------
 class CBoxCollider
 {
 public:
-	// インスタンスの取得
+	//--------------------------------------------------------
+	// シングルトンインスタンスの取得
+	//--------------------------------------------------------
 	static CBoxCollider& GetInstance(void);
 
-	bool CheckBoxCollision(const vivid::Vector2& box_position1, const int box_width1, const int box_height1,
-							const vivid::Vector2& box_position2, const int box_width2, const int box_height2);
+	//--------------------------------------------------------
+	// 矩形同士の当たり判定（AABB）
+	//--------------------------------------------------------
+	// box_position : 矩形の左上座標
+	// box_width    : 横幅
+	// box_height   : 高さ
+	// 戻り値       : 当たっていれば true
+	//--------------------------------------------------------
+	bool CheckBoxCollision(
+		const vivid::Vector2& box_position1, const int box_width1, const int box_height1,
+		const vivid::Vector2& box_position2, const int box_width2, const int box_height2);
+
+	//--------------------------------------------------------
+	// 矩形と円の当たり判定
+	//--------------------------------------------------------
+	// box_position    : 矩形の左上座標
+	// box_width       : 矩形の横幅
+	// box_height      : 矩形の高さ
+	// circle_position : 円の中心座標
+	// radius          : 円の半径
+	// 戻り値          : 当たっていれば true
+	//--------------------------------------------------------
+	bool CheckCircleCollision(
+		const vivid::Vector2& box_position, const int box_width, const int box_height,
+		const vivid::Vector2& circle_position, const float radius);
 
 private:
+	//--------------------------------------------------------
 	// コンストラクタ
+	// 外部から生成させない（シングルトン用）
+	//--------------------------------------------------------
 	CBoxCollider(void) = default;
 
-	// コピーコンストラクタ
+	//--------------------------------------------------------
+	// コピー禁止
+	//--------------------------------------------------------
 	CBoxCollider(const CBoxCollider& rhs) = delete;
 
+	//--------------------------------------------------------
 	// デストラクタ
+	//--------------------------------------------------------
 	~CBoxCollider(void) = default;
 
-	// 代入演算子
-	CBoxCollider operator=(const CBoxCollider& rhs) = delete;
+	//--------------------------------------------------------
+	// 代入禁止
+	//--------------------------------------------------------
+	CBoxCollider& operator=(const CBoxCollider& rhs) = delete;
 };

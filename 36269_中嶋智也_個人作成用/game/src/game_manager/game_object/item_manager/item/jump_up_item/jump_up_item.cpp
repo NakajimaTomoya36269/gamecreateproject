@@ -2,9 +2,10 @@
 
 const int	CJumpUpItem::m_width = 80;
 const int	CJumpUpItem::m_height = 80;
+const float	CJumpUpItem::m_radius = 40.0f;
 
 CJumpUpItem::CJumpUpItem(void)
-	: IItem(m_width, m_height, ITEM_ID::JUMP_UP_ITEM)
+	: IItem(m_width, m_height, m_radius, ITEM_ID::JUMP_UP_ITEM)
 {
 }
 

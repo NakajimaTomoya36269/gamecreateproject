@@ -7,7 +7,7 @@ class IItem
 {
 public:
 	// コンストラクタ
-	IItem(int width, int height, ITEM_ID id);
+	IItem(int width, int height, float radius, ITEM_ID id);
 
 	// デストラクタ
 	virtual ~IItem(void);
@@ -30,8 +30,14 @@ public:
 	// 高さの取得
 	int GetHeight(void);
 
+	// 半径の取得
+	float GetRadius(void);
+
 	// 位置の取得
 	vivid::Vector2 GetPosition(void);
+
+	// 中心位置の取得
+	vivid::Vector2 GetCenterPosition(void);
 
 	// アクティブフラグの取得
 	bool GetActive(void);
@@ -43,12 +49,13 @@ public:
 	ITEM_ID GetItemID(void);
 
 protected:
-	int				m_Width;	// 幅
-	int				m_Height;	// 高さ
-	bool			m_ActiveFlag;// アクティブフラグ
-	vivid::Vector2	m_Position;	// 位置
-	vivid::Vector2	m_Velocity;	// 速さ
-	ITEM_ID			m_ItemID;	// アイテムのID
+	int				m_Width;		// 幅
+	int				m_Height;		// 高さ
+	float			m_Radius;		// 半径
+	bool			m_ActiveFlag;	// アクティブフラグ
+	vivid::Vector2	m_Position;		// 位置
+	vivid::Vector2	m_Velocity;		// 速さ
+	ITEM_ID			m_ItemID;		// アイテムのID
 
 	static const float	m_scroll_speed;	// スクロールスピード
 	static const float	m_friction;		// 摩擦力

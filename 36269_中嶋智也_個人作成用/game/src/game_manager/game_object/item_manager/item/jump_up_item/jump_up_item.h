@@ -19,4 +19,5 @@ public:
 private:
 	static const int	m_width;	// •
 	static const int	m_height;	// ‚‚³
+	static const float	m_radius;	// ”¼Œa
 };
