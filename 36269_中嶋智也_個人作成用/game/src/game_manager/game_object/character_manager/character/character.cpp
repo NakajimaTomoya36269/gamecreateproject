@@ -292,11 +292,18 @@ bool ICharacter::CheckHitRightWall(IStage* stage)
 {
 	if (!stage) return false;
 
-	if (m_Position.x + (float)m_Width < stage->GetPosition().x)
+	// ‹éŒ`“¯Žm‚ÌŠÈˆÕ“–‚½‚è”»’è
+	if (m_Position.x + (float)m_Width > stage->GetPosition().x &&
+		m_Position.x < stage->GetPosition().x + (float)stage->GetWidth() &&
+		m_Position.y + (float)m_Height > stage->GetPosition().y &&
+		m_Position.y < stage->GetPosition().y + stage->GetHeight())
 	{
-		m_Position.x = stage->GetPosition().x - (float)m_Width;
-		m_Velocity.x = 0.0f;
-		return true;
+		if (m_Position.x + (float)m_Width < stage->GetPosition().x)
+		{
+			m_Position.x = stage->GetPosition().x - (float)m_Width;
+			m_Velocity.x = 0.0f;
+			return true;
+		}
 	}
 
 	return false;
@@ -311,11 +318,19 @@ bool ICharacter::CheckHitLeftWall(IStage* stage)
 {
 	if (!stage) return false;
 
-	if (m_Position.x > stage->GetPosition().x + (float)stage->GetWidth())
+	// ‹éŒ`“¯Žm‚ÌŠÈˆÕ“–‚½‚è”»’è
+	if (m_Position.x + (float)m_Width > stage->GetPosition().x &&
+		m_Position.x < stage->GetPosition().x + (float)stage->GetWidth() &&
+		m_Position.y + (float)m_Height > stage->GetPosition().y &&
+		m_Position.y < stage->GetPosition().y + stage->GetHeight())
 	{
-		m_Position.x = stage->GetPosition().x + (float)stage->GetWidth();
-		m_Velocity.x = 0.0f;
-		return true;
+
+		if (m_Position.x > stage->GetPosition().x + (float)stage->GetWidth())
+		{
+			m_Position.x = stage->GetPosition().x + (float)stage->GetWidth();
+			m_Velocity.x = 0.0f;
+			return true;
+		}
 	}
 
 	return false;

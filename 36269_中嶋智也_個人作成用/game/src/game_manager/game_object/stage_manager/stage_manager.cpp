@@ -11,13 +11,20 @@
 #include "stage/reverse_move_floor/reverse_move_floor.h"
 #include "../../../utility/csv_loader/csv_loader.h"
 
+///------------------------------------------------------------
+/// ステージマネージャのシングルトン取得
+///------------------------------------------------------------
 CStageManager& CStageManager::GetInstance(void)
 {
 	static CStageManager instance;
-
 	return instance;
 }
 
+///------------------------------------------------------------
+/// 初期化処理
+/// ステージリストとステージ生成テーブルを初期化し、
+/// CSVからステージ情報を読み込む
+///------------------------------------------------------------
 void CStageManager::Initialize(void)
 {
 	m_StageList.clear();
@@ -26,42 +33,54 @@ void CStageManager::Initialize(void)
 	DeployStage();
 }
 
+///------------------------------------------------------------
+/// 更新処理
+/// ステージ生成テーブルの更新 → ステージの更新
+///------------------------------------------------------------
 void CStageManager::Update(void)
 {
 	UpdateStageTable();
-
 	UpdateStage();
 }
 
+///------------------------------------------------------------
+/// 描画処理
+/// 登録されている全ステージを描画
+///------------------------------------------------------------
 void CStageManager::Draw(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();
-	
+
 	while (it != end)
 	{
 		(*it)->Draw();
-
 		++it;
 	}
 }
 
+///------------------------------------------------------------
+/// 終了処理
+/// ステージの終了処理とメモリ解放
+///------------------------------------------------------------
 void CStageManager::Finalize(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
 	STAGE_LIST::iterator end = m_StageList.end();
-	
+
 	while (it != end)
 	{
 		(*it)->Finalize();
-
 		delete (*it);
-
 		++it;
 	}
 	m_StageList.clear();
 }
 
+///------------------------------------------------------------
+/// ステージ生成
+/// ステージIDに応じて対応する床オブジェクトを生成
+///------------------------------------------------------------
 void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 {
 	IStage* stage = nullptr;
@@ -76,13 +95,16 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = new CReveseMoveFloor(); break;
 	}
 
+	// 無効なIDの場合は生成しない
 	if (!stage)	return;
 
 	stage->Initialize(position);
-
 	m_StageList.push_back(stage);
 }
 
+///------------------------------------------------------------
+/// 敵が地面に接地しているかの判定
+///------------------------------------------------------------
 void CStageManager::EnemyOnGround(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
@@ -96,10 +118,11 @@ void CStageManager::EnemyOnGround(void)
 		}
 		++it;
 	}
-
-	return;
 }
 
+///------------------------------------------------------------
+/// キャラクターとステージの当たり判定
+///------------------------------------------------------------
 bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 {
 	if (!character) return false;
@@ -118,16 +141,25 @@ bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
 	return false;
 }
 
+///------------------------------------------------------------
+/// 全スイッチのON/OFF切り替え
+///------------------------------------------------------------
 void CStageManager::ToggleAllSwitch(void)
 {
 	m_AllSwitchOn = !m_AllSwitchOn;
 }
 
+///------------------------------------------------------------
+/// 全スイッチがONかどうか取得
+///------------------------------------------------------------
 bool CStageManager::IsAllSwitchOn(void) const
 {
 	return m_AllSwitchOn;
 }
 
+///------------------------------------------------------------
+/// スイッチに連動した床の移動方向変更
+///------------------------------------------------------------
 void CStageManager::MoveChange(ISwitch* sw)
 {
 	if (!sw) return;
@@ -142,11 +174,17 @@ void CStageManager::MoveChange(ISwitch* sw)
 	}
 }
 
+///------------------------------------------------------------
+/// コンストラクタ
+///------------------------------------------------------------
 CStageManager::CStageManager(void)
 	: m_AllSwitchOn(false)
 {
 }
 
+///------------------------------------------------------------
+/// CSVからステージ配置データを読み込む
+///------------------------------------------------------------
 void CStageManager::DeployStage(void)
 {
 	CCSVLoader csv_loader;
@@ -164,9 +202,13 @@ void CStageManager::DeployStage(void)
 	csv_loader.Unload();
 }
 
+///------------------------------------------------------------
+/// ステージ生成テーブル更新
+/// 1フレームに1つずつステージを生成する
+///------------------------------------------------------------
 void CStageManager::UpdateStageTable(void)
 {
-	if (m_StageTable.empty())return;
+	if (m_StageTable.empty()) return;
 
 	STAGE_TABLE_LIST::iterator it = m_StageTable.begin();
 	STAGE_TABLE_DATA t = *it;
@@ -177,6 +219,9 @@ void CStageManager::UpdateStageTable(void)
 	m_StageTable.erase(it);
 }
 
+///------------------------------------------------------------
+/// ステージ更新と各マネージャとの当たり判定処理
+///------------------------------------------------------------
 void CStageManager::UpdateStage(void)
 {
 	STAGE_LIST::iterator it = m_StageList.begin();
@@ -186,6 +231,7 @@ void CStageManager::UpdateStage(void)
 	{
 		IStage* stage = (IStage*)(*it);
 		stage->Update();
+
 		CCharacterManager& character_manager = CCharacterManager::GetInstance();
 
 		character_manager.CheckHitRightWall(stage);
@@ -195,6 +241,7 @@ void CStageManager::UpdateStage(void)
 		character_manager.ChangeGravity(stage);
 		character_manager.OnGround(stage);
 		character_manager.FallStage(stage);
+
 		CEnemyManager::GetInstance().OnGround(stage);
 		CBulletManager::GetInstance().CheckHitStage(stage);
 

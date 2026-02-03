@@ -1,11 +1,31 @@
 #pragma once
 
+/*
+ * STAGE_ID
+ * ----------------------------
+ * ステージ（床・ギミック）の種類を識別するためのID列挙。
+ *
+ * 役割：
+ *  - ステージ生成時のファクトリ分岐
+ *  - ステージ固有処理の判別
+ *  - デバッグ・ログ用途での可読性向上
+ *
+ * 設計意図：
+ *  - enum class によりスコープ汚染を防止
+ *  - 数値比較ではなく「意味」で分岐できるようにする
+ *  - IStage::GetStageID() を通じて安全に参照される
+ *
+ * 注意：
+ *  - 並び順や数値には依存しない設計にすること
+ *  - 新しい床タイプ追加時は、対応する派生クラスと
+ *    ステージ生成処理（Manager）も必ず更新する
+ */
 enum class STAGE_ID
 {
-	LONG_FLOOR,
-	SHORT_FLOOR,
-	REPULSION_FLOOR,
-	MOVE_FLOOR,
-	FALL_FLOOR,
-	REVERSE_MOVE_FLOOR,
+	LONG_FLOOR,			// 長い床（通常床・広範囲移動用）
+	SHORT_FLOOR,		// 短い床（ジャンプ精度要求）
+	REPULSION_FLOOR,	// 反発床（キャラクターを弾く）
+	MOVE_FLOOR,			// スイッチ連動の移動床
+	FALL_FLOOR,			// 踏むと落下する床
+	REVERSE_MOVE_FLOOR,	// スイッチで停止/逆転する移動床
 };
