@@ -67,15 +67,36 @@ void CPlayer::Update(void)
 //------------------------------------------------------------
 void CPlayer::Draw(void)
 {
-	// プレイヤー描画
+	// ジャンプゲージ描画用のオフセット値（プレイヤーの座標基準）
+	const float jump_gauge_offset_x = 46.0f; // X方向のゲージ表示位置補正
+	const float jump_gauge_offset_y = 80.0f; // Y方向のゲージ表示位置補正（上方向）
+
+	// プレイヤー本体の描画
+	// m_Position: プレイヤーの座標
+	// 0xffffffff: 描画色（白、不透明）
 	vivid::DrawTexture("data\\player.png", m_Position, 0xffffffff);
 
+	// ジャンプ中の場合、ジャンプゲージをプレイヤー上に表示
+	if (m_JumpUp)
+	{
+		// プレイヤー位置からオフセットしてジャンプゲージを描画
+		vivid::DrawTexture(
+			"data\\jump_up_gauge.png",
+			vivid::Vector2(
+				m_Position.x - jump_gauge_offset_x, // X座標調整
+				m_Position.y - jump_gauge_offset_y  // Y座標調整
+			)
+		);
+	}
+
 #ifdef _DEBUG
-	// デバッグ用：Y座標表示
+	// デバッグ用：プレイヤーのY座標を画面に表示
+	// 画面左上（0,40）に表示
 	vivid::DrawText(
-		40,
-		std::to_string(m_Position.y),
-		vivid::Vector2(0.0f, 40.0f));
+		40, // フォントサイズ
+		std::to_string(m_Position.y), // 表示文字列（Y座標）
+		vivid::Vector2(0.0f, 40.0f) // 描画位置
+	);
 #endif
 }
 
@@ -107,12 +128,12 @@ void CPlayer::Alive(void)
 	}
 
 	// 画面外チェック（通常重力）
-	if (!m_GravityChange && m_Position.y + m_Height > (float)vivid::WINDOW_HEIGHT)
+	if (!m_GravityChange && m_Position.y > (float)vivid::WINDOW_HEIGHT + m_Height)
 	{
 		m_State = CHARACTER_STATE::DEAD;
 	}
 	// 画面外チェック（重力反転）
-	else if (m_GravityChange && m_Position.y < 0.0f)
+	else if (m_GravityChange && m_Position.y + m_Height < 0.0f)
 	{
 		m_State = CHARACTER_STATE::DEAD;
 	}

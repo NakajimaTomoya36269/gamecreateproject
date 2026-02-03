@@ -3,10 +3,10 @@
 //------------------------------------------------------------
 // ’è”’è‹`
 //------------------------------------------------------------
-const int   CBackGround::m_max_background_count = 2;     // ”wŒi‚Ì–‡”
-const int   CBackGround::m_width = 1920;                // ”wŒi1–‡‚Ì‰¡•
-const int   CBackGround::m_height = 1080;                // ”wŒi1–‡‚Ì‚‚³
-const float CBackGround::m_scroll_speed = 60.0f;         // ƒXƒNƒ[ƒ‹‘¬“x
+const int   CBackGround::m_max_background_count = 2;		// ”wŒi‚Ì–‡”
+const int   CBackGround::m_width = 1920;					// ”wŒi1–‡‚Ì‰¡•
+const int   CBackGround::m_height = 1080;					// ”wŒi1–‡‚Ì‚‚³
+const float CBackGround::m_scroll_speed = 60.0f;			// ƒXƒNƒ[ƒ‹‘¬“x
 
 //------------------------------------------------------------
 // ƒRƒ“ƒXƒgƒ‰ƒNƒ^

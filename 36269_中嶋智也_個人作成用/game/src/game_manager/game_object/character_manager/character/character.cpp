@@ -15,9 +15,6 @@
 // 重力の加速度
 const float ICharacter::m_gravity_speed = 1.0f;
 
-// 重力の最大値（落下速度制限用）
-const float ICharacter::m_max_gravity = 30.0f;
-
 // 通常ジャンプ力
 const float ICharacter::m_jump_power = 20.0f;
 
@@ -32,6 +29,9 @@ const float ICharacter::m_invincible_max_time = 600.0f;
 
 // 落ちる床が崩れるまでの時間
 const float ICharacter::m_fall_time = 600.0f;
+
+// 着地猶予最大時間
+const float ICharacter::m_coyote_max_time = 60.0f;
 
 /*
 ================================
@@ -76,9 +76,10 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
 	, m_JumpUpTimer(0.0f)
 
-	// 無敵・落下床タイマー
+	// 無敵・落下床・着地猶予タイマー
 	, m_InvincibleTimer(0.0f)
 	, m_FallTimer(0.0f)
+	, m_CoyoteTimer(0.0f)
 {
 }
 
@@ -123,6 +124,7 @@ void ICharacter::Initialize(const vivid::Vector2& position)
 	// タイマー初期化
 	m_InvincibleTimer = 0.0f;
 	m_FallTimer = 0.0f;
+	m_CoyoteTimer = 0.0f;
 }
 
 /*
@@ -190,6 +192,7 @@ bool ICharacter::OnGround(IStage* stage)
 			if (stage->GetStageID() == STAGE_ID::REPULSION_FLOOR)
 			{
 				m_Velocity.y -= m_Jump.y / 2.0f;
+				m_CoyoteTimer = m_coyote_max_time;
 			}
 
 			return true;
@@ -214,22 +217,22 @@ bool ICharacter::OnGround(IStage* stage)
 */
 void ICharacter::Jump(IStage* stage)
 {
+	if (!stage) return;
+
 	namespace keyboard = vivid::keyboard;
 
 	// ジャンプキー
 	bool jump_key = keyboard::Trigger(keyboard::KEY_ID::UP);
 
+	m_CoyoteTimer--;
+
 	// 地面にいる時だけジャンプ
-	if (jump_key && OnGround(stage))
+	if (jump_key && (OnGround(stage) || m_CoyoteTimer > 0.0f))
 	{
 		m_Velocity.y -= m_Jump.y;
+		m_CoyoteTimer = 0.0f;
 	}
 
-	// 重力方向に応じて移動方向を変える
-	if (!m_GravityChange)
-		m_Position.y += m_Velocity.y * vivid::GetDeltaTime();
-	else
-		m_Position.y -= m_Velocity.y * vivid::GetDeltaTime();
 }
 
 /*
@@ -414,7 +417,7 @@ bool ICharacter::CheckHitBullet(IBullet* bullet)
 
 	if (CBoxCollider::GetInstance().CheckCircleCollision(
 		m_Position, m_Width, m_Height,
-		bullet->GetPosition(), bullet->GetRadius()) && !m_InvincibleFlag)
+		bullet->GetCenterPosition(), bullet->GetRadius()) && !m_InvincibleFlag)
 	{
 		m_Life--;
 		bullet->SetActiveFlag(false);

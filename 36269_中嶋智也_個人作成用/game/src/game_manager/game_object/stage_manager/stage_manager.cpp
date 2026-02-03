@@ -237,8 +237,8 @@ void CStageManager::UpdateStage(void)
 		character_manager.CheckHitRightWall(stage);
 		character_manager.CheckHitLeftWall(stage);
 		character_manager.CheckHitCeiling(stage);
-		character_manager.Jump(stage);
 		character_manager.ChangeGravity(stage);
+		character_manager.Jump(stage);
 		character_manager.OnGround(stage);
 		character_manager.FallStage(stage);
 

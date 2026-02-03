@@ -211,6 +211,7 @@ protected:
 	float			m_JumpUpTimer;		// ジャンプ強化残り時間
 	float			m_InvincibleTimer;	// 無敵残り時間
 	float			m_FallTimer;		// 落下床用タイマー
+	float			m_CoyoteTimer;		// 着地猶予タイマー
 
 	bool			m_Active;			// 有効フラグ
 	bool			m_GravityChange;	// 重力反転フラグ
@@ -227,10 +228,10 @@ protected:
 	----------------------------
 	*/
 	static const float	m_gravity_speed;		// 基本重力
-	static const float	m_max_gravity;			// 重力最大値
 	static const float	m_jump_power;			// 通常ジャンプ力
 	static const float	m_jump_up_max_time;		// ジャンプ強化時間
 	static const float	m_jump_up_power;		// ジャンプ強化時ジャンプ力
 	static const float	m_invincible_max_time;	// 無敵最大時間
 	static const float	m_fall_time;			// 落下床が落ちるまでの時間
+	static const float	m_coyote_max_time;		// 着地猶予最大時間
 };

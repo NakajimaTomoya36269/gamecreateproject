@@ -3,9 +3,9 @@
 //------------------------------------------------------------
 // 通常弾の当たり判定サイズ定義
 //------------------------------------------------------------
-const int   CNormalBullet::m_width = 40;     // 弾の横幅
-const int   CNormalBullet::m_height = 40;     // 弾の高さ
-const float CNormalBullet::m_radius = 20.0f;  // 円判定用半径
+const int   CNormalBullet::m_width = 32;     // 弾の横幅
+const int   CNormalBullet::m_height = 32;     // 弾の高さ
+const float CNormalBullet::m_radius = 16.0f;  // 円判定用半径
 
 //------------------------------------------------------------
 // コンストラクタ
