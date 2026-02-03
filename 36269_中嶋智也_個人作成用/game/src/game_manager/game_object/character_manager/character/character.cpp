@@ -347,7 +347,7 @@ bool ICharacter::CheckHitEnemy(IEnemy* enemy)
 
 	if (CBoxCollider::GetInstance().CheckCircleCollision(
 		m_Position, m_Width, m_Height,
-		enemy->GetCenterPosition(), enemy->GetRadius()))
+		enemy->GetCenterPosition(), enemy->GetRadius()) && !m_InvincibleFlag)
 	{
 		m_Life--;
 		return true;
@@ -414,7 +414,7 @@ bool ICharacter::CheckHitBullet(IBullet* bullet)
 
 	if (CBoxCollider::GetInstance().CheckCircleCollision(
 		m_Position, m_Width, m_Height,
-		bullet->GetPosition(), bullet->GetRadius()))
+		bullet->GetPosition(), bullet->GetRadius()) && !m_InvincibleFlag)
 	{
 		m_Life--;
 		bullet->SetActiveFlag(false);
