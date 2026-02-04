@@ -63,6 +63,9 @@ private:
 	static const int   m_max_life;        // 最大ライフ
 	static const float m_radius;          // 円判定用半径
 	static const vivid::Vector2 m_start_position; // 開始位置
+	static const std::string m_player_texture_path;	// プレイヤーの絵のファイルパス
+	static const std::string m_invincible_player_texture_path;	// 無敵状態のプレイヤーの絵のファイルパス
+	static const std::string m_jump_gauge_texture_path;	// ジャンプ力上昇中の絵のファイルパス
 
 	//--------------------------------------------------------
 	// メンバ変数

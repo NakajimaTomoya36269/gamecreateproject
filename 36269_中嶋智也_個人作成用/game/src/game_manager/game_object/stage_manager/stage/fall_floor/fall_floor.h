@@ -66,6 +66,7 @@ private:
 	static const int			m_height;		// 床の高さ
 	static const float			m_fall_speed;	// 落下時のY方向速度
 	static const float			m_return_time;	// 復帰までの待機時間（フレーム基準）
+	static const std::string	m_floor_texture_path;	// 床の絵のファイルパス
 
 	//================================================
 	// メンバ変数

@@ -66,4 +66,5 @@ private:
 	static const int	m_width;		// 床の幅
 	static const int	m_height;		// 床の高さ
 	static const float	m_move_speed;	// 床の移動速度
+	static const std::string m_floor_texture_path;	// 床の絵のファイルパス
 };

@@ -58,6 +58,7 @@ private:
 	static const int			m_height;		// ゴールの縦幅
 	static const float			m_scroll_speed;	// スクロール移動速度
 	static const float			m_friction;		// 摩擦（減速率）
+	static const std::string	m_goal_texture_path;	// ゴールの絵のファイルパス
 
 	//==================================================
 	// 変数

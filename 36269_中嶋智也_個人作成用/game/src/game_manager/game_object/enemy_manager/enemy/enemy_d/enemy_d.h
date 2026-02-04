@@ -93,6 +93,7 @@ private:
 	static const float		m_radius;		// 当たり判定の半径
 	static const int		m_max_life;		// 最大ライフ数
 	static const float		m_attack_time;	// 攻撃間隔（フレーム）
+	static const std::string m_enemy_texture_path;	// 敵の絵のファイルパス
 
 	// ---- 攻撃制御用メンバ変数 ----
 	float	m_AttackTimer;	// 攻撃までの経過時間を管理するタイマー

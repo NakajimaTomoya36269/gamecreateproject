@@ -47,7 +47,7 @@ void CGamemain::Initialize(void)
 	CEnemyManager::GetInstance().Initialize();
 
 	// ゴールは Gamemain が直接所有（シーン固有オブジェクト）
-	m_goal.Initialize(vivid::Vector2(7000.0f, 472.0f));
+	m_goal.Initialize(vivid::Vector2(9000.0f, 472.0f));
 
 	// アイテム管理
 	CItemManager::GetInstance().Initialize();

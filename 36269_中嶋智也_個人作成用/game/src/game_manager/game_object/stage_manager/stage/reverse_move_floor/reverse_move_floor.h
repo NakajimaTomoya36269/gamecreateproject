@@ -3,15 +3,15 @@
 #include "../stage.h"
 #include "vivid.h"
 
-class CReveseMoveFloor
+class CReverseMoveFloor
 	: public IStage
 {
 public:
 	// コンストラクタ
-	CReveseMoveFloor(void);
+	CReverseMoveFloor(void);
 
 	// デストラクタ
-	~CReveseMoveFloor(void) = default;
+	~CReverseMoveFloor(void) = default;
 
 	// 初期化
 	// position : 床の初期配置座標
@@ -58,4 +58,7 @@ private:
 
 	// 自動移動時の速度
 	static const float	m_move_speed;
+
+	// 床の絵のファイルパス
+	static const std::string m_floor_texture_path;
 };

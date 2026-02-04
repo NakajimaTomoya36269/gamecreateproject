@@ -7,6 +7,8 @@ const int   CBackGround::m_max_background_count = 2;		// ”wŒi‚Ì–‡”
 const int   CBackGround::m_width = 1920;					// ”wŒi1–‡‚Ì‰¡•
 const int   CBackGround::m_height = 1080;					// ”wŒi1–‡‚Ì‚‚³
 const float CBackGround::m_scroll_speed = 60.0f;			// ƒXƒNƒ[ƒ‹‘¬“x
+// ”wŒi‚ÌŠG‚Ìƒtƒ@ƒCƒ‹ƒpƒX
+const std::string CBackGround::m_background_texture_path = "data\\background.png";
 
 //------------------------------------------------------------
 // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
@@ -88,7 +90,7 @@ void CBackGround::Draw(void)
 	for (int i = 0; i < m_max_background_count; i++)
 	{
 		// ”wŒi‰æ‘œ‚ğ•`‰æ
-		vivid::DrawTexture("data\\background.png", m_Position[i]);
+		vivid::DrawTexture(m_background_texture_path, m_Position[i]);
 	}
 }
 

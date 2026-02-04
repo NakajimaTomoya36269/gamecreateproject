@@ -1,9 +1,10 @@
 #include "repulsion_floor.h"
 
 // 反発床の当たり判定サイズ（論理サイズ）
-// ※ 描画サイズと一致させることで、当たり判定と見た目の乖離を防ぐ
 const int CRepulsionFloor::m_width = 100;
 const int CRepulsionFloor::m_height = 100;
+// 床の絵のファイルパス
+const std::string CRepulsionFloor::m_floor_texture_path = "data\\repulsion_floor.png";
 
 CRepulsionFloor::CRepulsionFloor(void)
 // IStage にサイズとステージ種別を委譲
@@ -29,5 +30,5 @@ void CRepulsionFloor::Draw(void)
 	// 反発床の描画
 	// ロジック（反発処理）と描画処理を分離し、
 	// Update に依存しない純粋なレンダリング責務に限定
-	vivid::DrawTexture("data\\repulsion_floor.png", m_Position);
+	vivid::DrawTexture(m_floor_texture_path, m_Position);
 }

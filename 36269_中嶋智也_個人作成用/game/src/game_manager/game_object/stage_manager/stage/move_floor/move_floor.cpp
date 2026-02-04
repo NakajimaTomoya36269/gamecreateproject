@@ -4,12 +4,11 @@
 //====================================================
 // クラス共通定数
 //====================================================
-// ・可動床のサイズは通常床より短めに設定
-// ・移動速度はキャラクターの歩行速度と
-//   体感的にズレない値を採用
 const int   CMoveFloor::m_width = 300;
 const int   CMoveFloor::m_height = 64;
 const float CMoveFloor::m_move_speed = 60.0f;
+// 床の絵のファイルパス
+const std::string CMoveFloor::m_floor_texture_path = "data\\move_floor.png";
 
 //====================================================
 // コンストラクタ
@@ -122,7 +121,7 @@ void CMoveFloor::Update(void)
 // ・可動床専用テクスチャを現在位置に描画
 void CMoveFloor::Draw(void)
 {
-	vivid::DrawTexture("data\\move_floor.png", m_Position);
+	vivid::DrawTexture(m_floor_texture_path, m_Position);
 }
 
 //====================================================

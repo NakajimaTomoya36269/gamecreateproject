@@ -10,6 +10,8 @@ const int	CEnemyB::m_width = 40;		// 敵の横幅
 const int	CEnemyB::m_height = 40;		// 敵の高さ
 const float CEnemyB::m_radius = 20.0f;	// 当たり判定用半径
 const int	CEnemyB::m_max_life = 1;	// 最大ライフ
+// 敵の絵のファイルパス
+const std::string CEnemyB::m_enemy_texture_path = "data\\enemy_b.png";
 
 /*
 ====================================
@@ -66,7 +68,7 @@ void CEnemyB::Update(void)
 */
 void CEnemyB::Draw(void)
 {
-	vivid::DrawTexture("data\\enemy_b.png", m_Position);
+	vivid::DrawTexture(m_enemy_texture_path, m_Position);
 }
 
 /*

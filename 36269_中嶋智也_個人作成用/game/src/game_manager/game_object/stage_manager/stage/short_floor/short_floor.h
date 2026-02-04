@@ -33,4 +33,7 @@ private:
 	// 当たり判定および描画サイズ（固定値）
 	static const int		m_width;	// 横幅
 	static const int		m_height;	// 高さ
+
+	// 床の絵のファイルパス
+	static const std::string m_floor_texture_path;
 };

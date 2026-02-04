@@ -14,6 +14,9 @@ const float CFallFloor::m_fall_speed = 60.0f;
 // 落下後、元の位置に戻るまでの待機時間（フレーム想定）
 const float CFallFloor::m_return_time = 300.0f;
 
+// 床の絵のファイルパス
+const std::string CFallFloor::m_floor_texture_path = "data\\fall_floor.png";
+
 //====================================================
 // コンストラクタ
 //====================================================
@@ -109,7 +112,7 @@ void CFallFloor::Draw(void)
 	// 画面内に存在する場合のみ描画
 	if (m_Position.y < (float)vivid::WINDOW_HEIGHT && m_Position.y > 0.0f)
 	{
-		vivid::DrawTexture("data\\fall_floor.png", m_Position);
+		vivid::DrawTexture(m_floor_texture_path, m_Position);
 	}
 }
 

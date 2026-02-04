@@ -13,6 +13,13 @@ const float CPlayer::m_radius = 64.0f;   // 円判定用半径
 const vivid::Vector2 CPlayer::m_start_position =
 vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
 
+// プレイヤーの絵のファイルパス
+const std::string CPlayer::m_player_texture_path = "data\\player.png";
+// 無敵状態のプレイヤーの絵のファイルパス
+const std::string CPlayer::m_invincible_player_texture_path = "data\\invincible_player.png";
+// ジャンプ力上昇中の絵のファイルパス
+const std::string CPlayer::m_jump_gauge_texture_path = "data\\jump_up_gauge.png";
+
 //------------------------------------------------------------
 // コンストラクタ
 //------------------------------------------------------------
@@ -71,17 +78,25 @@ void CPlayer::Draw(void)
 	const float jump_gauge_offset_x = 46.0f; // X方向のゲージ表示位置補正
 	const float jump_gauge_offset_y = 80.0f; // Y方向のゲージ表示位置補正（上方向）
 
-	// プレイヤー本体の描画
-	// m_Position: プレイヤーの座標
-	// 0xffffffff: 描画色（白、不透明）
-	vivid::DrawTexture("data\\player.png", m_Position, 0xffffffff);
-
-	// ジャンプ中の場合、ジャンプゲージをプレイヤー上に表示
+	// プレイヤーが無敵かそうでないかで画像が変わる
+	if (!m_InvincibleFlag)
+	{
+		// プレイヤー本体の描画
+		// m_Position: プレイヤーの座標
+		vivid::DrawTexture(m_player_texture_path, m_Position);
+	}
+	else
+	{
+		// 無敵状態のプレイヤーの描画
+		// m_Position:　プレイヤーの座標
+		vivid::DrawTexture(m_invincible_player_texture_path, m_Position);
+	}
+	// ジャンプ上昇中の場合、ジャンプゲージをプレイヤー上に表示
 	if (m_JumpUp)
 	{
 		// プレイヤー位置からオフセットしてジャンプゲージを描画
 		vivid::DrawTexture(
-			"data\\jump_up_gauge.png",
+			m_jump_gauge_texture_path,
 			vivid::Vector2(
 				m_Position.x - jump_gauge_offset_x, // X座標調整
 				m_Position.y - jump_gauge_offset_y  // Y座標調整

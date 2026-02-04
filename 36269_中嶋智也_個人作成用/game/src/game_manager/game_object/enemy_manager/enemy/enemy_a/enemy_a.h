@@ -59,4 +59,5 @@ private:
 	static const int		m_height;	// 高さ
 	static const float		m_radius;	// 当たり判定用半径
 	static const int		m_max_life;	// 最大ライフ
+	static const std::string m_enemy_texture_path;	// 敵の絵のファイルパス
 };

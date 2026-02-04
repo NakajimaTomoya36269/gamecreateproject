@@ -3,10 +3,10 @@
 //====================================================
 // クラス共通定数定義
 //====================================================
-// ・床の横幅はステージの地形として十分な長さを確保
-// ・高さは他の床系クラスと共通にし、当たり判定を統一
 const int CLongFloor::m_width = 1500;
 const int CLongFloor::m_height = 64;
+
+const std::string CLongFloor::m_floor_texture_path = "data\\long_floor.png";
 
 //====================================================
 // コンストラクタ
@@ -42,9 +42,7 @@ void CLongFloor::Initialize(const vivid::Vector2& position)
 // 描画
 //====================================================
 // ・ロング床専用テクスチャを現在位置に描画
-// ・色指定（0xff000066）はデバッグ用途
-//   → RELEASE ビルドでは白色描画に切り替え可能
 void CLongFloor::Draw(void)
 {
-	vivid::DrawTexture("data\\long_floor.png", m_Position, 0xff000066);
+	vivid::DrawTexture(m_floor_texture_path, m_Position, 0xff000066);
 }

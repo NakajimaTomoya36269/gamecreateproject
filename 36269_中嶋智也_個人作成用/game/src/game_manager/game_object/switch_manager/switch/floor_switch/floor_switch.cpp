@@ -6,6 +6,8 @@
 const int	CFloorSwitch::m_width = 100;
 const int	CFloorSwitch::m_height = 40;
 
+const std::string CFloorSwitch::m_switch_texture_path = "data\\floor_switch.png";
+
 //============================================================
 // コンストラクタ
 // ・スイッチのサイズとIDを基底クラスに渡す
@@ -21,6 +23,5 @@ CFloorSwitch::CFloorSwitch(void)
 //============================================================
 void CFloorSwitch::Draw(void)
 {
-	// 緑系の色でフロアスイッチを表示
-	vivid::DrawTexture("data\\floor_switch.png", m_Position, 0xff8eff8e);
+	vivid::DrawTexture(m_switch_texture_path, m_Position);
 }

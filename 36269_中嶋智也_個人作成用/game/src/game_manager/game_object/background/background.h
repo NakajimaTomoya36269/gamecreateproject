@@ -60,4 +60,5 @@ private:
 	static const int   m_width;                // ”wŒi1–‡‚Ì‰¡•
 	static const int   m_height;               // ”wŒi1–‡‚Ì‚‚³
 	static const float m_scroll_speed;         // ƒXƒNƒ[ƒ‹‘¬“x
+	static const std::string m_background_texture_path;	// ”wŒi‚ÌŠG‚Ìƒtƒ@ƒCƒ‹ƒpƒX
 };

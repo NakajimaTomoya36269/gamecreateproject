@@ -30,7 +30,8 @@ public:
 
 private:
 	// 論理的な当たり判定サイズ
-	// 描画サイズと一致させることで視覚と判定の乖離を防ぐ
 	static const int m_width;   // 幅
 	static const int m_height;  // 高さ
+
+	static const std::string m_floor_texture_path;	// 床の絵のファイルパス
 };

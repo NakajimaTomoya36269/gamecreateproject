@@ -6,6 +6,8 @@ const int CShortFloor::m_width = 300;
 // 短い床の高さ
 const int CShortFloor::m_height = 64;
 
+const std::string CShortFloor::m_floor_texture_path = "data\\short_floor.png";
+
 CShortFloor::CShortFloor(void)
 // IStage にサイズとステージIDを渡して初期化
 	: IStage(m_width, m_height, STAGE_ID::SHORT_FLOOR)
@@ -32,5 +34,5 @@ void CShortFloor::Draw(void)
 {
 	// 短い床の描画
 	// 第3引数はカラー指定（半透明・デバッグ用途など）
-	vivid::DrawTexture("data\\short_floor.png", m_Position, 0xff000066);
+	vivid::DrawTexture(m_floor_texture_path, m_Position, 0xff000066);
 }

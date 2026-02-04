@@ -34,4 +34,7 @@ private:
 	//========================================================
 	static const int		m_width;	// スイッチの幅
 	static const int		m_height;	// スイッチの高さ
+
+	// スイッチの絵のファイルパス
+	static const std::string m_switch_texture_path;	
 };

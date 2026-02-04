@@ -40,4 +40,7 @@ private:
 
 	// 円形当たり判定用半径
 	static const float m_radius;
+
+	// アイテムの絵のファイルパス
+	static const std::string m_item_texture_path;
 };

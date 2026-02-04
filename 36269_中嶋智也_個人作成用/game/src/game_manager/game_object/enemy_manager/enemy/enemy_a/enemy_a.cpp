@@ -9,6 +9,8 @@ const int	CEnemyA::m_width = 40;		// “G‚Ì‰¡•
 const int	CEnemyA::m_height = 40;		// “G‚Ì‚‚³
 const float CEnemyA::m_radius = 20.0f;	// “–‚½‚è”»’è—p”¼Œa
 const int	CEnemyA::m_max_life = 1;	// Å‘åƒ‰ƒCƒt
+// “G‚ÌŠG‚Ìƒtƒ@ƒCƒ‹ƒpƒX
+const std::string CEnemyA::m_enemy_texture_path = "data\\enemy_a.png";
 
 /*
 ====================================
@@ -69,7 +71,7 @@ void CEnemyA::Draw(void)
 	IEnemy::Draw();
 
 	// EnemyA ‚Ì‰æ‘œ•`‰æ
-	vivid::DrawTexture("data\\enemy_a.png", m_Position);
+	vivid::DrawTexture(m_enemy_texture_path, m_Position);
 }
 
 /*

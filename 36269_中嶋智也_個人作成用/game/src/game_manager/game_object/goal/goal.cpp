@@ -16,6 +16,9 @@ const float CGoal::m_scroll_speed = 60.0f;
 // 摩擦係数（移動後に速度を減衰させる）
 const float CGoal::m_friction = 0.9f;
 
+// ゴールの絵のファイルパス
+const std::string CGoal::m_goal_texture_path = "data\\goal.png";
+
 //==================================================
 // コンストラクタ
 //==================================================
@@ -78,7 +81,7 @@ void CGoal::Update(void)
 void CGoal::Draw(void)
 {
 	// ゴール画像を現在位置に描画
-	vivid::DrawTexture("data\\goal.png", m_Position);
+	vivid::DrawTexture(m_goal_texture_path, m_Position);
 }
 
 //==================================================

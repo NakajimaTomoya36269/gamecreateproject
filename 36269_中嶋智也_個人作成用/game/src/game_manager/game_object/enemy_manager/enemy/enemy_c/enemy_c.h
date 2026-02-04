@@ -55,9 +55,10 @@ private:
 	// EnemyC 固有の定数
 	static const int		m_width;		// 敵の横幅
 	static const int		m_height;		// 敵の高さ
-	static const float	m_radius;		// 当たり判定用半径
+	static const float		m_radius;		// 当たり判定用半径
 	static const int		m_max_life;		// 最大ライフ
-	static const float	m_attack_time;	// 次の攻撃までの待ち時間
+	static const float		m_attack_time;	// 次の攻撃までの待ち時間
+	static const std::string m_enemy_texture_path;	// 敵の絵のファイルパス
 
 	// 攻撃関連のメンバ変数
 	float				m_AttackTimer;	// 攻撃クールタイム用タイマー

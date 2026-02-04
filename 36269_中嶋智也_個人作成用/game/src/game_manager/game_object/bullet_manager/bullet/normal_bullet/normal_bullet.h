@@ -34,4 +34,5 @@ private:
 	static const int   m_width;   // ’e‚Ì‰¡•
 	static const int   m_height;  // ’e‚Ì‚‚³
 	static const float m_radius;  // ‰~”»’è—p”¼Œa
+	static const std::string m_normal_bullet_texture_path;	// Šî–{“I‚È’e‚ÌŠG‚Ìƒtƒ@ƒCƒ‹ƒpƒX
 };

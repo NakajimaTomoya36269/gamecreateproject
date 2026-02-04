@@ -2,13 +2,15 @@
 #include "../../../switch_manager/switch/switch.h"
 
 // 床の当たり判定サイズ
-const int   CReveseMoveFloor::m_width = 300;
-const int   CReveseMoveFloor::m_height = 64;
+const int   CReverseMoveFloor::m_width = 300;
+const int   CReverseMoveFloor::m_height = 64;
 
 // 床の自動移動速度
-const float CReveseMoveFloor::m_move_speed = 60.0f;
+const float CReverseMoveFloor::m_move_speed = 60.0f;
 
-CReveseMoveFloor::CReveseMoveFloor(void)
+const std::string CReverseMoveFloor::m_floor_texture_path = "data\\move_floor.png";
+
+CReverseMoveFloor::CReverseMoveFloor(void)
 	: IStage(m_width, m_height, STAGE_ID::REVERSE_MOVE_FLOOR)
 	, m_StartPosition(vivid::Vector2(0.0f, 0.0f))	// 初期位置
 	, m_MoveVelocity(vivid::Vector2(0.0f, 0.0f))	// 自動移動用速度
@@ -17,7 +19,7 @@ CReveseMoveFloor::CReveseMoveFloor(void)
 {
 }
 
-void CReveseMoveFloor::Initialize(const vivid::Vector2& position)
+void CReverseMoveFloor::Initialize(const vivid::Vector2& position)
 {
 	// 親クラスの初期化（座標・判定サイズなど）
 	IStage::Initialize(position);
@@ -33,7 +35,7 @@ void CReveseMoveFloor::Initialize(const vivid::Vector2& position)
 	m_ActiveFlag = false;
 }
 
-void CReveseMoveFloor::Update(void)
+void CReverseMoveFloor::Update(void)
 {
 	namespace keyboard = vivid::keyboard;
 
@@ -93,19 +95,19 @@ void CReveseMoveFloor::Update(void)
 	m_MoveVelocity.x *= m_friction;
 }
 
-void CReveseMoveFloor::Draw(void)
+void CReverseMoveFloor::Draw(void)
 {
 	// 移動床の描画
-	vivid::DrawTexture("data\\move_floor.png", m_Position);
+	vivid::DrawTexture(m_floor_texture_path, m_Position);
 }
 
-void CReveseMoveFloor::Finalize(void)
+void CReverseMoveFloor::Finalize(void)
 {
 	// 親クラスの終了処理
 	IStage::Finalize();
 }
 
-void CReveseMoveFloor::MoveChange(ISwitch* sw)
+void CReverseMoveFloor::MoveChange(ISwitch* sw)
 {
 	// nullptr安全対策
 	if (!sw) return;

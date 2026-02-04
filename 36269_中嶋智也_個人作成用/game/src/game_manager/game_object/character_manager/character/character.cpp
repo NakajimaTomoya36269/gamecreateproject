@@ -31,7 +31,7 @@ const float ICharacter::m_invincible_max_time = 600.0f;
 const float ICharacter::m_fall_time = 600.0f;
 
 // ’…’n—P—\Å‘åŠÔ
-const float ICharacter::m_coyote_max_time = 60.0f;
+const float ICharacter::m_coyote_max_time = 80.0f;
 
 /*
 ================================

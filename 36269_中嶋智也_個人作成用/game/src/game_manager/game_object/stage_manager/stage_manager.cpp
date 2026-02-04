@@ -92,7 +92,7 @@ void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor(); break;
 	case STAGE_ID::MOVE_FLOOR: stage = new CMoveFloor(); break;
 	case STAGE_ID::FALL_FLOOR: stage = new CFallFloor(); break;
-	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = new CReveseMoveFloor(); break;
+	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = new CReverseMoveFloor(); break;
 	}
 
 	// ñ≥å¯Ç»IDÇÃèÍçáÇÕê∂ê¨ÇµÇ»Ç¢

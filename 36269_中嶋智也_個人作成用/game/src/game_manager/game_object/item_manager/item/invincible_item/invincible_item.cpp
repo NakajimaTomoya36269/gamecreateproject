@@ -11,6 +11,9 @@ const int   CInvincibleItem::m_height = 80;
 // 円形当たり判定用半径（width / 2）
 const float CInvincibleItem::m_radius = 40.0f;
 
+// アイテムの絵のファイルパス
+const std::string CInvincibleItem::m_item_texture_path = "data\\invincible_item.png";
+
 //==================================================
 // コンストラクタ
 //==================================================
@@ -26,5 +29,5 @@ CInvincibleItem::CInvincibleItem(void)
 void CInvincibleItem::Draw(void)
 {
 	// IItem 管理の座標を使用して描画
-	vivid::DrawTexture("data\\invincible_item.png", m_Position);
+	vivid::DrawTexture(m_item_texture_path, m_Position);
 }

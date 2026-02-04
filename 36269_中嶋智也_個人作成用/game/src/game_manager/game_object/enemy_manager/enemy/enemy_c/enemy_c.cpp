@@ -3,11 +3,13 @@
 #include "../../../character_manager/character/character.h"
 
 // EnemyC の定数定義
-const int   CEnemyC::m_width = 40;          // 敵の横幅
-const int   CEnemyC::m_height = 40;         // 敵の高さ
-const float CEnemyC::m_radius = 20.0f;      // 当たり判定用の半径
-const int   CEnemyC::m_max_life = 1;         // 最大ライフ
-const float CEnemyC::m_attack_time = 180.0f;// 攻撃クールタイム（フレーム）
+const int   CEnemyC::m_width = 40;              // 敵の横幅
+const int   CEnemyC::m_height = 40;             // 敵の高さ
+const float CEnemyC::m_radius = 20.0f;          // 当たり判定用の半径
+const int   CEnemyC::m_max_life = 1;            // 最大ライフ
+const float CEnemyC::m_attack_time = 180.0f;    // 攻撃クールタイム（フレーム）
+// 敵の絵のファイルパス
+const std::string CEnemyC::m_enemy_texture_path = "data\\enemy_c.png";
 
 /*
 -----------------------------------------------------
@@ -58,7 +60,7 @@ void CEnemyC::Update(void)
 */
 void CEnemyC::Draw(void)
 {
-    vivid::DrawTexture("data\\enemy_b.png", m_Position);
+    vivid::DrawTexture(m_enemy_texture_path, m_Position);
 }
 
 /*
