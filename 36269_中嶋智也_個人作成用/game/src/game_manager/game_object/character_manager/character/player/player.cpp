@@ -4,8 +4,8 @@
 //------------------------------------------------------------
 // 定数定義
 //------------------------------------------------------------
-const int   CPlayer::m_width = 100;     // プレイヤーの横幅
-const int   CPlayer::m_height = 220;     // プレイヤーの高さ
+const int   CPlayer::m_width = 139;     // プレイヤーの横幅
+const int   CPlayer::m_height = 90;     // プレイヤーの高さ
 const int   CPlayer::m_max_life = 1;     // 最大ライフ
 const float CPlayer::m_radius = 64.0f;   // 円判定用半径
 
@@ -14,7 +14,7 @@ const vivid::Vector2 CPlayer::m_start_position =
 vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
 
 // プレイヤーの絵のファイルパス
-const std::string CPlayer::m_player_texture_path = "data\\player.png";
+const std::string CPlayer::m_player_texture_path = "data\\player_1.png";
 // 無敵状態のプレイヤーの絵のファイルパス
 const std::string CPlayer::m_invincible_player_texture_path = "data\\invincible_player.png";
 // ジャンプ力上昇中の絵のファイルパス
@@ -75,33 +75,49 @@ void CPlayer::Update(void)
 void CPlayer::Draw(void)
 {
 	// ジャンプゲージ描画用のオフセット値（プレイヤーの座標基準）
-	const float jump_gauge_offset_x = 46.0f; // X方向のゲージ表示位置補正
+	const float jump_gauge_offset_x = 26.5f; // X方向のゲージ表示位置補正
 	const float jump_gauge_offset_y = 80.0f; // Y方向のゲージ表示位置補正（上方向）
 
-	// プレイヤーが無敵かそうでないかで画像が変わる
-	if (!m_InvincibleFlag)
+	if (!m_GravityChange)
 	{
 		// プレイヤー本体の描画
 		// m_Position: プレイヤーの座標
 		vivid::DrawTexture(m_player_texture_path, m_Position);
+		// ジャンプ上昇中の場合、ジャンプゲージをプレイヤー上に表示
+		if (m_JumpUp)
+		{
+			// プレイヤー位置からオフセットしてジャンプゲージを描画
+			vivid::DrawTexture(
+				m_jump_gauge_texture_path,
+				vivid::Vector2(
+					m_Position.x - jump_gauge_offset_x, // X座標調整
+					m_Position.y - jump_gauge_offset_y  // Y座標調整
+				)
+			);
+		}
+		if (m_InvincibleFlag)
+		{
+			vivid::DrawTexture("data\\invincible_player_1.png", m_Position);
+		}
 	}
 	else
 	{
-		// 無敵状態のプレイヤーの描画
-		// m_Position:　プレイヤーの座標
-		vivid::DrawTexture(m_invincible_player_texture_path, m_Position);
-	}
-	// ジャンプ上昇中の場合、ジャンプゲージをプレイヤー上に表示
-	if (m_JumpUp)
-	{
-		// プレイヤー位置からオフセットしてジャンプゲージを描画
-		vivid::DrawTexture(
-			m_jump_gauge_texture_path,
-			vivid::Vector2(
-				m_Position.x - jump_gauge_offset_x, // X座標調整
-				m_Position.y - jump_gauge_offset_y  // Y座標調整
-			)
-		);
+		vivid::DrawTexture("data\\player_2.png", m_Position);
+
+		if (m_JumpUp)
+		{
+			vivid::DrawTexture(
+				"data\\jump_up_gauge_2.png",
+				vivid::Vector2(
+					m_Position.x - jump_gauge_offset_x, // X座標調整
+					m_Position.y + 50.0f  // Y座標調整
+				)
+			);
+		}
+		if (m_InvincibleFlag)
+		{
+			vivid::DrawTexture("data\\invincible_player_2.png", m_Position);
+		}
 	}
 
 #ifdef _DEBUG

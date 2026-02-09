@@ -141,7 +141,7 @@ void CGamemain::UpdatePlay(void)
 	// Še Manager ‚ÌXV
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();
-	CEnemyManager::GetInstance().Update();
+	//CEnemyManager::GetInstance().Update();
 	CSwitchManager::GetInstance().Update();
 	CBulletManager::GetInstance().Update();
 
