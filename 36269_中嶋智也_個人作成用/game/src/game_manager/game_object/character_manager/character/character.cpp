@@ -388,7 +388,7 @@ bool ICharacter::CheckHitSwitch(ISwitch* sw)
 {
 	namespace keyboard = vivid::keyboard;
 
-	bool switch_on_flag = keyboard::Trigger(keyboard::KEY_ID::DOWN);
+	bool switch_on_flag = keyboard::Trigger(keyboard::KEY_ID::NUMPADENTER);
 
 	if (!sw) return false;
 
