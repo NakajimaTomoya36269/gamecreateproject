@@ -9,9 +9,6 @@
 // デバッグ表示用フォントサイズ
 const int CTitle::m_font_size = 40;
 
-// タイトルロゴ用フォントサイズ
-const int CTitle::m_title_font_size = 100;
-
 // ENTER 表示用フォントサイズ
 const int CTitle::m_enter_font_size = 60;
 
@@ -22,7 +19,6 @@ const int CTitle::m_enter_font_size = 60;
 // ・リソース生成は Initialize() に委譲
 CTitle::CTitle(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))		// デバッグ表示用位置
-	, m_TitlePosition(vivid::Vector2(710.0f, 440.0f))	// タイトル表示位置
 	, m_EnterPosition(vivid::Vector2(604.0f, 790.0f))	// ENTER 表示位置
 	, m_Color(0xffffffff)				// テキストカラー（ARGB）
 	, m_Angle(0.0f)					// アニメーション用角度
@@ -36,7 +32,6 @@ CTitle::CTitle(void)
 // ・演出用パラメータのリセット
 void CTitle::Initialize(void)
 {
-	vivid::CreateFont(m_title_font_size, 5);
 	vivid::CreateFont(m_enter_font_size, 3);
 
 	m_Color = 0xffffffff;
@@ -66,26 +61,6 @@ void CTitle::Update(void)
 	{
 		CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEMAIN);
 	}
-
-#ifdef _DEBUG
-	// デバッグ用：ENTER 表示位置の微調整
-	if (keyboard::Button(keyboard::KEY_ID::UP))
-	{
-		m_EnterPosition.y -= 1.0f;
-	}
-	if (keyboard::Button(keyboard::KEY_ID::DOWN))
-	{
-		m_EnterPosition.y += 1.0f;
-	}
-	if (keyboard::Button(keyboard::KEY_ID::RIGHT))
-	{
-		m_EnterPosition.x += 1.0f;
-	}
-	if (keyboard::Button(keyboard::KEY_ID::LEFT))
-	{
-		m_EnterPosition.x -= 1.0f;
-	}
-#endif
 }
 
 //==================================================
@@ -102,13 +77,6 @@ void CTitle::Draw(void)
 
 	// ENTER 表示（アルファアニメーション付き）
 	vivid::DrawText(m_enter_font_size, "Push Enter to Start", m_EnterPosition, m_Color);
-
-#ifdef _DEBUG
-	// デバッグ表示
-	vivid::DrawText(m_font_size, "TitleScene", m_Position);
-	vivid::DrawText(40, std::to_string(m_EnterPosition.x), vivid::Vector2(0.0f, 80.0f));
-	vivid::DrawText(40, std::to_string(m_EnterPosition.y), vivid::Vector2(0.0f, 120.0f));
-#endif
 }
 
 //==================================================

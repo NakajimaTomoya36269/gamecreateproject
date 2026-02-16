@@ -48,9 +48,6 @@ private:
 	// デバッグ表示用フォントサイズ
 	static const int	m_font_size;
 
-	// タイトルロゴ用フォントサイズ
-	static const int	m_title_font_size;
-
 	// ENTER 表示用フォントサイズ
 	static const int	m_enter_font_size;
 
@@ -60,9 +57,6 @@ private:
 
 	// デバッグ表示位置
 	vivid::Vector2		m_Position;
-
-	// タイトルロゴ表示位置
-	vivid::Vector2		m_TitlePosition;
 
 	// ENTER 表示位置
 	vivid::Vector2		m_EnterPosition;

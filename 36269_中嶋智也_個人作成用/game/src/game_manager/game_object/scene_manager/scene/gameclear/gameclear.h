@@ -54,7 +54,6 @@ private:
 	// ・static const にすることでインスタンスごとのメモリを削減
 	//-----------------------------------------------------------------------------
 	static const int	m_font_size;			// デバッグ用フォントサイズ
-	static const int	m_gameclear_font_size;	// "GameClear" 表示用フォントサイズ
 	static const int	m_enter_font_size;		// Enter誘導テキスト用フォントサイズ
 
 	//-----------------------------------------------------------------------------
@@ -62,6 +61,5 @@ private:
 	// ・UIレイアウト調整を容易にするためメンバとして保持
 	//-----------------------------------------------------------------------------
 	vivid::Vector2		m_Position;				// デバッグ表示用座標
-	vivid::Vector2		m_GameClearPosition;	// "GameClear" 表示位置
 	vivid::Vector2		m_EnterPosition;		// "Push Enter" 表示位置
 };
