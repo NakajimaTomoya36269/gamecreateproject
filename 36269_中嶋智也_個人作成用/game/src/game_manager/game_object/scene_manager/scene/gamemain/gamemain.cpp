@@ -11,7 +11,8 @@
 // デバッグ用フォントサイズ
 // ・シーン識別表示のみで使用
 //-----------------------------------------------------------------------------
-const int CGamemain::m_font_size = 40;
+const int	CGamemain::m_font_size = 40;
+const float	CGamemain::m_scene_change_time = 3000.0f;
 
 //-----------------------------------------------------------------------------
 // コンストラクタ
@@ -21,6 +22,7 @@ const int CGamemain::m_font_size = 40;
 CGamemain::CGamemain(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_CurrentStateID(GAMEMAIN_STATE_ID::PLAY)
+	, m_SceneChangeTimer(0.0f)
 {
 }
 
@@ -33,6 +35,8 @@ void CGamemain::Initialize(void)
 {
 	// ゲーム開始時は必ず PLAY 状態
 	m_CurrentStateID = GAMEMAIN_STATE_ID::PLAY;
+
+	m_SceneChangeTimer = 0.0f;
 
 	// キャラクタ管理
 	// ・参照を取得して初期化と生成を明示的に分離
@@ -55,7 +59,7 @@ void CGamemain::Initialize(void)
 	// スイッチ管理
 	CSwitchManager::GetInstance().Initialize();
 
-	// 背景（スクロール等を想定）
+	// 背景
 	m_background.Initialize();
 
 	// 弾管理
@@ -110,6 +114,7 @@ void CGamemain::Draw(void)
 #ifdef _DEBUG
 	// シーン識別用デバッグ表示
 	vivid::DrawText(m_font_size, "GamemainScene", vivid::Vector2(0.0f, 0.0f));
+	vivid::DrawText(40, std::to_string(m_SceneChangeTimer), vivid::Vector2(0.0f, 80.0f));
 #endif 
 }
 
@@ -138,6 +143,11 @@ void CGamemain::Finalize(void)
 //-----------------------------------------------------------------------------
 void CGamemain::UpdatePlay(void)
 {
+	if (++m_SceneChangeTimer > m_scene_change_time)
+	{
+		CSceneManager::GetInstance().ChangeScene(SCENE_ID::GAMEOVER);
+	}
+
 	// 各 Manager の更新
 	CStageManager::GetInstance().Update();
 	CCharacterManager::GetInstance().Update();

@@ -145,7 +145,7 @@ void CEnemyD::Attack(ICharacter* character)
 		}
 
 		// 攻撃タイマーをリセット
-		m_AttackTimer -= m_attack_time;
+		m_AttackTimer = 0.0f;
 
 		// 次の攻撃まで待機
 		m_Attacked = false;

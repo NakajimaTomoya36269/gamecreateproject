@@ -66,9 +66,8 @@ private:
 	static const std::string m_player_texture_path;	// プレイヤーの絵のファイルパス
 	static const std::string m_invincible_player_texture_path;	// 無敵状態のプレイヤーの絵のファイルパス
 	static const std::string m_jump_gauge_texture_path;	// ジャンプ力上昇中の絵のファイルパス
+	static const std::string m_revese_player_texture_path; // 重力が逆の状態の絵のファイルパス
+	static const std::string m_revese_jump_gauge_texture_path; // 重力が逆の状態のジャンプ力上昇中の絵のファイルパス
+	static const std::string m_revese_invincible_player_texture_path; // 重力が逆の状態で無敵状態の絵のファイルパス
 
-	//--------------------------------------------------------
-	// メンバ変数
-	//--------------------------------------------------------
-	float m_Rotation;   // 回転角
 };

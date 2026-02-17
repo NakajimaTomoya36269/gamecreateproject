@@ -100,10 +100,8 @@ void CBackGround::Draw(void)
 void CBackGround::Finalize(void)
 {
 	// 位置配列の解放
-	delete[] m_Position;
-	m_Position = nullptr;
+	VIVID_SAFE_DELETE_ARRAY(m_Position);
 
 	// 速度配列の解放
-	delete[] m_Velocity;
-	m_Velocity = nullptr;
+	VIVID_SAFE_DELETE_ARRAY(m_Velocity);
 }

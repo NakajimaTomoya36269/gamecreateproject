@@ -131,7 +131,7 @@ void CEnemyC::Attack(ICharacter* character)
         );
 
         // 攻撃タイマーをリセット
-        m_AttackTimer -= m_attack_time;
+        m_AttackTimer = 0.0f;
 
         // 攻撃フラグOFF（連射防止）
         m_Attacked = false;

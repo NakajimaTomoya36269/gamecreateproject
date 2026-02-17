@@ -5,6 +5,7 @@
 #include "../../item_manager/item/item.h"
 #include "../../switch_manager/switch/switch.h"
 #include "../../bullet_manager/bullet/bullet.h"
+#include "../../goal/goal.h"
 
 /*
 ================================
@@ -39,7 +40,7 @@ const float ICharacter::m_coyote_max_time = 80.0f;
 ================================
 */
 ICharacter::ICharacter(int width, int height, float radius, int life,
-	CHARACTER_CATEGORY category, CHARACTER_ID character_id)
+	CHARACTER_ID character_id)
 	// サイズ関連
 	: m_Width(width)
 	, m_Height(height)
@@ -50,7 +51,6 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	, m_MaxLife(life)
 
 	// キャラクター属性
-	, m_Category(category)
 	, m_CharacterID(character_id)
 
 	// 初期状態は生存
@@ -65,12 +65,6 @@ ICharacter::ICharacter(int width, int height, float radius, int life,
 	// 位置・速度
 	, m_Position(vivid::Vector2(0.0f, 0.0f))
 	, m_Velocity(vivid::Vector2(0.0f, 0.0f))
-
-	// 描画基準点（中心）
-	, m_Anchor(vivid::Vector2((float)m_Width / 2.0f, (float)m_Height / 2.0f))
-
-	// 当たり判定用矩形
-	, m_Rect{ 0, 0, m_Width, m_Height }
 
 	// ジャンプ関連
 	, m_Jump(vivid::Vector2(0.0f, 0.0f))
@@ -433,7 +427,6 @@ bool ICharacter::CheckHitBullet(IBullet* bullet)
 ================================
 */
 CHARACTER_ID ICharacter::GetCharacterID(void) { return m_CharacterID; }
-CHARACTER_CATEGORY ICharacter::GetCategory(void) { return m_Category; }
 vivid::Vector2 ICharacter::GetPosition(void) { return m_Position; }
 float ICharacter::GetPositionX(void) { return m_Position.x; }
 void ICharacter::SetPosition(const vivid::Vector2 position) { m_Position = position; }

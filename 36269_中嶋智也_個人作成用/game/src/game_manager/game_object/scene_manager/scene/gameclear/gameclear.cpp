@@ -11,12 +11,15 @@ const int CGameClear::m_font_size = 40;
 // Enter案内表示用フォントサイズ
 const int CGameClear::m_enter_font_size = 60;
 
+const float CGameClear::m_scene_change_time = 360.0f;
+
 //==================================================
 // コンストラクタ
 //==================================================
 CGameClear::CGameClear(void)
 	: m_Position(vivid::Vector2(0.0f, 0.0f))          // デバッグ表示用
 	, m_EnterPosition(vivid::Vector2(608.0f, 800.0f))     // Enter案内位置
+	, m_SceneChangeTimer(0.0f)
 {
 }
 
@@ -27,6 +30,7 @@ CGameClear::CGameClear(void)
 void CGameClear::Initialize(void)
 {
 	vivid::CreateFont(m_enter_font_size, 6);
+	m_SceneChangeTimer = 0.0f;
 }
 
 //==================================================
@@ -40,6 +44,11 @@ void CGameClear::Update(void)
 
 	// Enterキーでタイトルへ戻る
 	if (keyboard::Trigger(keyboard::KEY_ID::NUMPADENTER))
+	{
+		CSceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+	}
+
+	if (++m_SceneChangeTimer > m_scene_change_time)
 	{
 		CSceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
 	}
@@ -57,7 +66,7 @@ void CGameClear::Draw(void)
 	vivid::DrawTexture("data\\gameclear.png", vivid::Vector2(598.0f, 300.0f));
 
 	// タイトル遷移案内
-	vivid::DrawText(m_enter_font_size, "Push Enter to Title", m_EnterPosition);
+	vivid::DrawText(m_enter_font_size, "Push Enter to Title", m_EnterPosition, 0xff99ccff);
 }
 
 //==================================================

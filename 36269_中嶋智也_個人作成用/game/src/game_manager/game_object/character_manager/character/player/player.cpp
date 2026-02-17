@@ -15,10 +15,21 @@ vivid::Vector2((vivid::WINDOW_WIDTH - m_width) / 2.0f, 240.0f);
 
 // プレイヤーの絵のファイルパス
 const std::string CPlayer::m_player_texture_path = "data\\player_1.png";
+
 // 無敵状態のプレイヤーの絵のファイルパス
-const std::string CPlayer::m_invincible_player_texture_path = "data\\invincible_player.png";
+const std::string CPlayer::m_invincible_player_texture_path = "data\\invincible_player_1.png";
+
 // ジャンプ力上昇中の絵のファイルパス
 const std::string CPlayer::m_jump_gauge_texture_path = "data\\jump_up_gauge.png";
+
+// 重力が逆の状態の絵のファイルパス
+const std::string CPlayer::m_revese_player_texture_path = "data\\player_2.png";
+
+// 重力が逆の状態のジャンプ力上昇中の絵のファイルパス
+const std::string CPlayer::m_revese_jump_gauge_texture_path = "data\\jump_up_gauge_2.png";
+
+// 重力が逆の状態で無敵状態の絵のファイルパス
+const std::string CPlayer::m_revese_invincible_player_texture_path = "data\\invincible_player_2.png";
 
 //------------------------------------------------------------
 // コンストラクタ
@@ -29,9 +40,7 @@ CPlayer::CPlayer(void)
 		m_height,
 		m_radius,
 		m_max_life,
-		CHARACTER_CATEGORY::PLAYER,
 		CHARACTER_ID::PLAYER)
-	, m_Rotation(0.0f)
 {
 }
 
@@ -80,9 +89,6 @@ void CPlayer::Draw(void)
 
 	if (!m_GravityChange)
 	{
-		// プレイヤー本体の描画
-		// m_Position: プレイヤーの座標
-		vivid::DrawTexture(m_player_texture_path, m_Position);
 		// ジャンプ上昇中の場合、ジャンプゲージをプレイヤー上に表示
 		if (m_JumpUp)
 		{
@@ -97,17 +103,21 @@ void CPlayer::Draw(void)
 		}
 		if (m_InvincibleFlag)
 		{
-			vivid::DrawTexture("data\\invincible_player_1.png", m_Position);
+			vivid::DrawTexture(m_invincible_player_texture_path, m_Position);
+		}
+		else
+		{
+			// プレイヤー本体の描画
+			// m_Position: プレイヤーの座標
+			vivid::DrawTexture(m_player_texture_path, m_Position);
 		}
 	}
 	else
 	{
-		vivid::DrawTexture("data\\player_2.png", m_Position);
-
 		if (m_JumpUp)
 		{
 			vivid::DrawTexture(
-				"data\\jump_up_gauge_2.png",
+				m_revese_jump_gauge_texture_path,
 				vivid::Vector2(
 					m_Position.x - jump_gauge_offset_x, // X座標調整
 					m_Position.y + 50.0f  // Y座標調整
@@ -116,7 +126,11 @@ void CPlayer::Draw(void)
 		}
 		if (m_InvincibleFlag)
 		{
-			vivid::DrawTexture("data\\invincible_player_2.png", m_Position);
+			vivid::DrawTexture(m_revese_invincible_player_texture_path, m_Position);
+		}
+		else
+		{
+			vivid::DrawTexture(m_revese_player_texture_path, m_Position);
 		}
 	}
 

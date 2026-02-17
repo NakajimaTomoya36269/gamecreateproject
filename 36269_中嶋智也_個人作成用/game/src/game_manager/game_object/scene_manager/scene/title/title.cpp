@@ -34,7 +34,7 @@ void CTitle::Initialize(void)
 {
 	vivid::CreateFont(m_enter_font_size, 3);
 
-	m_Color = 0xffffffff;
+	m_Color = 0xff99ccff;
 	m_Angle = 0.0f;
 }
 
@@ -51,7 +51,7 @@ void CTitle::Update(void)
 	int alpha = static_cast<int>(sin(DEG_TO_RAD(m_Angle)) * 127) + 128;
 
 	// ARGB カラーを生成（アルファのみ変化）
-	m_Color = (static_cast<unsigned int>(alpha) & 0xff) << 24 | 0x00ffffff;
+	m_Color = (static_cast<unsigned int>(alpha) & 0xff) << 24 | 0x0099ccff;
 
 	// ENTER キー入力によるシーン遷移
 	namespace keyboard = vivid::keyboard;

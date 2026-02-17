@@ -4,11 +4,12 @@
 #include <list>
 #include "character/character.h"
 #include "character/character_id.h"
-#include "../stage_manager/stage_manager.h"
-#include "../enemy_manager/enemy_manager.h"
-#include "../item_manager/item_manager.h"
-#include "../switch_manager/switch_manager.h"
-#include "../bullet_manager/bullet_manager.h"
+
+class IStage;
+class IEnemy;
+class IItem;
+class ISwitch;
+class IBullet;
 
 /*
 ==================================================

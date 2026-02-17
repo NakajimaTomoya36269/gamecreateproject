@@ -55,6 +55,7 @@ private:
 	//-----------------------------------------------------------------------------
 	static const int	m_font_size;			// デバッグ用フォントサイズ
 	static const int	m_enter_font_size;		// Enter誘導テキスト用フォントサイズ
+	static const float	m_scene_change_time;	// シーン切り替え時間
 
 	//-----------------------------------------------------------------------------
 	// 描画用座標
@@ -62,4 +63,6 @@ private:
 	//-----------------------------------------------------------------------------
 	vivid::Vector2		m_Position;				// デバッグ表示用座標
 	vivid::Vector2		m_EnterPosition;		// "Push Enter" 表示位置
+
+	float				m_SceneChangeTimer;		// シーン切り替えタイマー
 };

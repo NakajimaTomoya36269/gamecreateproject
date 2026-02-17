@@ -94,4 +94,8 @@ private:
 	// ・State パターンへ拡張しやすい構造
 	//-------------------------------------------------------------------------
 	GAMEMAIN_STATE_ID	m_CurrentStateID;
+
+	float				m_SceneChangeTimer;		// シーン切り替えタイマー
+
+	static const float	m_scene_change_time;	// シーン切り替え時間
 };

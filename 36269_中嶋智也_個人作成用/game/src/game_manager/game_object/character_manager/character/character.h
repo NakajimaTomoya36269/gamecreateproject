@@ -2,7 +2,6 @@
 
 #include "vivid.h"
 #include "character_id.h"
-#include "../../goal/goal.h"
 
 // 前方宣言
 class IStage;
@@ -10,6 +9,7 @@ class IEnemy;
 class IItem;
 class ISwitch;
 class IBullet;
+class CGoal;
 
 /*
 ================================
@@ -41,7 +41,7 @@ public:
 	// category     : キャラクターの種別（プレイヤー / 敵など）
 	// character_id : キャラクターID
 	ICharacter(int width, int height, float radius, int life,
-		CHARACTER_CATEGORY category, CHARACTER_ID character_id);
+		CHARACTER_ID character_id);
 
 	// 仮想デストラクタ
 	virtual ~ICharacter(void);
@@ -115,9 +115,6 @@ public:
 	*/
 	// キャラクターID取得
 	CHARACTER_ID GetCharacterID(void);
-
-	// カテゴリー取得
-	CHARACTER_CATEGORY GetCategory(void);
 
 	// 現在位置取得
 	vivid::Vector2 GetPosition(void);
@@ -197,8 +194,6 @@ protected:
 	*/
 	vivid::Vector2	m_Position;			// 現在位置
 	vivid::Vector2	m_Velocity;			// 移動速度
-	vivid::Rect		m_Rect;				// 描画・当たり判定用矩形
-	vivid::Vector2	m_Anchor;			// 描画基準点（中心）
 	vivid::Vector2	m_Jump;				// ジャンプ量
 
 	int				m_Width;			// 幅
@@ -218,7 +213,6 @@ protected:
 	bool			m_JumpUp;			// ジャンプ強化中フラグ
 	bool			m_InvincibleFlag;	// 無敵フラグ
 
-	CHARACTER_CATEGORY	m_Category;		// キャラクター種別
 	CHARACTER_ID		m_CharacterID;	// キャラクターID
 	CHARACTER_STATE		m_State;		// 現在の状態
 
