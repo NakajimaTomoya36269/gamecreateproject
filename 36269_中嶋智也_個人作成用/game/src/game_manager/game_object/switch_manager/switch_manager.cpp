@@ -74,12 +74,12 @@ void CSwitchManager::Finalize(void)
 //============================================================
 void CSwitchManager::Create(SWITCH_ID id, const vivid::Vector2& position)
 {
-	std::unique_ptr<ISwitch> sw;
+	std::unordered_map<SWITCH_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
 
-	switch (id)
-	{
-	case SWITCH_ID::FLOOR_SWITCH: sw = std::make_unique<CFloorSwitch>(); break;
-	}
+	if (it == m_CreateMap.end())
+		return;
+
+	std::unique_ptr<ISwitch> sw = it->second();
 
 	if (!sw) return;
 
@@ -92,6 +92,7 @@ void CSwitchManager::Create(SWITCH_ID id, const vivid::Vector2& position)
 //============================================================
 CSwitchManager::CSwitchManager(void)
 {
+	RegisterSwitches();
 }
 
 //============================================================
@@ -151,4 +152,10 @@ void CSwitchManager::UpdateSwitch(void)
 
 		it++;
 	}
+}
+
+void CSwitchManager::RegisterSwitches(void)
+{
+	m_CreateMap[SWITCH_ID::FLOOR_SWITCH] =
+		[]() {return std::make_unique<CFloorSwitch>(); };
 }

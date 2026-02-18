@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include <list>
 #include <memory>
+#include <unordered_map>
+#include <functional>
 #include "switch/switch_id.h"
 
 class ISwitch;
@@ -99,6 +101,17 @@ private:
 		int x;			// X座標
 		int y;			// Y座標
 	};
+
+	//----------------------------------
+	// Factory用
+	//----------------------------------
+
+	using CreateFunc = std::function<std::unique_ptr<ISwitch>()>;
+
+	std::unordered_map<SWITCH_ID, CreateFunc> m_CreateMap;
+
+	// スイッチ登録
+	void RegisterSwitches(void);
 
 	//========================================================
 	// 型定義

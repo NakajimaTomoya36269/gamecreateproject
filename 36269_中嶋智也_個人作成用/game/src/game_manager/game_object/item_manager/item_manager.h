@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include <list>
 #include <memory>
+#include <unordered_map>
+#include <functional>
 #include "item/item_id.h"
 
 class IItem;
@@ -93,6 +95,17 @@ private:
 		int     x;
 		int     y;
 	};
+
+	//----------------------------------
+	// Factory用
+	//----------------------------------
+
+	using CreateFunc = std::function < std::unique_ptr<IItem>()>;
+
+	std::unordered_map<ITEM_ID, CreateFunc> m_CreateMap;
+
+	// アイテム登録
+	void RegisterItems(void);
 
 	using ITEM_TABLE_LIST = std::list<ITEM_TABLE_DATA>; // 配置テーブル型
 	using ITEM_LIST = std::list<std::unique_ptr<IItem>>; // 管理アイテム型

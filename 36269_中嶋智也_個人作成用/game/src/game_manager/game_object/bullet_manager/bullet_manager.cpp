@@ -107,24 +107,14 @@ void CBulletManager::Finalize(void)
 //------------------------------------------------------------
 void CBulletManager::Create(BULLET_ID id, const vivid::Vector2& position, float direction, float speed)
 {
-	// 所有権を持つスマートポインタ
-	std::unique_ptr<IBullet> bullet;
+	std::unordered_map<BULLET_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
+	if (it == m_CreateMap.end())
+		return;
 
-	// 弾の種類に応じて生成
-	switch (id)
-	{
-	case BULLET_ID::NORMAL_BULLET:
-		bullet = std::make_unique<CNormalBullet>();
-		break;
-	}
+	std::unique_ptr<IBullet> bullet = it->second();  // 生成
 
-	// 未対応ID対策
-	if (!bullet) return;
-
-	// 初期化
 	bullet->Initialize(position, direction, speed);
 
-	// リストへ追加（所有権を移動）
 	m_BulletList.push_back(std::move(bullet));
 }
 
@@ -153,4 +143,12 @@ void CBulletManager::CheckHitStage(IStage* stage)
 //------------------------------------------------------------
 CBulletManager::CBulletManager(void)
 {
+	RegisterBullets();
+}
+
+// 弾登録
+void CBulletManager::RegisterBullets(void)
+{
+	m_CreateMap[BULLET_ID::NORMAL_BULLET] = 
+		[]() {return std::make_unique<CNormalBullet>(); };
 }

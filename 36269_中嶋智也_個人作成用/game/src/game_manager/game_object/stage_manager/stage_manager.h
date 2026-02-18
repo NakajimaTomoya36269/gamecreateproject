@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include <list>
 #include <memory>
+#include <unordered_map>
+#include <functional>
 #include "stage/stage.h"
 #include "stage/stage_id.h"
 
@@ -114,6 +116,17 @@ private:
 		int	x;			// X座標
 		int y;			// Y座標
 	};
+
+	//----------------------------------
+	// Factory用
+	//----------------------------------
+
+	using CreateFunc = std::function<std::unique_ptr<IStage>()>;
+
+	std::unordered_map<STAGE_ID, CreateFunc> m_CreateMap;
+
+	// ステージ登録
+	void RegisterStages(void);
 
 	// ステージテーブルリスト型
 	using STAGE_TABLE_LIST = std::list<STAGE_TABLE_DATA>;

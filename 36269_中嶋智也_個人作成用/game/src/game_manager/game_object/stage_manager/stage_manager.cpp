@@ -82,17 +82,12 @@ void CStageManager::Finalize(void)
 ///------------------------------------------------------------
 void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 {
-	std::unique_ptr<IStage> stage;
+	std::unordered_map<STAGE_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
 
-	switch (id)
-	{
-	case STAGE_ID::SHORT_FLOOR: stage = std::make_unique<CShortFloor>(); break;
-	case STAGE_ID::LONG_FLOOR: stage = std::make_unique<CLongFloor>(); break;
-	case STAGE_ID::REPULSION_FLOOR:	stage = std::make_unique<CRepulsionFloor>(); break;
-	case STAGE_ID::MOVE_FLOOR: stage = std::make_unique<CMoveFloor>(); break;
-	case STAGE_ID::FALL_FLOOR: stage = std::make_unique<CFallFloor>(); break;
-	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = std::make_unique<CReverseMoveFloor>(); break;
-	}
+	if (it == m_CreateMap.end())
+		return;
+
+	std::unique_ptr<IStage> stage = it->second();
 
 	// 無効なIDの場合は生成しない
 	if (!stage)	return;
@@ -140,6 +135,7 @@ void CStageManager::MoveChange(ISwitch* sw)
 CStageManager::CStageManager(void)
 	: m_AllSwitchOn(false)
 {
+	RegisterStages();
 }
 
 ///------------------------------------------------------------
@@ -207,4 +203,27 @@ void CStageManager::UpdateStage(void)
 
 		++it;
 	}
+}
+
+// ステージ登録
+void CStageManager::RegisterStages(void)
+{
+	m_CreateMap[STAGE_ID::LONG_FLOOR] =
+		[]() {return std::make_unique<CLongFloor>(); };
+
+	m_CreateMap[STAGE_ID::SHORT_FLOOR] =
+		[]() {return std::make_unique<CShortFloor>(); };
+
+	m_CreateMap[STAGE_ID::REPULSION_FLOOR] =
+		[]() {return std::make_unique<CRepulsionFloor>(); };
+
+	m_CreateMap[STAGE_ID::MOVE_FLOOR] =
+		[]() {return std::make_unique<CMoveFloor>(); };
+
+	m_CreateMap[STAGE_ID::FALL_FLOOR] =
+		[]() {return std::make_unique<CFallFloor>(); };
+
+	m_CreateMap[STAGE_ID::REVERSE_MOVE_FLOOR] =
+		[]() {return std::make_unique<CReverseMoveFloor>(); };
+
 }

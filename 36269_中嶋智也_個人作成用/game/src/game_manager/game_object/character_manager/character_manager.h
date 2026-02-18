@@ -3,6 +3,8 @@
 #include "vivid.h"
 #include <list>
 #include <memory>
+#include <unordered_map>
+#include <functional>
 #include "character/character.h"
 #include "character/character_id.h"
 
@@ -75,10 +77,9 @@ public:
 	/*
 	--------------------------------
 	  地面に接地しているか判定
-	  1体でも接地していれば true
 	--------------------------------
 	*/
-	bool OnGround(IStage* stage);
+	void OnGround(IStage* stage);
 
 	/*
 	--------------------------------
@@ -178,7 +179,7 @@ private:
 	  外部生成禁止（シングルトン）
 	--------------------------------
 	*/
-	CCharacterManager(void) = default;
+	CCharacterManager(void);
 
 	// コピー禁止
 	CCharacterManager(const CCharacterManager& rhs) = delete;
@@ -188,6 +189,17 @@ private:
 
 	// 代入禁止
 	CCharacterManager operator=(const CCharacterManager& rhs) = delete;
+
+	//----------------------------------
+	// Factory用
+	//----------------------------------
+
+	using CreateFunc = std::function<std::unique_ptr<ICharacter>()>;
+
+	std::unordered_map<CHARACTER_ID, CreateFunc> m_CreateMap;
+
+	// キャラクター登録
+	void RegisterCharacters(void);
 
 	/*
 	--------------------------------

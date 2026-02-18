@@ -82,7 +82,6 @@ void CEnemyManager::Finalize(void)
 	while (it != end)
 	{
 		(*it)->Finalize();	// 敵個別の後始末
-		delete (*it);		// メモリ解放
 		++it;
 	}
 	m_EnemyList.clear();
@@ -96,45 +95,36 @@ void CEnemyManager::Finalize(void)
 */
 void CEnemyManager::Create(ENEMY_ID id, const vivid::Vector2& position)
 {
-	IEnemy* enemy = nullptr;
+	std::unordered_map<ENEMY_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
 
-	switch (id)
-	{
-	case ENEMY_ID::ENEMYA: enemy = new CEnemyA(); break;
-	case ENEMY_ID::ENEMYB: enemy = new CEnemyB(); break;
-	case ENEMY_ID::ENEMYC: enemy = new CEnemyC(); break;
-	case ENEMY_ID::ENEMYD: enemy = new CEnemyD(); break;
-	}
+	if (it == m_CreateMap.end())
+		return;
+
+	std::unique_ptr<IEnemy> enemy = it->second();
 
 	if (!enemy) return;
 
 	enemy->Initialize(position);	// 初期化
-	m_EnemyList.push_back(enemy);	// 管理リストに追加
+	m_EnemyList.push_back(std::move(enemy));	// 管理リストに追加
 }
 
 /*
 --------------------------------------------------
  床判定（全敵）
- ・1体でも床に接地していれば true
 --------------------------------------------------
 */
-bool CEnemyManager::OnGround(IStage* stage)
+void CEnemyManager::OnGround(IStage* stage)
 {
-	if (!stage) return false;
-	if (m_EnemyList.empty()) return false;
-
-	bool any_grounded = false;
+	if (!stage) return;
 
 	ENEMY_LIST::iterator it = m_EnemyList.begin();
 	ENEMY_LIST::iterator end = m_EnemyList.end();
 
 	while (it != end)
 	{
-		if ((*it)->OnGround(stage))
-			any_grounded = true;
+		(*it)->OnGround(stage);
 		++it;
 	}
-	return any_grounded;
 }
 
 /*
@@ -164,6 +154,7 @@ void CEnemyManager::Attack(ICharacter* character)
 */
 CEnemyManager::CEnemyManager(void)
 {
+	RegisterEnemies();
 }
 
 /*
@@ -225,7 +216,7 @@ void CEnemyManager::UpdateEnemy(void)
 
 	while (it != end)
 	{
-		IEnemy* enemy = (IEnemy*)(*it);
+		IEnemy* enemy = it->get();
 
 		// プレイヤーとの当たり判定
 		CCharacterManager::GetInstance().CheckHitEnemy(enemy);
@@ -236,10 +227,24 @@ void CEnemyManager::UpdateEnemy(void)
 		if (!enemy->GetActive())
 		{
 			enemy->Finalize();
-			delete enemy;
 			it = m_EnemyList.erase(it);
 			continue;
 		}
 		++it;
 	}
+}
+
+void CEnemyManager::RegisterEnemies(void)
+{
+	m_CreateMap[ENEMY_ID::ENEMYA] =
+		[]() {return std::make_unique<CEnemyA>(); };
+
+	m_CreateMap[ENEMY_ID::ENEMYB] =
+		[]() {return std::make_unique<CEnemyB>(); };
+
+	m_CreateMap[ENEMY_ID::ENEMYC] =
+		[]() {return std::make_unique<CEnemyC>(); };
+
+	m_CreateMap[ENEMY_ID::ENEMYD] =
+		[]() {return std::make_unique<CEnemyD>(); };
 }

@@ -2,6 +2,9 @@
 
 #include "vivid.h"
 #include <list>
+#include <memory>
+#include <unordered_map>
+#include <functional>
 #include "enemy/enemy.h"
 #include "enemy/enemy_id.h"
 #include "../stage_manager/stage_manager.h"
@@ -58,9 +61,8 @@ public:
 
 	//==================================================
 	// 地面の上にいる判定
-	// ・1体でも地面に接していれば true
 	//==================================================
-	bool OnGround(IStage* stage);
+	void OnGround(IStage* stage);
 
 	//==================================================
 	// 攻撃処理
@@ -123,11 +125,22 @@ private:
 		int y;			// 出現Y座標
 	};
 
+	//----------------------------------
+	// Factory用
+	//----------------------------------
+
+	using CreateFunc = std::function<std::unique_ptr<IEnemy>()>;
+
+	std::unordered_map<ENEMY_ID, CreateFunc> m_CreateMap;
+
+	// 敵登録
+	void RegisterEnemies(void);
+
 	//==================================================
 	// 型定義
 	//==================================================
 	using ENEMY_TABLE_LIST = std::list<ENEMY_TABLE_DATA>;	// 敵出現テーブル
-	using ENEMY_LIST = std::list<IEnemy*>;					// 現在存在する敵リスト
+	using ENEMY_LIST = std::list<std::unique_ptr<IEnemy>>;					// 現在存在する敵リスト
 
 	//==================================================
 	// メンバ変数

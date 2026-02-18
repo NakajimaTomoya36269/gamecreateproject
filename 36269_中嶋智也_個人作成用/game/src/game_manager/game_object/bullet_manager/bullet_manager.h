@@ -4,6 +4,8 @@
 #include "bullet/bullet_id.h"
 #include <list>
 #include <memory>
+#include <unordered_map>
+#include <functional>
 
 class IBullet;
 class IStage;
@@ -91,6 +93,16 @@ private:
 	// ‘ã“ü‹ÖŽ~
 	//--------------------------------------------------------
 	CBulletManager& operator=(const CBulletManager& rhs) = delete;
+
+	//----------------------------------
+	// Factory—p
+	//----------------------------------
+	using CreateFunc = std::function<std::unique_ptr<IBullet>()>;
+
+	std::unordered_map<BULLET_ID, CreateFunc> m_CreateMap;
+
+	// ’e“o˜^
+	void RegisterBullets(void);
 
 	//--------------------------------------------------------
 	// Œ^’è‹`

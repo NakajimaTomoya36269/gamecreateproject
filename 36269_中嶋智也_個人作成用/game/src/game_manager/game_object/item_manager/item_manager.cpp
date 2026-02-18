@@ -69,13 +69,12 @@ void CItemManager::Finalize(void)
 // ITEM_ID Ç…âûÇ∂Çƒîhê∂ÉNÉâÉXÇê∂ê¨
 void CItemManager::Create(ITEM_ID id, const vivid::Vector2& position)
 {
-	std::unique_ptr<IItem> item;
+	std::unordered_map<ITEM_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
 
-	switch (id)
-	{
-	case ITEM_ID::JUMP_UP_ITEM:     item = std::make_unique<CJumpUpItem>();     break;
-	case ITEM_ID::INVINCIBLE_ITEM:  item = std::make_unique<CInvincibleItem>(); break;
-	}
+	if (it == m_CreateMap.end())
+		return;
+
+	std::unique_ptr<IItem> item = it->second();
 
 	if (!item) return;
 
@@ -88,6 +87,7 @@ void CItemManager::Create(ITEM_ID id, const vivid::Vector2& position)
 //==================================================
 CItemManager::CItemManager(void)
 {
+	RegisterItems();
 }
 
 //==================================================
@@ -156,4 +156,13 @@ void CItemManager::UpdateItem(void)
 
 		++it;
 	}
+}
+
+void CItemManager::RegisterItems(void)
+{
+	m_CreateMap[ITEM_ID::INVINCIBLE_ITEM] =
+		[]() {return std::make_unique<CInvincibleItem>(); };
+
+	m_CreateMap[ITEM_ID::JUMP_UP_ITEM] =
+		[]() {return std::make_unique<CJumpUpItem>(); };
 }

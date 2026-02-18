@@ -111,14 +111,12 @@ void CCharacterManager::Finalize(void)
 */
 void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 {
-	std::unique_ptr<ICharacter> character;
+	std::unordered_map<CHARACTER_ID, CreateFunc>::iterator it = m_CreateMap.find(id);
+	
+	if (it == m_CreateMap.end())
+		return;
 
-	switch (id)
-	{
-	case CHARACTER_ID::PLAYER:
-		character = std::make_unique<CPlayer>();
-		break;
-	}
+	std::unique_ptr<ICharacter> character = it->second();
 
 	if (!character) return;
 
@@ -129,26 +127,21 @@ void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 /*
 ================================
   地面に接地しているか判定
-  1人でも接地していれば true
 ================================
 */
-bool CCharacterManager::OnGround(IStage* stage)
+void CCharacterManager::OnGround(IStage* stage)
 {
-	if (!stage) return false;
-
-	bool anyGrounded = false;
+	if (!stage) return;
 
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
 	while (it != end)
 	{
-		if ((*it)->OnGround(stage))
-			anyGrounded = true;
+		(*it)->OnGround(stage);
 
 		++it;
 	}
-	return anyGrounded;
 }
 
 /*
@@ -420,4 +413,15 @@ void CCharacterManager::FallStage(IStage* stage)
 
 		++it;
 	}
+}
+
+CCharacterManager::CCharacterManager(void)
+{
+	RegisterCharacters();
+}
+
+void CCharacterManager::RegisterCharacters(void)
+{
+	m_CreateMap[CHARACTER_ID::PLAYER] =
+		[]() {return std::make_unique<CPlayer>(); };
 }

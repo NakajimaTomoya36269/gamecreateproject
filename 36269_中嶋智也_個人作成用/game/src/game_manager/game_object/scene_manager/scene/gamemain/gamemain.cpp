@@ -168,8 +168,6 @@ void CGamemain::UpdatePlay(void)
 	namespace keyboard = vivid::keyboard;
 
 	// デバッグ・検証用入力
-	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
-	bool change_gameclear_scene_key = keyboard::Trigger(keyboard::KEY_ID::X);
 	bool reset_key = keyboard::Trigger(keyboard::KEY_ID::R);
 
 	// ゲーム全体の再初期化（簡易リセット）
@@ -180,6 +178,9 @@ void CGamemain::UpdatePlay(void)
 	}
 
 #ifdef _DEBUG
+	bool change_gameover_scene_key = keyboard::Trigger(keyboard::KEY_ID::Z);
+	bool change_gameclear_scene_key = keyboard::Trigger(keyboard::KEY_ID::X);
+
 	// 強制シーン遷移（テスト用）
 	if (change_gameover_scene_key)
 	{

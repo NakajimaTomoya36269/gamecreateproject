@@ -3,6 +3,7 @@
 #include "vivid.h"
 #include "scene/scene.h"
 #include "scene/scene_id.h"
+#include <memory>
 
 class IScene;
 
