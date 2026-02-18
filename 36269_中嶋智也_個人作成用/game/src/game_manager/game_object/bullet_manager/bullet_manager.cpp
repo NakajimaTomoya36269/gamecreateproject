@@ -4,18 +4,33 @@
 #include "../stage_manager/stage_manager.h"
 #include "../character_manager/character_manager.h"
 
+//------------------------------------------------------------
+// シングルトン取得
+// ・static 変数は最初の呼び出し時に1回だけ生成される
+// ・ゲーム全体で弾管理を1つにするための設計
+//------------------------------------------------------------
 CBulletManager& CBulletManager::GetInstance(void)
 {
 	static CBulletManager instance;
-
 	return instance;
 }
 
+//------------------------------------------------------------
+// 初期化
+// ・弾リストを空にする
+// ・ステージ開始時などに呼ばれる想定
+//------------------------------------------------------------
 void CBulletManager::Initialize(void)
 {
 	m_BulletList.clear();
 }
 
+//------------------------------------------------------------
+// 更新処理
+// ・全弾の Update 実行
+// ・キャラとの当たり判定
+// ・非アクティブ弾の削除
+//------------------------------------------------------------
 void CBulletManager::Update(void)
 {
 	BULLET_LIST::iterator it = m_BulletList.begin();
@@ -23,24 +38,34 @@ void CBulletManager::Update(void)
 
 	while (it != end)
 	{
-		IBullet* bullet = (IBullet*)(*it);
+		// unique_ptr から生ポインタ取得
+		IBullet* bullet = it->get();
 
+		// 弾の更新処理
 		bullet->Update();
+
+		// キャラクターとの当たり判定
 		CCharacterManager::GetInstance().CheckHitBullet(bullet);
 
+		// 弾が非アクティブなら削除
 		if (!bullet->GetActiveFlag())
 		{
+			// 終了処理
 			bullet->Finalize();
 
-			delete bullet;
-
+			// erase は削除後の次のイテレータを返す
 			it = m_BulletList.erase(it);
-			continue;
+			continue;  // ++しない（既に次へ進んでいる）
 		}
+
 		it++;
 	}
 }
 
+//------------------------------------------------------------
+// 描画処理
+// ・全弾の描画を行う
+//------------------------------------------------------------
 void CBulletManager::Draw(void)
 {
 	BULLET_LIST::iterator it = m_BulletList.begin();
@@ -49,11 +74,15 @@ void CBulletManager::Draw(void)
 	while (it != end)
 	{
 		(*it)->Draw();
-
 		it++;
 	}
 }
 
+//------------------------------------------------------------
+// 終了処理
+// ・全弾の Finalize 実行
+// ・リストを空にする
+//------------------------------------------------------------
 void CBulletManager::Finalize(void)
 {
 	BULLET_LIST::iterator it = m_BulletList.begin();
@@ -62,31 +91,47 @@ void CBulletManager::Finalize(void)
 	while (it != end)
 	{
 		(*it)->Finalize();
-
-		delete (*it);
-
 		it++;
 	}
 
+	// unique_ptr なので clear するだけで自動解放
 	m_BulletList.clear();
 }
 
+//------------------------------------------------------------
+// 弾生成
+// id        : 弾の種類
+// position  : 初期座標
+// direction : 進行方向
+// speed     : 速度
+//------------------------------------------------------------
 void CBulletManager::Create(BULLET_ID id, const vivid::Vector2& position, float direction, float speed)
 {
-	IBullet* bullet = nullptr;
+	// 所有権を持つスマートポインタ
+	std::unique_ptr<IBullet> bullet;
 
+	// 弾の種類に応じて生成
 	switch (id)
 	{
-	case BULLET_ID::NORMAL_BULLET: bullet = new CNormalBullet(); break;
+	case BULLET_ID::NORMAL_BULLET:
+		bullet = std::make_unique<CNormalBullet>();
+		break;
 	}
 
+	// 未対応ID対策
 	if (!bullet) return;
 
+	// 初期化
 	bullet->Initialize(position, direction, speed);
 
-	m_BulletList.push_back(bullet);
+	// リストへ追加（所有権を移動）
+	m_BulletList.push_back(std::move(bullet));
 }
 
+//------------------------------------------------------------
+// ステージとの当たり判定
+// ・全弾に対してステージとの衝突をチェック
+//------------------------------------------------------------
 void CBulletManager::CheckHitStage(IStage* stage)
 {
 	if (!stage) return;
@@ -103,6 +148,9 @@ void CBulletManager::CheckHitStage(IStage* stage)
 	}
 }
 
+//------------------------------------------------------------
+// コンストラクタ
+//------------------------------------------------------------
 CBulletManager::CBulletManager(void)
 {
 }

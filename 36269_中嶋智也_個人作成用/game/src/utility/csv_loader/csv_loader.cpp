@@ -114,7 +114,15 @@ int CCSVLoader::GetDataCount(void)
 //============================================================
 std::string CCSVLoader::GetString(int rows, int cols)
 {
-    return m_Data[(rows * m_Cols) + cols];
+    if (m_Cols <= 0)
+        return "";
+
+    int index = rows * m_Cols + cols;
+
+    if (index < 0 || index >= (int)m_Data.size())
+        return "";
+
+    return m_Data[index];
 }
 
 //============================================================

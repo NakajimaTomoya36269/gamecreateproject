@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include <list>
+#include <memory>
 #include "switch/switch_id.h"
 
 class ISwitch;
@@ -103,7 +104,7 @@ private:
 	// 型定義
 	//========================================================
 	using SWITCH_TABLE_LIST = std::list<SWITCH_TABLE_DATA>;	// スイッチ生成テーブルリスト型
-	using SWITCH_LIST = std::list<ISwitch*>;			// 登録済みスイッチリスト型
+	using SWITCH_LIST = std::list<std::unique_ptr<ISwitch>>;// 登録済みスイッチリスト型
 
 	//========================================================
 	// メンバ変数

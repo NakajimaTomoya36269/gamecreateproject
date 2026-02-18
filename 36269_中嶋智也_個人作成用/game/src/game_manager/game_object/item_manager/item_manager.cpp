@@ -59,7 +59,6 @@ void CItemManager::Finalize(void)
 		++it)
 	{
 		(*it)->Finalize();
-		delete (*it);
 	}
 	m_ItemList.clear();
 }
@@ -70,18 +69,18 @@ void CItemManager::Finalize(void)
 // ITEM_ID に応じて派生クラスを生成
 void CItemManager::Create(ITEM_ID id, const vivid::Vector2& position)
 {
-	IItem* item = nullptr;
+	std::unique_ptr<IItem> item;
 
 	switch (id)
 	{
-	case ITEM_ID::JUMP_UP_ITEM:     item = new CJumpUpItem();     break;
-	case ITEM_ID::INVINCIBLE_ITEM:  item = new CInvincibleItem(); break;
+	case ITEM_ID::JUMP_UP_ITEM:     item = std::make_unique<CJumpUpItem>();     break;
+	case ITEM_ID::INVINCIBLE_ITEM:  item = std::make_unique<CInvincibleItem>(); break;
 	}
 
 	if (!item) return;
 
 	item->Initialize(position);
-	m_ItemList.push_back(item);
+	m_ItemList.push_back(std::move(item));
 }
 
 //==================================================
@@ -137,7 +136,7 @@ void CItemManager::UpdateItem(void)
 
 	while (it != m_ItemList.end())
 	{
-		IItem* item = (*it);
+		IItem* item = it->get();
 
 		// 基本挙動更新
 		item->Update();
@@ -151,7 +150,6 @@ void CItemManager::UpdateItem(void)
 		if (!item->GetActive())
 		{
 			item->Finalize();
-			delete item;
 			it = m_ItemList.erase(it);
 			continue;
 		}

@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include <list>
+#include <memory>
 #include "item/item_id.h"
 
 class IItem;
@@ -94,7 +95,7 @@ private:
 	};
 
 	using ITEM_TABLE_LIST = std::list<ITEM_TABLE_DATA>; // 配置テーブル型
-	using ITEM_LIST = std::list<IItem*>;          // 管理アイテム型
+	using ITEM_LIST = std::list<std::unique_ptr<IItem>>; // 管理アイテム型
 
 	//==================================================
 	// 管理データ

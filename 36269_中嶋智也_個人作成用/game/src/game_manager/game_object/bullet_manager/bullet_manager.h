@@ -3,6 +3,7 @@
 #include "vivid.h"
 #include "bullet/bullet_id.h"
 #include <list>
+#include <memory>
 
 class IBullet;
 class IStage;
@@ -94,7 +95,7 @@ private:
 	//--------------------------------------------------------
 	// Œ^’è‹`
 	//--------------------------------------------------------
-	using BULLET_LIST = std::list<IBullet*>;
+	using BULLET_LIST = std::list<std::unique_ptr<IBullet>>;
 
 	//--------------------------------------------------------
 	// ƒƒ“ƒo•Ï”

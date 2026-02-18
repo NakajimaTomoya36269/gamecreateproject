@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include <list>
+#include <memory>
 #include "character/character.h"
 #include "character/character_id.h"
 
@@ -170,13 +171,6 @@ public:
 	*/
 	void FallStage(IStage* stage);
 
-	/*
-	--------------------------------
-	  キャラクター同士の当たり判定
-	--------------------------------
-	*/
-	void CheckHitCharacter(void);
-
 private:
 	/*
 	--------------------------------
@@ -200,7 +194,7 @@ private:
 	  キャラクターリスト型
 	--------------------------------
 	*/
-	using CHARACTER_LIST = std::list<ICharacter*>;
+	using CHARACTER_LIST = std::list<std::unique_ptr<ICharacter>>;
 
 	CHARACTER_LIST m_CharacterList;		// 管理しているキャラクター一覧
 };

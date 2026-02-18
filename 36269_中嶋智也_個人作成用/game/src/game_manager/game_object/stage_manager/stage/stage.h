@@ -78,11 +78,6 @@ public:
 	// 強制的に落下状態にする
 	void Falled(void);
 
-	// キャラクターとの当たり判定
-	// position_x を参照渡しで補正し、横方向のめり込みを防ぐ
-	// 派生クラスで挙動を変えたい場合は override 可能
-	virtual bool CheckHitCharacter(ICharacter* character, float& position_x);
-
 protected:
 	// ----- 共通物理パラメータ -----
 

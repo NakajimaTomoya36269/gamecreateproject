@@ -39,14 +39,12 @@ void CCharacterManager::Initialize(void)
 */
 void CCharacterManager::Update(void)
 {
-	if (m_CharacterList.empty()) return;
-
 	CHARACTER_LIST::iterator it = m_CharacterList.begin();
 	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
 	while (it != end)
 	{
-		ICharacter* character = (ICharacter*)(*it);
+		ICharacter* character = it->get();
 
 		// キャラクター自身の更新
 		character->Update();
@@ -58,7 +56,6 @@ void CCharacterManager::Update(void)
 		if (!character->GetActive())
 		{
 			character->Finalize();
-			delete character;
 
 			it = m_CharacterList.erase(it);
 			continue;
@@ -75,11 +72,14 @@ void CCharacterManager::Update(void)
 */
 void CCharacterManager::Draw(void)
 {
-	if (m_CharacterList.empty()) return;
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	while (it != end)
 	{
 		(*it)->Draw();
+
+		++it;
 	}
 }
 
@@ -91,12 +91,14 @@ void CCharacterManager::Draw(void)
 */
 void CCharacterManager::Finalize(void)
 {
-	if (m_CharacterList.empty()) return;
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	while (it != end)
 	{
 		(*it)->Finalize();
-		delete (*it);
+
+		++it;
 	}
 	m_CharacterList.clear();
 }
@@ -109,19 +111,19 @@ void CCharacterManager::Finalize(void)
 */
 void CCharacterManager::Create(CHARACTER_ID id, const vivid::Vector2& position)
 {
-	ICharacter* character = nullptr;
+	std::unique_ptr<ICharacter> character;
 
 	switch (id)
 	{
 	case CHARACTER_ID::PLAYER:
-		character = new CPlayer();
+		character = std::make_unique<CPlayer>();
 		break;
 	}
 
 	if (!character) return;
 
 	character->Initialize(position);
-	m_CharacterList.push_back(character);
+	m_CharacterList.push_back(std::move(character));
 }
 
 /*
@@ -136,10 +138,15 @@ bool CCharacterManager::OnGround(IStage* stage)
 
 	bool anyGrounded = false;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->OnGround(stage))
 			anyGrounded = true;
+
+		++it;
 	}
 	return anyGrounded;
 }
@@ -153,10 +160,15 @@ bool CCharacterManager::CheckHitCeiling(IStage* stage)
 {
 	if (!stage) return false;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitCeiling(stage))
 			return true;
+
+		++it;
 	}
 	return false;
 }
@@ -170,10 +182,15 @@ bool CCharacterManager::CheckHitRightWall(IStage* stage)
 {
 	if (!stage) return false;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitRightWall(stage))
 			return true;
+
+		++it;
 	}
 	return false;
 }
@@ -187,10 +204,15 @@ bool CCharacterManager::CheckHitLeftWall(IStage* stage)
 {
 	if (!stage) return false;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitLeftWall(stage))
 			return true;
+
+		++it;
 	}
 	return false;
 }
@@ -204,10 +226,15 @@ void CCharacterManager::CheckHitEnemy(IEnemy* enemy)
 {
 	if (!enemy) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitEnemy(enemy))
 			return;
+
+		++it;
 	}
 }
 
@@ -220,9 +247,14 @@ void CCharacterManager::Jump(IStage* stage)
 {
 	if (!stage) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->Jump(stage);
+
+		++it;
 	}
 }
 
@@ -235,9 +267,14 @@ void CCharacterManager::ChangeGravity(IStage* stage)
 {
 	if (!stage) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->ChangeGravity(stage);
+
+		++it;
 	}
 }
 
@@ -250,10 +287,15 @@ bool CCharacterManager::CheckHitGoal(CGoal& goal)
 {
 	if (m_CharacterList.empty()) return false;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitGoal(goal))
 			return true;
+
+		++it;
 	}
 	return false;
 }
@@ -267,10 +309,15 @@ void CCharacterManager::CheckHitItem(IItem* item)
 {
 	if (!item) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitItem(item))
 			return;
+
+		++it;
 	}
 }
 
@@ -283,10 +330,15 @@ void CCharacterManager::CheckHitBullet(IBullet* bullet)
 {
 	if (!bullet) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		if ((*it)->CheckHitBullet(bullet))
 			return;
+
+		++it;
 	}
 }
 
@@ -299,9 +351,14 @@ void CCharacterManager::JumpUp(IItem* item)
 {
 	if (!item) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->JumpUp(item);
+
+		++it;
 	}
 }
 
@@ -314,9 +371,14 @@ void CCharacterManager::Invincible(IItem* item)
 {
 	if (!item) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->Invincible(item);
+
+		++it;
 	}
 }
 
@@ -329,9 +391,14 @@ void CCharacterManager::CheckHitSwitch(ISwitch* sw)
 {
 	if (!sw) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->CheckHitSwitch(sw);
+
+		++it;
 	}
 }
 
@@ -344,27 +411,13 @@ void CCharacterManager::FallStage(IStage* stage)
 {
 	if (!stage) return;
 
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
+	CHARACTER_LIST::iterator it = m_CharacterList.begin();
+	CHARACTER_LIST::iterator end = m_CharacterList.end();
+
+	while (it != end)
 	{
 		(*it)->FallStage(stage);
-	}
-}
 
-/*
-================================
-  キャラクター同士の当たり判定
-================================
-*/
-void CCharacterManager::CheckHitCharacter(void)
-{
-	if (m_CharacterList.empty()) return;
-
-	for (auto it = m_CharacterList.begin(); it != m_CharacterList.end(); ++it)
-	{
-		if (CStageManager::GetInstance().CheckHitCharacter(
-			(*it), (*it)->GetPositionX()))
-		{
-			return;
-		}
+		++it;
 	}
 }

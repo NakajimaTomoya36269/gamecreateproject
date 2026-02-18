@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include <list>
+#include <memory>
 #include "stage/stage.h"
 #include "stage/stage_id.h"
 
@@ -51,17 +52,6 @@ public:
 	// 指定したIDと座標からステージを生成する
 	//========================================================
 	void Create(STAGE_ID id, const vivid::Vector2& position);
-
-	//========================================================
-	// 敵が地面の上にいるかの判定
-	//========================================================
-	void EnemyOnGround(void);
-
-	//========================================================
-	// キャラクターとステージの当たり判定
-	// position_x : 当たり判定後の補正用X座標
-	//========================================================
-	bool CheckHitCharacter(ICharacter* character, float&& position_x);
 
 	//========================================================
 	// 全スイッチのON/OFF切り替え
@@ -129,7 +119,7 @@ private:
 	using STAGE_TABLE_LIST = std::list<STAGE_TABLE_DATA>;
 
 	// ステージリスト型
-	using STAGE_LIST = std::list<IStage*>;
+	using STAGE_LIST = std::list<std::unique_ptr<IStage>>;
 
 	//========================================================
 	// メンバ変数

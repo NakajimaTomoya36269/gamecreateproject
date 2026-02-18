@@ -63,7 +63,6 @@ void CSwitchManager::Finalize(void)
 	while (it != end)
 	{
 		(*it)->Finalize();
-		delete (*it);
 		it++;
 	}
 	m_SwitchList.clear();
@@ -75,17 +74,17 @@ void CSwitchManager::Finalize(void)
 //============================================================
 void CSwitchManager::Create(SWITCH_ID id, const vivid::Vector2& position)
 {
-	ISwitch* sw = nullptr;
+	std::unique_ptr<ISwitch> sw;
 
 	switch (id)
 	{
-	case SWITCH_ID::FLOOR_SWITCH: sw = new CFloorSwitch(); break;
+	case SWITCH_ID::FLOOR_SWITCH: sw = std::make_unique<CFloorSwitch>(); break;
 	}
 
 	if (!sw) return;
 
 	sw->Initialize(position);
-	m_SwitchList.push_back(sw);
+	m_SwitchList.push_back(std::move(sw));
 }
 
 //============================================================
@@ -145,7 +144,7 @@ void CSwitchManager::UpdateSwitch(void)
 
 	while (it != end)
 	{
-		ISwitch* sw = (ISwitch*)(*it);
+		ISwitch* sw = it->get();
 
 		sw->Update();
 		CCharacterManager::GetInstance().CheckHitSwitch(sw);

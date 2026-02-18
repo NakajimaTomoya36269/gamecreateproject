@@ -121,34 +121,3 @@ void IStage::Falled(void)
 {
 	m_IsFalled = true;
 }
-
-// キャラクターとの左右衝突判定
-// 衝突時はキャラクターのX座標を補正し、床の貫通を防ぐ
-bool IStage::CheckHitCharacter(ICharacter* character, float& position_x)
-{
-	if (!character) return false;
-
-	// 矩形同士の当たり判定
-	if (CBoxCollider::GetInstance().CheckBoxCollision(
-		m_Position, m_Width, m_Height,
-		character->GetPosition(), character->GetWidth(), character->GetHeight()))
-	{
-		// 右方向に動いている床に衝突
-		if (m_Velocity.x > 0.0f && position_x + (float)character->GetWidth() < m_Position.x)
-		{
-			position_x = m_Position.x - (float)character->GetWidth();
-			m_Velocity.x = 0.0f;
-			return true;
-		}
-
-		// 左方向に動いている床に衝突
-		if (m_Velocity.x < 0.0f && position_x > m_Position.x + (float)m_Width)
-		{
-			position_x = m_Position.x + (float)m_Width;
-			m_Velocity.x = 0.0f;
-			return true;
-		}
-	}
-
-	return false;
-}

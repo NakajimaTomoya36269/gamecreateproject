@@ -71,7 +71,6 @@ void CStageManager::Finalize(void)
 	while (it != end)
 	{
 		(*it)->Finalize();
-		delete (*it);
 		++it;
 	}
 	m_StageList.clear();
@@ -83,62 +82,23 @@ void CStageManager::Finalize(void)
 ///------------------------------------------------------------
 void CStageManager::Create(STAGE_ID id, const vivid::Vector2& position)
 {
-	IStage* stage = nullptr;
+	std::unique_ptr<IStage> stage;
 
 	switch (id)
 	{
-	case STAGE_ID::SHORT_FLOOR: stage = new CShortFloor(); break;
-	case STAGE_ID::LONG_FLOOR: stage = new CLongFloor(); break;
-	case STAGE_ID::REPULSION_FLOOR:	stage = new CRepulsionFloor(); break;
-	case STAGE_ID::MOVE_FLOOR: stage = new CMoveFloor(); break;
-	case STAGE_ID::FALL_FLOOR: stage = new CFallFloor(); break;
-	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = new CReverseMoveFloor(); break;
+	case STAGE_ID::SHORT_FLOOR: stage = std::make_unique<CShortFloor>(); break;
+	case STAGE_ID::LONG_FLOOR: stage = std::make_unique<CLongFloor>(); break;
+	case STAGE_ID::REPULSION_FLOOR:	stage = std::make_unique<CRepulsionFloor>(); break;
+	case STAGE_ID::MOVE_FLOOR: stage = std::make_unique<CMoveFloor>(); break;
+	case STAGE_ID::FALL_FLOOR: stage = std::make_unique<CFallFloor>(); break;
+	case STAGE_ID::REVERSE_MOVE_FLOOR: stage = std::make_unique<CReverseMoveFloor>(); break;
 	}
 
 	// 無効なIDの場合は生成しない
 	if (!stage)	return;
 
 	stage->Initialize(position);
-	m_StageList.push_back(stage);
-}
-
-///------------------------------------------------------------
-/// 敵が地面に接地しているかの判定
-///------------------------------------------------------------
-void CStageManager::EnemyOnGround(void)
-{
-	STAGE_LIST::iterator it = m_StageList.begin();
-	STAGE_LIST::iterator end = m_StageList.end();
-
-	while (it != end)
-	{
-		if (CEnemyManager::GetInstance().OnGround((*it)))
-		{
-			return;
-		}
-		++it;
-	}
-}
-
-///------------------------------------------------------------
-/// キャラクターとステージの当たり判定
-///------------------------------------------------------------
-bool CStageManager::CheckHitCharacter(ICharacter* character, float&& position_x)
-{
-	if (!character) return false;
-
-	STAGE_LIST::iterator it = m_StageList.begin();
-	STAGE_LIST::iterator end = m_StageList.end();
-
-	while (it != end)
-	{
-		if ((*it)->CheckHitCharacter(character, position_x))
-		{
-			return true;
-		}
-		++it;
-	}
-	return false;
+	m_StageList.push_back(std::move(stage));
 }
 
 ///------------------------------------------------------------
@@ -229,7 +189,7 @@ void CStageManager::UpdateStage(void)
 
 	while (it != end)
 	{
-		IStage* stage = (IStage*)(*it);
+		IStage* stage = it->get();
 		stage->Update();
 
 		CCharacterManager& character_manager = CCharacterManager::GetInstance();
