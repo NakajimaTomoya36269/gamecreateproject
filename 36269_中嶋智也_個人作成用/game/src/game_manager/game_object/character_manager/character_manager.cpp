@@ -5,6 +5,8 @@
 #include "../item_manager/item_manager.h"
 #include "../switch_manager/switch_manager.h"
 #include "../bullet_manager/bullet_manager.h"
+#include "../../../core/event/event_bus.h"
+#include "../../../core/event/enemy_event.h"
 
 /*
 ================================
@@ -418,6 +420,13 @@ void CCharacterManager::FallStage(IStage* stage)
 CCharacterManager::CCharacterManager(void)
 {
 	RegisterCharacters();
+
+	CEventBus::GetInstance().Subscribe<CheckHitEnemyEvent>(
+		[this](const CheckHitEnemyEvent& e)
+		{
+			CheckHitEnemy(e.enemy);
+		}
+	);
 }
 
 void CCharacterManager::RegisterCharacters(void)

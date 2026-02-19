@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\event\event_bus.cpp" />
     <ClCompile Include="src\game_manager\game_manager.cpp" />
     <ClCompile Include="src\game_manager\game_object\background\background.cpp" />
     <ClCompile Include="src\game_manager\game_object\box_collider\box_collider.cpp" />
@@ -210,6 +211,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\event\enemy_event.h" />
+    <ClInclude Include="src\core\event\event_bus.h" />
     <ClInclude Include="src\game_manager\game_manager.h" />
     <ClInclude Include="src\game_manager\game_object\background\background.h" />
     <ClInclude Include="src\game_manager\game_object\box_collider\box_collider.h" />

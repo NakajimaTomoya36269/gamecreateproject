@@ -3,8 +3,9 @@
 #include "enemy/enemy_b/enemy_b.h"
 #include "enemy/enemy_c/enemy_c.h"
 #include "enemy/enemy_d/enemy_d.h"
-#include "../character_manager/character_manager.h"
 #include "../../../utility/csv_loader/csv_loader.h"
+#include "../../../core/event/event_bus.h"
+#include "../../../core/event/enemy_event.h"
 
 /*
 ==================================================
@@ -219,7 +220,7 @@ void CEnemyManager::UpdateEnemy(void)
 		IEnemy* enemy = it->get();
 
 		// プレイヤーとの当たり判定
-		CCharacterManager::GetInstance().CheckHitEnemy(enemy);
+		CEventBus::GetInstance().Publish(CheckHitEnemyEvent{ enemy });
 
 		enemy->Update();	// 敵の更新
 
