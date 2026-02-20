@@ -3,11 +3,11 @@
 //------------------------------------------------------------
 // 通常弾の当たり判定サイズ定義
 //------------------------------------------------------------
-const int   CNormalBullet::m_width = 32;     // 弾の横幅
-const int   CNormalBullet::m_height = 32;     // 弾の高さ
+const int   CNormalBullet::m_width = 52;     // 弾の横幅
+const int   CNormalBullet::m_height = 22;     // 弾の高さ
 const float CNormalBullet::m_radius = 16.0f;  // 円判定用半径
 // 基本的な弾の絵のファイルパス
-const std::string CNormalBullet::m_normal_bullet_texture_path = "data\\ball.png";
+const std::string CNormalBullet::m_normal_bullet_texture_path = "data\\fire.png";
 
 //------------------------------------------------------------
 // コンストラクタ

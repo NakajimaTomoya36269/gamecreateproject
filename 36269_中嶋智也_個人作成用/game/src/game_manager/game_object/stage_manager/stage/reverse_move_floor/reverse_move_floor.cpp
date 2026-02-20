@@ -8,7 +8,7 @@ const int   CReverseMoveFloor::m_height = 64;
 // °‚Ì©“®ˆÚ“®‘¬“x
 const float CReverseMoveFloor::m_move_speed = 60.0f;
 
-const std::string CReverseMoveFloor::m_floor_texture_path = "data\\move_floor.png";
+const std::string CReverseMoveFloor::m_floor_texture_path = "data\\reverse_move_floor.png";
 
 CReverseMoveFloor::CReverseMoveFloor(void)
 	: IStage(m_width, m_height, STAGE_ID::REVERSE_MOVE_FLOOR)
